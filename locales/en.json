@@ -101,6 +101,240 @@
     "product": "Product",
     "resources": "Resources",
     "legal": "Legal",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms"
+  },
+  "faq": {
+    "badge": "Knowledge",
+    "title": "Common questions",
+    "subtitle": "Technology is complex, but the answers don't have to be.",
+    "questions": [
+      {
+        "question": "Are your systems more expensive than 'regular' solutions?",
+        "answer": "Initially, the investment may be slightly higher than a standard WordPress template, yes. But over time? No. Our customers often reduce their operating costs by 50-80% because our systems require significantly less server power and less manual maintenance. It's cheaper to build it right once than to fix it every month."
+      },
+      {
+        "question": "What technology do you build with?",
+        "answer": "We are technology agnostic but prefer BEAM (Erlang/Elixir) for systems that require extreme reliability and scalability. It's the same technology that powers WhatsApp and parts of 5G networks. For frontend, we use modern frameworks like React or Phoenix LiveView depending on needs."
+      },
+      {
+        "question": "Do we have to replace everything we have?",
+        "answer": "Rarely. We believe in evolution, not revolution. Often we can build a 'streaming layer' that handles the heavy lifting, while your old systems can live on in the background until they are phased out naturally. We integrate seamlessly."
+      },
+      {
+        "question": "How long does a project take?",
+        "answer": "A feasibility study often takes 1-2 weeks. A first MVP system (Minimum Viable Product) can often be ready in 4-8 weeks. Since we build modularly, we can deliver value quickly instead of waiting a year for a 'big bang' launch."
+      }
+    ]
+  },
+  "philosophyPage": {
+    "badge": "Core Archetype",
+    "title": "The Flow Architects",
+    "subtitle": "We don't force systems to work. We orchestrate natural patterns where data, work, and energy flow freely.",
+    "intro": {
+      "quote": "Just like water engineers who harness rivers instead of fighting them, we design digital systems that embrace fundamental rhythms of data.",
+      "paragraph1": "Siteflow embodies the Flow Architect archetype. We understand that real power doesn't lie in forcing systems to work through brute force, but in understanding how data wants to move.",
+      "paragraph2": "We see beyond just ones and zeros to the deeper currents that connect human intent with machine capacity. Every system we build is a living ecosystem where information flows like water finding its optimal path – efficient, resilient, and surprisingly elegant."
+    },
+    "flows": {
+      "title": "Flow as a universal principle",
+      "subtitle": "Flow is not just our name – it's our worldview.",
+      "dataFlow": {
+        "title": "Data Flow",
+        "description": "The lifeblood of modern business, moving through systems like rivers through landscapes. We optimize the paths so information never stops."
+      },
+      "workFlow": {
+        "title": "Work Flow",
+        "description": "The human rhythm of creation, collaboration, and completion. Our systems are designed to remove friction from your daily work."
+      },
+      "energyFlow": {
+        "title": "Energy Flow",
+        "description": "The vital force that connects human creativity with computational power. We minimize waste (entropy) and maximize output."
+      }
+    },
+    "tech": {
+      "title": "Technical foundation: The power of living systems",
+      "description": "Our choice of Elixir and Ash framework is not just technical – it's philosophical. These tools embody the principles we believe in.",
+      "feature1": {
+        "title": "Millions of simultaneous flows",
+        "description": "Like a city where millions of conversations happen simultaneously without collision."
+      },
+      "feature2": {
+        "title": "Self-healing architecture",
+        "description": "Systems that recover from failures like a forest regenerating after a storm."
+      },
+      "feature3": {
+        "title": "80% cost reduction",
+        "description": "Doing more with less, inspired by nature's own efficiency."
+      },
+      "whyElixir": {
+        "title": "Why Elixir?",
+        "description": "The technology we use comes from the telecom industry where 99.9999999% uptime is standard. It's not a coincidence that WhatsApp could have 2 million simultaneous connections on a single server with the same technology."
+      }
+    }
+  },
+  "audiencePage": {
+    "badge": "Target Audience",
+    "title": "Who we build for",
+    "subtitle": "We're not for everyone. We're for you who see beyond tomorrow.",
+    "target": {
+      "title": "Target Audience",
+      "description": "We target ambitious companies that understand their digital systems are more than technology – they are living organisms that must flow with their business.",
+      "visionary": {
+        "title": "Visionary leaders",
+        "description": "You see beyond today's limitations and want to build for the future."
+      },
+      "growing": {
+        "title": "Growing companies",
+        "description": "You plan to scale and need systems that don't collapse under pressure."
+      },
+      "costAware": {
+        "title": "Cost-conscious innovators",
+        "description": "You're tired of spiraling cloud costs and want efficiency."
+      }
+    },
+    "promise": {
+      "title": "Our promise to you",
+      "workWithYou": {
+        "title": "Systems that work with you.",
+        "description": "Technology should simplify, not complicate."
+      },
+      "predictableCosts": {
+        "title": "Predictable costs.",
+        "description": "When you grow, your costs shouldn't explode linearly."
+      },
+      "clarity": {
+        "title": "Clarity.",
+        "description": "No surprises, no hidden technical debt."
+      }
+    },
+    "notFor": {
+      "title": "What we're not",
+      "description": "Let's be honest. If you're looking for the absolute cheapest option or a quick fix, there are others who do it better.",
+      "notCheapest": {
+        "title": "We're not the cheapest",
+        "description": "Quality costs, but it's cheaper in the long run."
+      },
+      "notFastest": {
+        "title": "We're not the fastest",
+        "description": "We build to last, not to throw together."
+      },
+      "notSalesy": {
+        "title": "We're not pushy",
+        "description": "We guide and explain, but we don't push."
+      }
+    }
+  },
+  "resultsPage": {
+    "badge": "Results & Proof",
+    "title": "Concrete proof",
+    "subtitle": "We don't just talk. The technology we build on has proven itself in the world's largest systems.",
+    "tech": {
+      "title": "Technology in practice",
+      "description": "We use the Erlang/Elixir ecosystem. It's the same technology that powers the world's most demanding communication platforms. Here's what that technology enables:",
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Managed to handle 2 million simultaneous connections on a single server. This is the level of efficiency we build into your system."
+      },
+      "discord": {
+        "title": "Discord",
+        "description": "Handles over 5 million simultaneous users in real-time. Scalability that doesn't bend."
+      },
+      "pinterest": {
+        "title": "Pinterest",
+        "description": "Saved 2 million dollars per year in server costs and drastically reduced the codebase by switching to Elixir."
+      }
+    },
+    "meaning": {
+      "title": "What it means for you",
+      "reducedDebt": {
+        "title": "Reduced technical debt",
+        "description": "We build living systems, not static structures. They adapt and are easy to maintain over time."
+      },
+      "optimization": {
+        "title": "Infrastructure optimization",
+        "description": "We generally see an 80%+ reduction in infrastructure costs when moving from traditional cloud solutions to our architecture."
+      },
+      "aiReady": {
+        "title": "AI ready",
+        "description": "LLMs (Large Language Models) often write better Elixir code than other code due to the language's functional clarity. You're future-proofed."
+      }
+    }
+  },
+  "contactPage": {
+    "badge": "Contact & Dialog",
+    "title": "Let's build something",
+    "titleHighlight": "that lasts.",
+    "subtitle": "We're not a traditional agency where you're shuffled between salespeople. With us, you talk directly to the architects who build your system.",
+    "startDialog": "Start a dialog",
+    "directContact": "Direct contact with architects",
+    "responseTime": "Response within 2 hours",
+    "quote": "Technology is simple. People are complex. We understand both.",
+    "email": {
+      "title": "Email us",
+      "subtitle": "For quotes and questions"
+    },
+    "phone": {
+      "title": "Call us",
+      "subtitle": "Mon-Fri, 09-17",
+      "number": "+46 70 123 45 67"
+    },
+    "location": {
+      "title": "Headquarters",
+      "subtitle": "Drop by for coffee",
+      "city": "Stockholm, Sweden"
+    }
+  },
+  "loginPage": {
+    "title": "Log in",
+    "subtitle": "Access your account",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your@email.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Log in",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with GitHub",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create account",
+    "securityNote": "Your information is secured with 256-bit encryption"
+  },
+  "integrationsSection": {
+    "badge": "Integrations",
+    "title": "Integrate with your current solutions",
+    "description": "We build bridges, not silos. Connect seamlessly to the tools you already use.",
+    "moreIntegrations": "+ Hundreds more integrations via API"
+  },
+  "testimonialsSection": {
+    "badge": "Trust",
+    "title": "What our partners say",
+    "subtitle": "Real results from companies that dared to think differently.",
+    "testimonials": [
+      {
+        "name": "Alexandra Holm",
+        "title": "CTO",
+        "company": "Nordic Retail Group",
+        "quote": "We went from dreading Black Friday to barely noticing the traffic spikes. Siteflow's architecture handled 10x our usual load without a single warning. It feels like magic, but it's just extremely good engineering."
+      },
+      {
+        "name": "Erik Berglund",
+        "title": "Founder",
+        "company": "Fintech Flow",
+        "quote": "Our cloud costs were eating up the margins. Siteflow rebuilt the core and reduced infrastructure expenses by 75%. The system paid for itself in three months."
+      }
+    ]
+  },
+  "ctaSection": {
+    "badge": "Ready for the next step?",
+    "title": "Stop fighting the current.",
+    "titleHighlight": "Start flowing with it.",
+    "description": "We only take on a limited number of projects per year to guarantee quality. Is your company ready for a system that actually lasts?",
+    "startDialog": "Start the dialog",
+    "email": "hello@siteflow.se",
+    "note": "No salespeople. You talk directly to an architect."
   }
 }

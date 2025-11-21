@@ -101,6 +101,240 @@
     "product": "Produkt",
     "resources": "Resurser",
     "legal": "Juridiskt",
-    "rights": "Alla rättigheter förbehållna."
+    "rights": "Alla rättigheter förbehållna.",
+    "privacyPolicy": "Integritetspolicy",
+    "terms": "Villkor"
+  },
+  "faq": {
+    "badge": "Kunskap",
+    "title": "Vanliga funderingar",
+    "subtitle": "Teknik är komplext, men svaren behöver inte vara det.",
+    "questions": [
+      {
+        "question": "Är era system dyrare än 'vanliga' lösningar?",
+        "answer": "Initialt kan investeringen vara något högre än en standard Wordpress-mall, ja. Men över tid? Nej. Våra kunder sänker ofta sina driftkostnader med 50-80% eftersom våra system kräver betydligt mindre serverkraft och mindre manuellt underhåll. Det är billigare att bygga rätt en gång än att laga fel varje månad."
+      },
+      {
+        "question": "Vilken teknik bygger ni med?",
+        "answer": "Vi är teknikagnostiska men föredrar BEAM (Erlang/Elixir) för system som kräver extrem pålitlighet och skalbarhet. Det är samma teknik som driver WhatsApp och delar av 5G-nätet. För frontend använder vi moderna ramverk som React eller Phoenix LiveView beroende på behov."
+      },
+      {
+        "question": "Måste vi byta ut allt vi har?",
+        "answer": "Sällan. Vi tror på evolution, inte revolution. Ofta kan vi bygga ett 'strömmande lager' som hanterar de tunga lyften, medan era gamla system kan leva kvar i bakgrunden tills de fasas ut naturligt. Vi integrerar sömlöst."
+      },
+      {
+        "question": "Hur lång tid tar ett projekt?",
+        "answer": "En förstudie tar ofta 1-2 veckor. Ett första MVP-system (Minimum Viable Product) kan ofta stå klart på 4-8 veckor. Eftersom vi bygger modulärt kan vi leverera värde snabbt istället för att vänta ett år på en 'big bang'-lansering."
+      }
+    ]
+  },
+  "philosophyPage": {
+    "badge": "Kärnarketype",
+    "title": "Flödesarkitekterna",
+    "subtitle": "Vi tvingar inte system att fungera. Vi orkestrerar naturliga mönster där data, arbete och energi flödar fritt.",
+    "intro": {
+      "quote": "Precis som vattenbyggare som utnyttjar floder istället för att bekämpa dem, designar vi digitala system som omfamnar grundläggande rytmer av data.",
+      "paragraph1": "Siteflow förkroppsligar arketypen Flödesarkitekten. Vi förstår att verklig kraft inte ligger i att tvinga system att fungera genom råstyrka, utan i att förstå hur data vill röra sig.",
+      "paragraph2": "Vi ser bortom bara ettor och nollor till de djupare strömmarna som förbinder mänsklig avsikt med maskinkapacitet. Varje system vi bygger är ett levande ekosystem där information flödar som vatten som hittar sin optimala väg – effektivt, motståndskraftigt och förvånansvärt elegant."
+    },
+    "flows": {
+      "title": "Flöde som universell princip",
+      "subtitle": "Flöde är inte bara vårt namn – det är vår världsbild.",
+      "dataFlow": {
+        "title": "Dataflöde",
+        "description": "Det moderna affärslivets livsnerv, som rör sig genom system likt floder genom landskap. Vi optimerar vägarna så att informationen aldrig stannar upp."
+      },
+      "workFlow": {
+        "title": "Arbetsflöde",
+        "description": "Den mänskliga rytmen av skapande, samarbete och fullbordan. Våra system är designade för att ta bort friktion från ditt dagliga arbete."
+      },
+      "energyFlow": {
+        "title": "Energiflöde",
+        "description": "Den vitala kraften som förbinder mänsklig kreativitet med beräkningskraft. Vi minimerar spill (entropi) och maximerar output."
+      }
+    },
+    "tech": {
+      "title": "Teknisk grund: Kraften i levande system",
+      "description": "Vårt val av Elixir och Ash framework är inte bara tekniskt – det är filosofiskt. Dessa verktyg förkroppsligar de principer vi tror på.",
+      "feature1": {
+        "title": "Miljoner samtidiga flöden",
+        "description": "Som en stad där miljoner samtal sker samtidigt utan kollision."
+      },
+      "feature2": {
+        "title": "Självläkande arkitektur",
+        "description": "System som återhämtar sig från fel som en skog som regenererar efter en storm."
+      },
+      "feature3": {
+        "title": "80% kostnadsminskning",
+        "description": "Att göra mer med mindre, inspirerat av naturens egen effektivitet."
+      },
+      "whyElixir": {
+        "title": "Varför Elixir?",
+        "description": "Tekniken vi använder kommer från telekomindustrin där 99.9999999% uptime är standard. Det är inte en slump att WhatsApp kunde ha 2 miljoner samtidiga anslutningar på en enda server med samma teknik."
+      }
+    }
+  },
+  "audiencePage": {
+    "badge": "Målgrupp",
+    "title": "Vem vi är till för",
+    "subtitle": "Vi är inte för alla. Vi är för dig som ser längre än till imorgon.",
+    "target": {
+      "title": "Målgrupp",
+      "description": "Vi riktar oss till ambitiösa företag som förstår att deras digitala system är mer än teknik – de är levande organismer som måste flöda med deras affär.",
+      "visionary": {
+        "title": "Visionära ledare",
+        "description": "Du ser bortom dagens begränsningar och vill bygga för framtiden."
+      },
+      "growing": {
+        "title": "Växande företag",
+        "description": "Du planerar att skala och behöver system som inte kollapsar under tryck."
+      },
+      "costAware": {
+        "title": "Kostnadsmedvetna innovatörer",
+        "description": "Du har tröttnat på skenande molnkostnader och vill ha effektivitet."
+      }
+    },
+    "promise": {
+      "title": "Vårt löfte till dig",
+      "workWithYou": {
+        "title": "System som jobbar med dig.",
+        "description": "Teknik ska underlätta, inte försvåra."
+      },
+      "predictableCosts": {
+        "title": "Förutsägbara kostnader.",
+        "description": "När du växer, ska inte dina kostnader explodera linjärt."
+      },
+      "clarity": {
+        "title": "Tydlighet.",
+        "description": "Inga överraskningar, inga gömda tekniska skulder."
+      }
+    },
+    "notFor": {
+      "title": "Vad vi inte är",
+      "description": "Låt oss vara ärliga. Om du söker det absolut billigaste alternativet eller en \"quick fix\", finns det andra som gör det bättre.",
+      "notCheapest": {
+        "title": "Vi är inte billigast",
+        "description": "Kvalitet kostar, men det är billigare i längden."
+      },
+      "notFastest": {
+        "title": "Vi är inte snabbast",
+        "description": "Vi bygger för att hålla, inte för att slänga ihop."
+      },
+      "notSalesy": {
+        "title": "Vi är inte säljiga",
+        "description": "Vi guidar och förklarar, men vi pushar inte."
+      }
+    }
+  },
+  "resultsPage": {
+    "badge": "Resultat & Bevis",
+    "title": "Konkreta bevis",
+    "subtitle": "Vi pratar inte bara. Tekniken vi bygger på har bevisat sig i världens största system.",
+    "tech": {
+      "title": "Teknologin i praktiken",
+      "description": "Vi använder Erlang/Elixir-ekosystemet. Det är samma teknologi som driver världens mest krävande kommunikationsplattformar. Här är vad den tekniken möjliggör:",
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Lyckades hantera 2 miljoner samtidiga anslutningar på en enda server. Detta är den nivå av effektivitet vi bygger in i ditt system."
+      },
+      "discord": {
+        "title": "Discord",
+        "description": "Hanterar över 5 miljoner samtidiga användare i realtid. Skalbarhet som inte viker sig."
+      },
+      "pinterest": {
+        "title": "Pinterest",
+        "description": "Sparade 2 miljoner dollar per år i serverkostnader och minskade kodbasen drastiskt genom att byta till Elixir."
+      }
+    },
+    "meaning": {
+      "title": "Vad det betyder för dig",
+      "reducedDebt": {
+        "title": "Minskad teknisk skuld",
+        "description": "Vi bygger levande system, inte statiska strukturer. De anpassar sig och är enkla att underhålla över tid."
+      },
+      "optimization": {
+        "title": "Infrastruktur-optimering",
+        "description": "Generellt ser vi en 80%+ reduktion av infrastrukturkostnader när man går från traditionella molnlösningar till vår arkitektur."
+      },
+      "aiReady": {
+        "title": "Redo för AI",
+        "description": "LLM:er (Large Language Models) skriver ofta bättre Elixir-kod än annan kod på grund av språkets funktionella tydlighet. Du är framtidssäkrad."
+      }
+    }
+  },
+  "contactPage": {
+    "badge": "Kontakt & Dialog",
+    "title": "Låt oss bygga något",
+    "titleHighlight": "som håller.",
+    "subtitle": "Vi är inte en traditionell byrå där du slussas mellan säljare. Hos oss pratar du direkt med arkitekterna som bygger ditt system.",
+    "startDialog": "Starta en dialog",
+    "directContact": "Direktkontakt med arkitekterna",
+    "responseTime": "Svar inom 2 timmar",
+    "quote": "Teknik är enkelt. Människor är komplexa. Vi förstår båda.",
+    "email": {
+      "title": "Mejla oss",
+      "subtitle": "För offerter och frågor"
+    },
+    "phone": {
+      "title": "Ring oss",
+      "subtitle": "Mån-Fre, 09-17",
+      "number": "+46 70 123 45 67"
+    },
+    "location": {
+      "title": "Huvudkontor",
+      "subtitle": "Kom förbi på kaffe",
+      "city": "Stockholm, Sverige"
+    }
+  },
+  "loginPage": {
+    "title": "Logga in",
+    "subtitle": "Få tillgång till ditt konto",
+    "emailLabel": "E-postadress",
+    "emailPlaceholder": "din@email.se",
+    "passwordLabel": "Lösenord",
+    "passwordPlaceholder": "••••••••",
+    "rememberMe": "Kom ihåg mig",
+    "forgotPassword": "Glömt lösenord?",
+    "loginButton": "Logga in",
+    "or": "eller",
+    "continueWithGoogle": "Fortsätt med Google",
+    "continueWithGithub": "Fortsätt med GitHub",
+    "noAccount": "Har du inget konto?",
+    "createAccount": "Skapa konto",
+    "securityNote": "Din information är säkrad med 256-bitars kryptering"
+  },
+  "integrationsSection": {
+    "badge": "Integrationer",
+    "title": "Integrera med era nuvarande lösningar",
+    "description": "Vi bygger broar, inte silos. Anslut sömlöst till de verktyg du redan använder.",
+    "moreIntegrations": "+ Hundratals fler integrationer via API"
+  },
+  "testimonialsSection": {
+    "badge": "Förtroende",
+    "title": "Vad våra partners säger",
+    "subtitle": "Riktiga resultat från företag som vågade tänka annorlunda.",
+    "testimonials": [
+      {
+        "name": "Alexandra Holm",
+        "title": "CTO",
+        "company": "Nordic Retail Group",
+        "quote": "Vi gick från att frukta Black Friday till att knappt märka av trafiktopparna. Siteflows arkitektur hanterade 10x vår vanliga last utan en enda varning. Det känns som magi, men det är bara extremt bra ingenjörskonst."
+      },
+      {
+        "name": "Erik Berglund",
+        "title": "Grundare",
+        "company": "Fintech Flow",
+        "quote": "Våra molnkostnader åt upp marginalerna. Siteflow byggde om kärnan och sänkte infrastrukturomkostnaderna med 75%. Systemet betalade för sig själv på tre månader."
+      }
+    ]
+  },
+  "ctaSection": {
+    "badge": "Redo för nästa steg?",
+    "title": "Sluta slåss mot strömmen.",
+    "titleHighlight": "Börja flöda med den.",
+    "description": "Vi tar bara in ett begränsat antal projekt per år för att garantera kvaliteten. Är ditt företag redo för ett system som faktiskt håller?",
+    "startDialog": "Starta dialogen",
+    "email": "hello@siteflow.se",
+    "note": "Inga säljare. Du pratar direkt med en arkitekt."
   }
 }

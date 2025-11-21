@@ -3,12 +3,15 @@ import { TrendingDown, Server, Users, Award } from 'lucide-react';
 import Stats from './Stats';
 import CTA from './CTA';
 import { Page } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface ResultsPageProps {
   onNavigate: (page: Page) => void;
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -19,11 +22,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
          </div>
          <div className="container mx-auto px-6 relative z-10">
             <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20">
-              Resultat & Bevis
+              {t('resultsPage.badge')}
             </span>
-            <h1 className="text-5xl md:text-6xl font-serif mb-6">Konkreta bevis</h1>
+            <h1 className="text-5xl md:text-6xl font-serif mb-6">{t('resultsPage.title')}</h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Vi pratar inte bara. Tekniken vi bygger på har bevisat sig i världens största system.
+              {t('resultsPage.subtitle')}
             </p>
          </div>
       </div>
@@ -35,40 +38,40 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-16">
-            
+
             <div>
-              <h2 className="text-3xl font-serif text-slate-900 mb-6">Teknologin i praktiken</h2>
+              <h2 className="text-3xl font-serif text-slate-900 mb-6">{t('resultsPage.tech.title')}</h2>
               <p className="text-slate-600 mb-6">
-                Vi använder Erlang/Elixir-ekosystemet. Det är samma teknologi som driver världens mest krävande kommunikationsplattformar. Här är vad den tekniken möjliggör:
+                {t('resultsPage.tech.description')}
               </p>
-              
+
               <ul className="space-y-6">
                 <li className="border-l-4 border-green-500 pl-4">
-                  <div className="font-bold text-slate-900 text-lg">WhatsApp</div>
-                  <p className="text-slate-600">Lyckades hantera 2 miljoner samtidiga anslutningar på en enda server. Detta är den nivå av effektivitet vi bygger in i ditt system.</p>
+                  <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.whatsapp.title')}</div>
+                  <p className="text-slate-600">{t('resultsPage.tech.whatsapp.description')}</p>
                 </li>
                 <li className="border-l-4 border-blue-500 pl-4">
-                  <div className="font-bold text-slate-900 text-lg">Discord</div>
-                  <p className="text-slate-600">Hanterar över 5 miljoner samtidiga användare i realtid. Skalbarhet som inte viker sig.</p>
+                  <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.discord.title')}</div>
+                  <p className="text-slate-600">{t('resultsPage.tech.discord.description')}</p>
                 </li>
                 <li className="border-l-4 border-red-500 pl-4">
-                  <div className="font-bold text-slate-900 text-lg">Pinterest</div>
-                  <p className="text-slate-600">Sparade 2 miljoner dollar per år i serverkostnader och minskade kodbasen drastiskt genom att byta till Elixir.</p>
+                  <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.pinterest.title')}</div>
+                  <p className="text-slate-600">{t('resultsPage.tech.pinterest.description')}</p>
                 </li>
               </ul>
             </div>
 
             <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
-              <h3 className="text-xl font-bold text-slate-900 mb-6">Vad det betyder för dig</h3>
-              
+              <h3 className="text-xl font-bold text-slate-900 mb-6">{t('resultsPage.meaning.title')}</h3>
+
               <div className="space-y-8">
                 <div className="flex gap-4">
                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-sm shrink-0">
                      <TrendingDown className="w-5 h-5" />
                    </div>
                    <div>
-                     <h4 className="font-bold text-slate-900">Minskad teknisk skuld</h4>
-                     <p className="text-sm text-slate-600">Vi bygger levande system, inte statiska strukturer. De anpassar sig och är enkla att underhålla över tid.</p>
+                     <h4 className="font-bold text-slate-900">{t('resultsPage.meaning.reducedDebt.title')}</h4>
+                     <p className="text-sm text-slate-600">{t('resultsPage.meaning.reducedDebt.description')}</p>
                    </div>
                 </div>
 
@@ -77,8 +80,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
                      <Server className="w-5 h-5" />
                    </div>
                    <div>
-                     <h4 className="font-bold text-slate-900">Infrastruktur-optimering</h4>
-                     <p className="text-sm text-slate-600">Generellt ser vi en 80%+ reduktion av infrastrukturkostnader när man går från traditionella molnlösningar till vår arkitektur.</p>
+                     <h4 className="font-bold text-slate-900">{t('resultsPage.meaning.optimization.title')}</h4>
+                     <p className="text-sm text-slate-600">{t('resultsPage.meaning.optimization.description')}</p>
                    </div>
                 </div>
 
@@ -87,8 +90,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
                      <Award className="w-5 h-5" />
                    </div>
                    <div>
-                     <h4 className="font-bold text-slate-900">Redo för AI</h4>
-                     <p className="text-sm text-slate-600">LLM:er (Large Language Models) skriver ofta bättre Elixir-kod än annan kod på grund av språkets funktionella tydlighet. Du är framtidssäkrad.</p>
+                     <h4 className="font-bold text-slate-900">{t('resultsPage.meaning.aiReady.title')}</h4>
+                     <p className="text-sm text-slate-600">{t('resultsPage.meaning.aiReady.description')}</p>
                    </div>
                 </div>
               </div>

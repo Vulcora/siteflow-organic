@@ -1,7 +1,10 @@
 import React from 'react';
 import { Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Integrations: React.FC = () => {
+  const { t } = useTranslation();
+
   const row1 = [
      { name: 'Slack', logo: '/logos/integrations/Slack_Technologies_Logo.svg' },
     { name: 'Stripe', logo: '/logos/integrations/Stripe_Logo,_revised_2016.svg' },
@@ -27,12 +30,12 @@ const Integrations: React.FC = () => {
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">Integrationer</span>
+          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">{t('integrationsSection.badge')}</span>
           <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6">
-            Integrera med era nuvarande lösningar
+            {t('integrationsSection.title')}
           </h2>
           <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Vi bygger broar, inte silos. Anslut sömlöst till de verktyg du redan använder.
+            {t('integrationsSection.description')}
           </p>
         </div>
 
@@ -74,7 +77,7 @@ const Integrations: React.FC = () => {
         {/* Bottom Text */}
         <div className="text-center mt-16">
           <p className="text-slate-500 text-sm">
-            + Hundratals fler integrationer via API
+            {t('integrationsSection.moreIntegrations')}
           </p>
         </div>
       </div>

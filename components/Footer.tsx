@@ -1,7 +1,10 @@
 import React from 'react';
 import { Droplets, Linkedin, Twitter, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
       <div className="container mx-auto px-6">
@@ -17,10 +20,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center text-sm border-t border-slate-900 pt-8">
-          <p>&copy; {new Date().getFullYear()} Siteflow AB. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Siteflow AB. {t('footer.rights')}</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Integritetspolicy</a>
-            <a href="#" className="hover:text-white">Villkor</a>
+            <a href="#" className="hover:text-white">{t('footer.privacyPolicy')}</a>
+            <a href="#" className="hover:text-white">{t('footer.terms')}</a>
           </div>
         </div>
       </div>

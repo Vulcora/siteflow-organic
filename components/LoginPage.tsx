@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Lock, Mail, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,15 +32,15 @@ const LoginPage: React.FC = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 rounded-full mb-4">
                   <Lock className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-2xl font-serif text-slate-900 mb-2">Logga in</h2>
-                <p className="text-slate-600 text-sm">Få tillgång till ditt konto</p>
+                <h2 className="text-2xl font-serif text-slate-900 mb-2">{t('loginPage.title')}</h2>
+                <p className="text-slate-600 text-sm">{t('loginPage.subtitle')}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email Field */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                    E-postadress
+                    {t('loginPage.emailLabel')}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -48,7 +50,7 @@ const LoginPage: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-                      placeholder="din@email.se"
+                      placeholder={t('loginPage.emailPlaceholder')}
                       required
                     />
                   </div>
@@ -57,7 +59,7 @@ const LoginPage: React.FC = () => {
                 {/* Password Field */}
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
-                    Lösenord
+                    {t('loginPage.passwordLabel')}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -67,7 +69,7 @@ const LoginPage: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-                      placeholder="••••••••"
+                      placeholder={t('loginPage.passwordPlaceholder')}
                       required
                     />
                   </div>
@@ -80,10 +82,10 @@ const LoginPage: React.FC = () => {
                       type="checkbox"
                       className="w-4 h-4 border-slate-300 rounded text-blue-600 focus:ring-blue-400"
                     />
-                    <span className="ml-2 text-slate-600">Kom ihåg mig</span>
+                    <span className="ml-2 text-slate-600">{t('loginPage.rememberMe')}</span>
                   </label>
                   <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                    Glömt lösenord?
+                    {t('loginPage.forgotPassword')}
                   </a>
                 </div>
 
@@ -92,7 +94,7 @@ const LoginPage: React.FC = () => {
                   type="submit"
                   className="w-full py-3 px-6 bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-cyan-300/50 transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  <span>Logga in</span>
+                  <span>{t('loginPage.loginButton')}</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </form>
@@ -103,7 +105,7 @@ const LoginPage: React.FC = () => {
                   <div className="w-full border-t border-slate-200"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-slate-500">eller</span>
+                  <span className="px-4 bg-white text-slate-500">{t('loginPage.or')}</span>
                 </div>
               </div>
 
@@ -111,19 +113,19 @@ const LoginPage: React.FC = () => {
               <div className="space-y-3">
                 <button className="w-full py-3 px-6 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                   <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
-                  <span>Fortsätt med Google</span>
+                  <span>{t('loginPage.continueWithGoogle')}</span>
                 </button>
                 <button className="w-full py-3 px-6 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
                   <img src="https://github.com/favicon.ico" alt="GitHub" className="w-5 h-5" />
-                  <span>Fortsätt med GitHub</span>
+                  <span>{t('loginPage.continueWithGithub')}</span>
                 </button>
               </div>
 
               {/* Sign Up Link */}
               <div className="mt-8 text-center text-sm text-slate-600">
-                Har du inget konto?{' '}
+                {t('loginPage.noAccount')}{' '}
                 <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                  Skapa konto
+                  {t('loginPage.createAccount')}
                 </a>
               </div>
             </div>
@@ -131,7 +133,7 @@ const LoginPage: React.FC = () => {
           {/* Security Note */}
           <div className="mt-8 text-center">
             <p className="text-sm text-slate-400">
-              🔒 Din information är säkrad med 256-bitars kryptering
+              {t('loginPage.securityNote')}
             </p>
           </div>
 
