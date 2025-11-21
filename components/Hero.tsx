@@ -62,9 +62,9 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 <div className="pt-8 border-t border-white/10 mt-8">
                     <div className="flex items-center gap-6">
                          <div className="flex -space-x-3">
-                            <img src="siteflow-public/team-avatars/Sara.jpg" alt="Sara" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
-                            <img src="siteflow-public/team-avatars/Jhon.jpg" alt="Jhon" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
-                            <img src="siteflow-public/team-avatars/Rakesh.jpg" alt="Rakesh" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Sara.jpg" alt="Sara" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Jhon.jpg" alt="Jhon" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Rakesh.jpg" alt="Rakesh" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
                          </div>
                          <div className="text-sm">
                             <p className="text-white font-medium">Direktkontakt med arkitekterna</p>
