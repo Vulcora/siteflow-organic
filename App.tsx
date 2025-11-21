@@ -16,6 +16,7 @@ import PhilosophyPage from './components/PhilosophyPage';
 import AudiencePage from './components/AudiencePage';
 import ResultsPage from './components/ResultsPage';
 import ContactPage from './components/ContactPage';
+import LoginPage from './components/LoginPage';
 
 import { Page } from './types';
 
@@ -31,7 +32,8 @@ const App: React.FC = () => {
       philosophy: 'Vår Filosofi | Siteflow',
       audience: 'För Vem? | Siteflow',
       results: 'Resultat & Case | Siteflow',
-      contact: 'Starta Dialog | Siteflow'
+      contact: 'Starta Dialog | Siteflow',
+      login: 'Logga in | Siteflow'
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -65,6 +67,8 @@ const App: React.FC = () => {
         return <ResultsPage onNavigate={handleNavigate} />;
       case 'contact':
         return <ContactPage />;
+      case 'login':
+        return <LoginPage />;
       default:
         return <Hero onNavigate={handleNavigate} />;
     }

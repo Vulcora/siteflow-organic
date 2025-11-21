@@ -1,0 +1,17 @@
+# robots.txt for Siteflow
+User-agent: *
+Allow: /
+
+# Disallow login and admin areas
+Disallow: /login
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://siteflow.se/sitemap.xml
+
+# Crawl-delay for specific bots (optional)
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 0
