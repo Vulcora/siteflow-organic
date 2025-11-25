@@ -1,0 +1,8 @@
+# robots.txt for Siteflow
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://siteflow.se/sitemap.xml
