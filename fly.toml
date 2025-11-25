@@ -1,7 +1,7 @@
 # fly.toml app configuration file
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 
-app = "siteflow-organic"
+app = "siteflow-organic-67qgvq"
 primary_region = "arn"
 
 [build]
