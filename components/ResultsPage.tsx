@@ -21,11 +21,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3"></div>
          </div>
          <div className="container mx-auto px-6 relative z-10">
-            <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20">
+            <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20 animate-fade-in">
               {t('resultsPage.badge')}
             </span>
-            <h1 className="text-5xl md:text-6xl font-serif mb-6">{t('resultsPage.title')}</h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-serif mb-6 animate-on-scroll">{t('resultsPage.title')}</h1>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto animate-on-scroll stagger-1">
               {t('resultsPage.subtitle')}
             </p>
          </div>
@@ -39,29 +39,29 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ onNavigate }) => {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-16">
 
-            <div>
+            <div className="animate-slide-left">
               <h2 className="text-3xl font-serif text-slate-900 mb-6">{t('resultsPage.tech.title')}</h2>
               <p className="text-slate-600 mb-6">
                 {t('resultsPage.tech.description')}
               </p>
 
               <ul className="space-y-6">
-                <li className="border-l-4 border-green-500 pl-4">
+                <li className="border-l-4 border-green-500 pl-4 animate-on-scroll stagger-1">
                   <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.whatsapp.title')}</div>
                   <p className="text-slate-600">{t('resultsPage.tech.whatsapp.description')}</p>
                 </li>
-                <li className="border-l-4 border-blue-500 pl-4">
+                <li className="border-l-4 border-blue-500 pl-4 animate-on-scroll stagger-2">
                   <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.discord.title')}</div>
                   <p className="text-slate-600">{t('resultsPage.tech.discord.description')}</p>
                 </li>
-                <li className="border-l-4 border-red-500 pl-4">
+                <li className="border-l-4 border-red-500 pl-4 animate-on-scroll stagger-3">
                   <div className="font-bold text-slate-900 text-lg">{t('resultsPage.tech.pinterest.title')}</div>
                   <p className="text-slate-600">{t('resultsPage.tech.pinterest.description')}</p>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 animate-slide-right">
               <h3 className="text-xl font-bold text-slate-900 mb-6">{t('resultsPage.meaning.title')}</h3>
 
               <div className="space-y-8">

@@ -15,15 +15,15 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
         
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="max-w-2xl">
-                <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">{t('philosophySection.badge')}</span>
-                <h2 className="text-4xl md:text-5xl font-serif text-slate-900 leading-tight">
+                <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block animate-fade-in">{t('philosophySection.badge')}</span>
+                <h2 className="text-4xl md:text-5xl font-serif text-slate-900 leading-tight animate-on-scroll">
                     {t('philosophySection.title')}
                 </h2>
-                <p className="text-lg md:text-xl text-slate-600 mt-4 leading-relaxed">
+                <p className="text-lg md:text-xl text-slate-600 mt-4 leading-relaxed animate-on-scroll stagger-1">
                     {t('philosophySection.description')}
                 </p>
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:block animate-on-scroll stagger-2">
                  <button
                    onClick={() => onNavigate('philosophy')}
                    className="text-slate-900 font-medium border-b-2 border-slate-900 pb-1 hover:text-blue-600 hover:border-blue-600 transition-colors"
@@ -35,9 +35,9 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
+
           {/* Large Card: Scalability */}
-          <div className="md:col-span-2 bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group">
+          <div className="md:col-span-2 bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 relative overflow-hidden group animate-on-scroll stagger-1">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700"></div>
             <div className="relative z-10">
                 <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mb-6">
@@ -51,8 +51,8 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
           </div>
 
           {/* Tall Card: Self Healing */}
-          <div className="bg-slate-900 text-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-800 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between relative overflow-hidden group">
-             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+          <div className="bg-slate-900 text-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-800 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between relative overflow-hidden group animate-on-scroll stagger-2">
+             <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-white/10 via-transparent to-white/5"></div>
              <div className="relative z-10">
                 <div className="w-12 h-12 bg-teal-500/20 rounded-2xl flex items-center justify-center text-teal-400 mb-6 border border-teal-500/30">
                     <ShieldCheck className="w-6 h-6" />
@@ -75,7 +75,7 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
           </div>
 
           {/* Regular Card: Cost */}
-          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 group">
+          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 group animate-on-scroll stagger-1">
             <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform">
                 <Zap className="w-6 h-6" />
             </div>
@@ -86,7 +86,7 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
           </div>
 
           {/* Regular Card: AI Ready */}
-          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 group">
+          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow duration-300 group animate-on-scroll stagger-2">
             <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 group-hover:scale-110 transition-transform">
                 <BrainCircuit className="w-6 h-6" />
             </div>
@@ -97,7 +97,7 @@ const Philosophy: React.FC<PhilosophyProps> = ({ onNavigate }) => {
           </div>
 
            {/* Wide Card: Connection */}
-           <div className="bg-gradient-to-r from-blue-50 to-white p-8 rounded-3xl shadow-sm border border-blue-100 hover:shadow-xl transition-shadow duration-300 flex items-center">
+           <div className="bg-gradient-to-r from-blue-50 to-white p-8 rounded-3xl shadow-sm border border-blue-100 hover:shadow-xl transition-shadow duration-300 flex items-center animate-on-scroll stagger-3">
                 <div className="mr-6 hidden sm:block">
                     <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-sm">
                         <Network className="w-8 h-8" />

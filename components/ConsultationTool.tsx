@@ -33,12 +33,12 @@ const ConsultationTool: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex flex-col md:flex-row">
-            
+        <div className="max-w-5xl mx-auto bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex flex-col md:flex-row animate-on-scroll">
+
             {/* Left Side: Context - Dark Mode designed for contrast */}
-            <div className="md:w-5/12 bg-slate-900 p-10 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
-               {/* Texture overlay */}
-               <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className="md:w-5/12 bg-slate-900 p-10 md:p-12 text-white flex flex-col justify-between relative overflow-hidden animate-slide-left stagger-1">
+               {/* Subtle gradient overlay */}
+               <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-white/5 to-transparent"></div>
                <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
 
                <div className="relative z-10">
@@ -69,7 +69,7 @@ const ConsultationTool: React.FC = () => {
             </div>
 
             {/* Right Side: Interactive Form */}
-            <div className="md:w-7/12 p-10 md:p-12 bg-white relative">
+            <div className="md:w-7/12 p-10 md:p-12 bg-white relative animate-slide-right stagger-2">
               
               {state === ConsultationState.IDLE && (
                 <form onSubmit={handleSubmit} className="h-full flex flex-col justify-center animate-fade-in">
@@ -111,7 +111,7 @@ const ConsultationTool: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-slate-900 font-serif text-lg mb-2">{t('consultationTool.analyzingTitle')}</h4>
+                    <p className="text-slate-900 font-serif text-lg mb-2">{t('consultationTool.analyzingTitle')}</p>
                     <p className="text-slate-500 text-sm">{t('consultationTool.analyzingDescription')}</p>
                   </div>
                 </div>
@@ -169,7 +169,7 @@ const ConsultationTool: React.FC = () => {
               {state === ConsultationState.ERROR && (
                  <div className="h-full flex flex-col items-center justify-center text-slate-900 space-y-4">
                  <AlertCircle className="w-12 h-12 text-red-500" />
-                 <h4 className="font-bold text-lg">{t('consultationTool.errorTitle')}</h4>
+                 <p className="font-bold text-lg">{t('consultationTool.errorTitle')}</p>
                  <p className="text-slate-500 text-center max-w-xs">{t('consultationTool.errorMessage')}</p>
                  <button onClick={() => setState(ConsultationState.IDLE)} className="text-blue-600 font-medium hover:underline mt-4">{t('consultationTool.errorButton')}</button>
                </div>

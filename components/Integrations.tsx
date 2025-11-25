@@ -30,11 +30,11 @@ const Integrations: React.FC = () => {
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">{t('integrationsSection.badge')}</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6">
+          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block animate-fade-in">{t('integrationsSection.badge')}</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6 animate-on-scroll">
             {t('integrationsSection.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed animate-on-scroll stagger-1">
             {t('integrationsSection.description')}
           </p>
         </div>
@@ -42,13 +42,17 @@ const Integrations: React.FC = () => {
         {/* Logos - Two Rows */}
         <div className="space-y-8 max-w-7xl mx-auto">
           {/* Row 1 */}
-          <div className="flex justify-center">
+          <div className="flex justify-center animate-on-scroll stagger-1">
             <div className="flex flex-wrap justify-center gap-12 py-4">
               {row1.map((integration, index) => (
                 <div key={index} className="flex items-center justify-center flex-shrink-0">
                   <img
                     src={integration.logo}
                     alt={integration.name}
+                    width="150"
+                    height="48"
+                    loading="lazy"
+                    decoding="async"
                     className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
                     title={integration.name}
                   />
@@ -58,13 +62,17 @@ const Integrations: React.FC = () => {
           </div>
 
           {/* Row 2 */}
-          <div className="flex justify-center">
+          <div className="flex justify-center animate-on-scroll stagger-2">
             <div className="flex flex-wrap justify-center gap-12 py-4">
               {row2.map((integration, index) => (
                 <div key={index} className="flex items-center justify-center flex-shrink-0">
                   <img
                     src={integration.logo}
                     alt={integration.name}
+                    width="150"
+                    height="48"
+                    loading="lazy"
+                    decoding="async"
                     className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
                     title={integration.name}
                   />
@@ -75,7 +83,7 @@ const Integrations: React.FC = () => {
         </div>
 
         {/* Bottom Text */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-16 animate-on-scroll stagger-3">
           <p className="text-slate-500 text-sm">
             {t('integrationsSection.moreIntegrations')}
           </p>

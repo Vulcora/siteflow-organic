@@ -28,7 +28,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             
             {/* Left Content */}
             <div className="text-left space-y-8">
-                <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm">
+                <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 backdrop-blur-sm animate-fade-in">
                     <span className="flex h-2 w-2 relative">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -36,16 +36,16 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     <span className="text-sm font-medium text-slate-300 tracking-wide uppercase">{t('hero.status')}</span>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl font-serif font-medium leading-tight">
+                <h1 className="text-5xl md:text-7xl font-serif font-medium leading-tight animate-on-scroll">
                   {t('hero.title')} <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300">{t('hero.titleHighlight')}</span>
                 </h1>
 
-                <p className="text-lg md:text-xl text-slate-300 max-w-xl leading-relaxed font-light border-l-2 border-blue-500/30 pl-6">
+                <p className="text-lg md:text-xl text-slate-300 max-w-xl leading-relaxed font-light border-l-2 border-blue-500/30 pl-6 animate-on-scroll stagger-1">
                   {t('hero.description')}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-on-scroll stagger-2">
                   <button
                     onClick={() => onNavigate('contact')}
                     className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:bg-blue-50 transition-all flex items-center justify-center space-x-2 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
@@ -62,23 +62,23 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 </div>
 
                 {/* Team Avatar Section */}
-                <div className="pt-8 border-t border-white/10 mt-8">
+                <div className="pt-8 border-t border-white/10 mt-8 animate-on-scroll stagger-3">
                     <div className="flex items-center gap-6">
                          <div className="flex -space-x-3">
-                            <img src="/team-avatars/Sara.jpg" alt="Sara" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
-                            <img src="/team-avatars/Jhon.jpg" alt="Jhon" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
-                            <img src="/team-avatars/Rakesh.jpg" alt="Rakesh" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Sara.jpg" alt="Sara" width="40" height="40" fetchPriority="high" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Jhon.jpg" alt="Jhon" width="40" height="40" fetchPriority="high" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
+                            <img src="/team-avatars/Rakesh.jpg" alt="Rakesh" width="40" height="40" fetchPriority="high" className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" />
                          </div>
                          <div className="text-sm">
                             <p className="text-white font-medium">{t('hero.teamContact')}</p>
-                            <p className="text-slate-400 text-xs">{t('hero.responseTime')}</p>
+                            <p className="text-slate-300 text-xs">{t('hero.responseTime')}</p>
                          </div>
                     </div>
                 </div>
             </div>
 
             {/* Right Visual - Abstract System Monitor */}
-            <div className="relative hidden lg:block">
+            <div className="relative hidden lg:block animate-slide-right">
                 <div className="relative z-10 bg-slate-800/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700">
                     
                     {/* Fake Browser/Terminal Header */}
@@ -96,7 +96,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                         {/* Stat Card 1 */}
                         <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-slate-400 text-xs uppercase">{t('hero.activeConnections')}</span>
+                                <span className="text-slate-300 text-xs uppercase">{t('hero.activeConnections')}</span>
                                 <Activity className="w-4 h-4 text-green-400" />
                             </div>
                             <div className="text-2xl font-mono text-white font-bold">2,405,192</div>
@@ -108,7 +108,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                         {/* Stat Card 2 */}
                         <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50">
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-slate-400 text-xs uppercase">{t('hero.responseTimeLabel')}</span>
+                                <span className="text-slate-300 text-xs uppercase">{t('hero.responseTimeLabel')}</span>
                                 <Zap className="w-4 h-4 text-yellow-400" />
                             </div>
                             <div className="text-2xl font-mono text-white font-bold">12ms</div>

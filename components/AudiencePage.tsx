@@ -22,11 +22,11 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
          </div>
 
          <div className="container mx-auto px-6 text-center relative z-10">
-            <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20">
+            <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20 animate-fade-in">
               {t('audiencePage.badge')}
             </span>
-            <h1 className="text-5xl md:text-6xl font-serif mb-6">{t('audiencePage.title')}</h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-serif mb-6 animate-on-scroll">{t('audiencePage.title')}</h1>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto animate-on-scroll stagger-1">
               {t('audiencePage.subtitle')}
             </p>
          </div>
@@ -37,7 +37,7 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
         <div className="container mx-auto px-6">
 
           <div className="grid md:grid-cols-2 gap-12 mb-20">
-            <div className="space-y-8">
+            <div className="space-y-8 animate-slide-left">
                <h2 className="text-3xl font-serif text-slate-900">{t('audiencePage.target.title')}</h2>
                <p className="text-slate-600 leading-relaxed">
                  {t('audiencePage.target.description')}
@@ -76,7 +76,7 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
                </div>
             </div>
 
-            <div className="bg-slate-900 text-white p-8 rounded-2xl flex flex-col justify-center">
+            <div className="bg-slate-900 text-white p-8 rounded-2xl flex flex-col justify-center animate-slide-right">
               <h3 className="text-2xl font-serif mb-6">{t('audiencePage.promise.title')}</h3>
               <ul className="space-y-4">
                 <li className="flex items-start text-slate-300">
@@ -96,7 +96,7 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
           </div>
 
           {/* What we are NOT */}
-          <div className="bg-red-50 border border-red-100 rounded-2xl p-10 text-center max-w-4xl mx-auto">
+          <div className="bg-red-50 border border-red-100 rounded-2xl p-10 text-center max-w-4xl mx-auto animate-on-scroll">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-red-100 rounded-full text-red-500 mb-4">
               <AlertTriangle className="w-6 h-6" />
             </div>
@@ -105,16 +105,16 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
               {t('audiencePage.notFor.description')}
             </p>
             <div className="grid md:grid-cols-3 gap-6 text-left">
-               <div className="bg-white p-4 rounded-lg shadow-sm">
-                 <h4 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notCheapest.title')}</h4>
+               <div className="bg-white p-4 rounded-lg shadow-sm animate-on-scroll stagger-1">
+                 <h3 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notCheapest.title')}</h3>
                  <p className="text-xs text-slate-500">{t('audiencePage.notFor.notCheapest.description')}</p>
                </div>
-               <div className="bg-white p-4 rounded-lg shadow-sm">
-                 <h4 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notFastest.title')}</h4>
+               <div className="bg-white p-4 rounded-lg shadow-sm animate-on-scroll stagger-2">
+                 <h3 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notFastest.title')}</h3>
                  <p className="text-xs text-slate-500">{t('audiencePage.notFor.notFastest.description')}</p>
                </div>
-               <div className="bg-white p-4 rounded-lg shadow-sm">
-                 <h4 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notSalesy.title')}</h4>
+               <div className="bg-white p-4 rounded-lg shadow-sm animate-on-scroll stagger-3">
+                 <h3 className="font-bold text-slate-900 mb-1">{t('audiencePage.notFor.notSalesy.title')}</h3>
                  <p className="text-xs text-slate-500">{t('audiencePage.notFor.notSalesy.description')}</p>
                </div>
             </div>

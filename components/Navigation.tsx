@@ -48,6 +48,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
           <img
             src="/logos/siteflow-logo/site flow.svg"
             alt="Siteflow logo"
+            width="40"
+            height="40"
             className="h-10 w-auto transition-opacity"
           />
           <span className="text-2xl font-serif font-semibold tracking-tight transition-colors text-white">
@@ -74,10 +76,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
             <button
               onClick={toggleLanguage}
               className="px-3 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border border-white/20 hover:bg-white/10 text-white flex items-center gap-2"
-              title={i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
+              aria-label={i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
             >
-              <Globe className="w-4 h-4" />
-              {i18n.language === 'sv' ? 'EN' : 'SV'}
+              <Globe className="w-4 h-4" aria-hidden="true" />
+              <span>{i18n.language === 'sv' ? 'EN' : 'SV'}</span>
             </button>
             <button
               onClick={() => handleNavClick('login')}
@@ -98,8 +100,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
         <button
           className="md:hidden text-white focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? 'Stäng meny' : 'Öppna meny'}
+          aria-expanded={isMobileMenuOpen}
         >
-          {isMobileMenuOpen ? <X /> : <Menu />}
+          {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
       </div>
 
@@ -118,9 +122,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
           <button
             onClick={toggleLanguage}
             className="border border-slate-200 text-slate-700 text-center py-3 rounded-lg font-medium hover:bg-slate-50 flex items-center justify-center gap-2"
+            aria-label={i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
           >
-            <Globe className="w-4 h-4" />
-            {i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
+            <Globe className="w-4 h-4" aria-hidden="true" />
+            <span>{i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}</span>
           </button>
           <button
             onClick={() => handleNavClick('login')}

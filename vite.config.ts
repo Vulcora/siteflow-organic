@@ -25,6 +25,24 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        // Optimize chunk splitting
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'react-vendor': ['react', 'react-dom'],
+              'i18n': ['i18next', 'react-i18next'],
+            }
+          }
+        },
+        // Reduce bundle size
+        minify: 'terser',
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          }
+        }
       }
     };
 });

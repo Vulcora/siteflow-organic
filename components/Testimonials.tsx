@@ -16,18 +16,18 @@ const Testimonials: React.FC = () => {
     <section className="py-24 bg-slate-50 border-t border-slate-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">{t('testimonialsSection.badge')}</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6">
+          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block animate-fade-in">{t('testimonialsSection.badge')}</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6 animate-on-scroll">
             {t('testimonialsSection.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed animate-on-scroll stagger-1">
             {t('testimonialsSection.subtitle')}
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col relative group hover:shadow-md transition-shadow duration-300">
+            <div key={index} className={`bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col relative group hover:shadow-md transition-shadow duration-300 animate-on-scroll stagger-${index + 1}`}>
               <div className="absolute top-8 right-8 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Quote className="w-12 h-12 text-blue-600" />
               </div>
@@ -42,10 +42,14 @@ const Testimonials: React.FC = () => {
                 <img
                   src={`https://randomuser.me/api/portraits/${index === 0 ? 'women/44' : 'men/32'}.jpg`}
                   alt={testimonial.name}
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
                   className="w-12 h-12 rounded-full object-cover mr-4 shadow-md shrink-0 border-2 border-white"
                 />
                 <div>
-                  <h4 className="font-bold text-slate-900 text-sm">{testimonial.name}</h4>
+                  <p className="font-bold text-slate-900 text-sm">{testimonial.name}</p>
                   <div className="flex items-center text-xs text-slate-500 mt-0.5">
                     <Building2 className="w-3 h-3 mr-1" />
                     <span>{testimonial.title}, {testimonial.company}</span>

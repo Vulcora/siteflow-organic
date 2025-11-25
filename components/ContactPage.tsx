@@ -19,8 +19,8 @@ const ContactPage: React.FC = () => {
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
                 {/* Text Content */}
-                <div className="lg:w-1/2 text-white">
-                    <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20">
+                <div className="lg:w-1/2 text-white animate-slide-left">
+                    <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-6 border border-blue-500/20 animate-fade-in">
                         {t('contactPage.badge')}
                     </span>
                     <h1 className="text-5xl md:text-6xl font-serif leading-tight mb-6">
@@ -48,11 +48,14 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Hero Image - "Meeting/Human" vibe */}
-                <div className="lg:w-1/2 relative">
+                <div className="lg:w-1/2 relative animate-slide-right">
                     <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700">
                         <img
                             src="/behind-the-scen/anders-working.jpg"
                             alt="Siteflow office"
+                            width="800"
+                            height="600"
+                            fetchPriority="high"
                             className="w-full h-auto object-cover opacity-90 hover:scale-105 transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none"></div>
@@ -79,7 +82,7 @@ const ContactPage: React.FC = () => {
        <div className="bg-slate-50 border-t border-slate-200 py-20">
            <div className="container mx-auto px-6">
                 <div className="grid md:grid-cols-3 gap-8">
-                    <div className="flex flex-col items-center text-center p-6">
+                    <div className="flex flex-col items-center text-center p-6 animate-on-scroll stagger-1">
                         <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center text-slate-900 mb-4 border border-slate-100">
                             <Mail className="w-5 h-5" />
                         </div>
@@ -88,7 +91,7 @@ const ContactPage: React.FC = () => {
                         <a href="mailto:hello@siteflow.se" className="text-blue-600 hover:text-blue-700 font-medium">hello@siteflow.se</a>
                     </div>
 
-                    <div className="flex flex-col items-center text-center p-6 border-l border-r border-slate-200/50">
+                    <div className="flex flex-col items-center text-center p-6 border-l border-r border-slate-200/50 animate-on-scroll stagger-2">
                         <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center text-slate-900 mb-4 border border-slate-100">
                             <Phone className="w-5 h-5" />
                         </div>
@@ -97,7 +100,7 @@ const ContactPage: React.FC = () => {
                         <a href="tel:+46701234567" className="text-blue-600 hover:text-blue-700 font-medium">{t('contactPage.phone.number')}</a>
                     </div>
 
-                    <div className="flex flex-col items-center text-center p-6">
+                    <div className="flex flex-col items-center text-center p-6 animate-on-scroll stagger-3">
                         <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center text-slate-900 mb-4 border border-slate-100">
                             <MapPin className="w-5 h-5" />
                         </div>

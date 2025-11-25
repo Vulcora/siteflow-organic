@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Mail, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
@@ -27,13 +27,13 @@ const LoginPage: React.FC = () => {
         <div className="w-full max-w-md">
 
             {/* Login Card */}
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-lg p-8">
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-lg p-8 animate-scale-in">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 rounded-full mb-4">
-                  <Lock className="w-8 h-8 text-white" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-full mb-4 animate-fade-in border-2 border-cyan-400">
+                  <img src="/logos/siteflow-logo/favicon.svg" alt="Siteflow" width="40" height="40" className="w-10 h-10" />
                 </div>
-                <h2 className="text-2xl font-serif text-slate-900 mb-2">{t('loginPage.title')}</h2>
-                <p className="text-slate-600 text-sm">{t('loginPage.subtitle')}</p>
+                <h1 className="text-2xl font-serif text-slate-900 mb-2 animate-on-scroll">{t('loginPage.title')}</h1>
+                <p className="text-slate-600 text-sm animate-on-scroll stagger-1">{t('loginPage.subtitle')}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -112,11 +112,11 @@ const LoginPage: React.FC = () => {
               {/* Social Login Options */}
               <div className="space-y-3">
                 <button className="w-full py-3 px-6 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                  <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+                  <img src="https://www.google.com/favicon.ico" alt="Google" width="20" height="20" className="w-5 h-5" />
                   <span>{t('loginPage.continueWithGoogle')}</span>
                 </button>
                 <button className="w-full py-3 px-6 border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-                  <img src="https://github.com/favicon.ico" alt="GitHub" className="w-5 h-5" />
+                  <img src="https://github.com/favicon.ico" alt="GitHub" width="20" height="20" className="w-5 h-5" />
                   <span>{t('loginPage.continueWithGithub')}</span>
                 </button>
               </div>

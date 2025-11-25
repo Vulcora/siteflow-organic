@@ -36,11 +36,11 @@ const Process: React.FC = () => {
     <section className="py-32 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block">{t('process.badge')}</span>
-          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6">
+          <span className="text-blue-600 font-bold tracking-wider text-sm uppercase mb-3 block animate-fade-in">{t('process.badge')}</span>
+          <h2 className="text-4xl md:text-5xl font-serif text-slate-900 mb-6 animate-on-scroll">
             {t('process.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed animate-on-scroll stagger-1">
             {t('process.description')}
           </p>
         </div>
@@ -51,7 +51,7 @@ const Process: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
-                <div key={step.id} className="relative group">
+                <div key={step.id} className={`relative group animate-on-scroll stagger-${index + 1}`}>
                     <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-300 h-full flex flex-col relative z-10 hover:-translate-y-2">
                         <div className="w-14 h-14 bg-white border-2 border-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:border-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
                         {step.icon}
