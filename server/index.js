@@ -20,6 +20,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// WWW to non-WWW redirect (canonical URL)
+app.use((req, res, next) => {
+  const host = req.get('host');
+  if (host && host.startsWith('www.')) {
+    return res.redirect(301, `https://${host.replace('www.', '')}${req.originalUrl}`);
+  }
+  next();
+});
+
 // Security headers middleware
 app.use((_req, res, next) => {
   // HSTS - Force HTTPS
