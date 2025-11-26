@@ -1,0 +1,1 @@
+okej gå igenom inplenation status och kolla vad som är det mest logiska nästa steg sen strukturerar du upp en plan för exicute gör jobbet och checkar av stegen sen gör du om det i repeat

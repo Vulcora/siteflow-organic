@@ -23,13 +23,13 @@ defmodule Backend.Portal.Invitation do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(company_id == ^actor(:company_id) and ^actor(:role) == :manager)
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      authorize_if expr(company_id == ^actor(:company_id) and ^actor(:role) == :siteflow_kam)
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(^actor(:role) == :manager)
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      authorize_if actor_attribute_equals(:role, :siteflow_kam)
     end
 
     policy action(:accept) do
@@ -38,7 +38,7 @@ defmodule Backend.Portal.Invitation do
     end
 
     policy action(:cancel) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
       authorize_if expr(invited_by_id == ^actor(:id))
     end
   end
@@ -100,8 +100,8 @@ defmodule Backend.Portal.Invitation do
     end
 
     attribute :role, :atom do
-      constraints one_of: [:manager, :user, :viewer]
-      default :user
+      constraints one_of: [:customer]
+      default :customer
       public? true
     end
 

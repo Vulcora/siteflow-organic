@@ -21,17 +21,22 @@ defmodule Backend.Portal.Company do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can read all companies
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Users can read their own company
       authorize_if expr(id == ^actor(:company_id))
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Only admins can create new companies
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
     end
 
     policy action_type(:update) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(id == ^actor(:company_id) and ^actor(:role) == :manager)
+      # Only admins can update companies
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
     end
   end
 

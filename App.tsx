@@ -24,6 +24,7 @@ const CaseStudyPage = lazy(() => import('./components/CaseStudyPage'));
 const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./components/TermsOfServicePage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
+const DashboardPage = lazy(() => import('./components/DashboardPage'));
 
 import { Page } from './types';
 
@@ -56,7 +57,8 @@ const App: React.FC = () => {
       caseStudy: 'Kundcase | Siteflow',
       privacy: 'Integritetspolicy | Siteflow',
       terms: 'Användarvillkor | Siteflow',
-      notFound: '404 - Sidan hittades inte | Siteflow'
+      notFound: '404 - Sidan hittades inte | Siteflow',
+      dashboard: 'Dashboard | Siteflow'
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -92,6 +94,12 @@ const App: React.FC = () => {
     setCurrentPage('caseStudies');
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user');
+    setCurrentPage('home');
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -117,7 +125,7 @@ const App: React.FC = () => {
       case 'contact':
         return <Suspense fallback={<PageLoader />}><ContactPage /></Suspense>;
       case 'login':
-        return <Suspense fallback={<PageLoader />}><LoginPage /></Suspense>;
+        return <Suspense fallback={<PageLoader />}><LoginPage onNavigate={handleNavigate} /></Suspense>;
       case 'blog':
         return <Suspense fallback={<PageLoader />}><BlogPage onNavigate={handleNavigate} onSelectPost={handleSelectBlogPost} /></Suspense>;
       case 'blogPost':
@@ -136,10 +144,19 @@ const App: React.FC = () => {
         return <Suspense fallback={<PageLoader />}><TermsOfServicePage onNavigate={handleNavigate} /></Suspense>;
       case 'notFound':
         return <Suspense fallback={<PageLoader />}><NotFoundPage setCurrentPage={handleNavigate} /></Suspense>;
+      case 'dashboard':
+        return <Suspense fallback={<PageLoader />}><DashboardPage onNavigate={handleNavigate} onLogout={handleLogout} /></Suspense>;
       default:
         return <Hero onNavigate={handleNavigate} />;
     }
   };
+
+  // Dashboard has its own layout, so we don't show the main navigation/footer
+  const isDashboard = currentPage === 'dashboard';
+
+  if (isDashboard) {
+    return renderPage();
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-100 selection:text-blue-900 flex flex-col">

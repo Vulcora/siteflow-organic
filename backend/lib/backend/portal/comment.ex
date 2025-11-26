@@ -21,22 +21,30 @@ defmodule Backend.Portal.Comment do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(ticket.project.company_id == ^actor(:company_id))
+      # Siteflow staff can read all comments (including internal)
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Customers can read non-internal comments for their company's tickets
+      authorize_if expr(ticket.project.company_id == ^actor(:company_id) and is_internal == false)
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(^actor(:role) in [:manager, :user])
+      # All authenticated users can create comments
+      authorize_if always()
     end
 
     policy action(:update) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Admins can update any comment
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      # Authors can update their own comments
       authorize_if expr(author_id == ^actor(:id))
     end
 
     policy action(:destroy) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Admins can delete any comment
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      # Authors can delete their own comments
       authorize_if expr(author_id == ^actor(:id))
     end
   end

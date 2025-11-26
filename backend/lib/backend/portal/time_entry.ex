@@ -21,16 +21,25 @@ defmodule Backend.Portal.TimeEntry do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can read all time entries
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Customers can read time entries for their company's projects
       authorize_if expr(project.company_id == ^actor(:company_id))
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can create time entries
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
     end
 
     policy action(:update) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Admins can update any time entry
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      # Users can update their own time entries
       authorize_if expr(user_id == ^actor(:id))
     end
   end

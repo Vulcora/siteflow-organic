@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siteflow - Fakturagenerator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .water-gradient {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .text-gradient {
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-image: linear-gradient(to right, #0ea5e9, #2563eb);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #0ea5e9, #2563eb);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+    /* A4 Preview Styles */
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      position: relative;
+      font-size: 10pt;
+      overflow: hidden; /* Ensure header doesn't spill out */
+    }
+
+    .page-content {
+      padding: 5mm 20mm 35mm 20mm; /* Reduced top, space for footer at bottom */
+    }
+
+    .designed-header {
+      background: linear-gradient(135deg, #020617 0%, #0f172a 100%); /* Dark background from image */
+      padding: 15mm 20mm 8mm 20mm;
+      border-bottom: 1px solid #1e293b;
+      margin-bottom: 5mm;
+      color: white;
+    }
+
+    .designed-header h1, .designed-header h2, .designed-header .text-gray-900 {
+      color: white !important;
+    }
+
+    .designed-header .text-gray-600, .designed-header .text-gray-500 {
+      color: #94a3b8 !important; /* Slate-400 */
+    }
+
+    .designed-header .text-sky-600 {
+      color: #38bdf8 !important; /* Sky-400 */
+    }
+
+    .print-table th {
+      border-bottom: 2px solid #0ea5e9; /* Siteflow blue */
+      padding: 8px 4px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 9pt;
+      text-transform: uppercase;
+      color: #0f172a;
+    }
+
+    .print-table td {
+      border-bottom: 1px solid #f3f4f6;
+      padding: 12px 4px; /* More breathing room */
+      vertical-align: top;
+    }
+
+    /* Print styles */
+    @media print {
+      @page { 
+        margin: 0; 
+        size: A4;
+      }
+      
+      html, body { 
+        width: 210mm;
+        height: 297mm;
+        background: white !important; 
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+      }
+
+      /* Hide UI elements */
+      #appHeader, #editorColumn, .no-print { 
+        display: none !important; 
+      }
+
+      /* Reset Containers */
+      .container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      /* Reset Preview Column Wrapper */
+      #previewColumn {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        display: block !important;
+      }
+
+      /* The Quote Preview itself */
+      #quotePreview {
+        width: 210mm;
+        min-height: 297mm; /* Use min-height to allow content to fit */
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        box-shadow: none !important;
+        border: none !important;
+        overflow: hidden;
+      }
+
+      /* Force background graphics */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* --- COMPACT LAYOUT FOR PRINT --- */
+      
+      /* Force Flexbox Layouts */
+      .print-row {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+      }
+      
+      .print-row-right {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: flex-end !important;
+      }
+
+      .print-col-50 {
+        width: 50% !important;
+      }
+
+      /* Force Table Display */
+      .print-table {
+        display: table !important;
+        width: 100% !important;
+      }
+      .print-table thead { display: table-header-group !important; }
+      .print-table tbody { display: table-row-group !important; }
+      .print-table tr { display: table-row !important; }
+      .print-table td, .print-table th { display: table-cell !important; }
+
+      /* Header - Full Bleed */
+      .designed-header {
+        width: 100% !important;
+        padding: 15mm 15mm 5mm 15mm !important;
+        margin-bottom: 5mm !important;
+        border-radius: 0 !important;
+      }
+      
+      /* Content Padding */
+      .page-content {
+        padding: 0 15mm !important;
+      }
+
+      /* Override Tailwind Spacing to fit A4 */
+      .mb-12, .mb-8, .mb-6 {
+        margin-bottom: 3mm !important;
+      }
+      
+      .p-6 {
+        padding: 3mm !important;
+      }
+
+      /* Table Compactness */
+      .print-table td, .print-table th {
+        padding: 2px 2px !important;
+        font-size: 9pt !important;
+      }
+
+      /* Fonts */
+      body { font-size: 9pt !important; }
+      .text-5xl { font-size: 24pt !important; }
+      .text-4xl { font-size: 18pt !important; }
+      .text-xl { font-size: 12pt !important; }
+      
+      /* Footer */
+      .absolute.bottom-0 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 5mm 15mm !important;
+        background-color: #f9fafb !important; /* gray-50 */
+      }
+    }
+  </style>
+</head>
+<body class="water-gradient min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-[1600px]">
+    
+    <!-- Header -->
+    <header id="appHeader" class="text-center mb-8 no-print flex flex-col items-center">
+      <img src="../../public/site flow.svg" alt="Siteflow" class="h-20 mb-2">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
+        Fakturagenerator
+      </h1>
+      <p class="text-gray-600 text-lg mt-2">Skapa professionella fakturor enligt svensk standard</p>
+      
+      <button onclick="window.print()" class="mt-6 bg-sky-600 text-white px-8 py-3 rounded-full font-medium hover:bg-sky-700 transition-colors shadow-lg flex items-center gap-2 hover:scale-105 transform duration-200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Spara som PDF
+      </button>
+    </header>
+
+    <div class="flex flex-col xl:flex-row gap-8">
+      
+      <!-- Left Column: Form (Editor) -->
+      <div id="editorColumn" class="w-full xl:w-5/12 space-y-6 no-print">
+        
+        <!-- Accordion: Sender & Recipient -->
+        <div class="glass-panel rounded-2xl p-6 card-hover">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            Parter & Referenser
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2">
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Mottagare (Kund)</label>
+              <select id="customerSelect" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-sky-50/50 mb-2 text-sm font-medium text-gray-700">
+                <option value="">-- Välj kund från listan --</option>
+              </select>
+              <input type="text" id="customerName" placeholder="Företagsnamn" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50 mb-2">
+              <textarea id="customerAddress" rows="3" placeholder="Gatuadress&#10;Postnummer Ort" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50 resize-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Er referens</label>
+              <input type="text" id="yourRef" placeholder="Kontaktperson" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Vår referens (KAM)</label>
+              <select id="ourRef" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+                <option value="">-- Välj säljare --</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Kundnummer</label>
+              <input type="text" id="customerNo" placeholder="1001" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Org.nr / VAT</label>
+              <input type="text" id="customerOrg" placeholder="556XXX-XXXX" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion: Invoice Details -->
+        <div class="glass-panel rounded-2xl p-6 card-hover">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Fakturadetaljer & Villkor
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Fakturadatum</label>
+              <input type="date" id="offerDate" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Förfallodatum</label>
+              <input type="date" id="expiryDate" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Betalningsvillkor</label>
+              <input type="text" id="paymentTerms" value="30 dagar netto" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Dröjsmålsränta</label>
+              <input type="text" id="lateInterest" value="8% + ref.ränta" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Leveransvillkor</label>
+              <input type="text" id="deliveryTerms" value="Fritt vårt lager" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Leveranssätt</label>
+              <input type="text" id="deliveryMethod" value="Digital leverans" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Items Editor -->
+        <div class="glass-panel rounded-2xl p-6 card-hover">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            Artiklar & Tjänster
+          </h2>
+          
+          <!-- Quick Add Tools -->
+          <div class="flex gap-2 mb-4 p-3 bg-sky-50 rounded-xl">
+            <select id="quickAddRole" class="flex-1 px-3 py-2 rounded-lg border border-gray-200 text-sm">
+              <option value="">Lägg till roll...</option>
+              <!-- Populated by JS -->
+            </select>
+            <select id="quickAddService" class="flex-1 px-3 py-2 rounded-lg border border-gray-200 text-sm">
+              <option value="">Lägg till paket...</option>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div id="lineItemsList" class="space-y-4">
+            <!-- Line items will be injected here -->
+          </div>
+
+          <button onclick="addNewLineItem()" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 hover:border-sky-400 hover:text-sky-500 transition-colors text-sm font-medium">
+            + Lägg till tom rad
+          </button>
+
+          <!-- Fees -->
+          <div class="mt-6 pt-4 border-t border-gray-200 grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Frakt</label>
+              <input type="number" id="freightCost" value="0" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-500 uppercase mb-1">Exp.avgift</label>
+              <input type="number" id="adminFee" value="0" class="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white/50">
+            </div>
+          </div>
+        </div>
+
+        <!-- Company Settings (Hidden by default, maybe toggle?) -->
+        <div class="glass-panel rounded-2xl p-6 card-hover">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Avsändare (Sidfot)</h2>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <input type="text" id="senderPhone" placeholder="Tel.nr" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderEmail" placeholder="E-post" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderWeb" placeholder="Webb" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderOrg" placeholder="Org.nr" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderBankgiro" placeholder="Bankgiro" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderSwish" placeholder="Swish" class="px-3 py-2 rounded border border-gray-200">
+            <input type="text" id="senderIBAN" placeholder="IBAN" class="col-span-2 px-3 py-2 rounded border border-gray-200">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Preview (A4) -->
+      <div id="previewColumn" class="w-full xl:w-7/12 flex justify-center bg-gray-100/50 p-4 rounded-3xl overflow-auto">
+        
+        <div class="a4-page" id="quotePreview">
+          
+          <!-- Designed Header Section -->
+          <div class="designed-header">
+            <div class="flex justify-between items-start print-row">
+              <div class="w-1/2 print-col-50">
+                <div class="flex items-center gap-4 mb-6">
+                  <!-- Logo -->
+                  <img src="../../public/site flow.svg" alt="Siteflow" class="h-12 w-auto object-contain">
+                  <h1 class="text-4xl font-bold tracking-tight text-white" style="font-family: 'Playfair Display', serif;">Siteflow</h1>
+                </div>
+                <div class="text-gray-400 text-sm leading-relaxed pl-1">
+                  Flödande system. Hållbar skalning.<br>
+                  Er partner inom Elixir & Phoenix.
+                </div>
+              </div>
+              <div class="w-1/2 text-right">
+                <h2 class="text-5xl font-light text-white mb-6 tracking-wide opacity-90">FAKTURA</h2>
+                <table class="w-full text-right text-sm">
+                  <tr>
+                    <td class="text-gray-400 pb-1 font-medium">Fakturanummer:</td>
+                    <td class="font-bold text-white pb-1 pl-4" id="previewQuoteNum">INV-2025-001</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-400 pb-1 font-medium">Fakturadatum:</td>
+                    <td class="font-bold text-white pb-1 pl-4" id="previewDate">-</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-400 pb-1 font-medium">Förfallodatum:</td>
+                    <td class="font-bold text-white pb-1 pl-4" id="previewExpiry">-</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-400 pb-1 font-medium">Kundnummer:</td>
+                    <td class="font-bold text-white pb-1 pl-4" id="previewCustomerNo">-</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-content">
+            <!-- Address Block -->
+            <div class="flex justify-between mb-8 print-row">
+              <div class="w-1/2 print-col-50">
+                <h3 class="text-xs font-bold text-sky-600 uppercase tracking-wider mb-3 border-b border-sky-100 pb-1 inline-block">Mottagare</h3>
+                <div class="text-gray-800 leading-relaxed">
+                  <div id="previewCustomerName" class="font-bold text-xl mb-1"></div>
+                  <div id="previewCustomerAddress" class="whitespace-pre-line text-gray-600"></div>
+                </div>
+              </div>
+              <div class="w-1/2 pl-12 print-col-50">
+                <h3 class="text-xs font-bold text-sky-600 uppercase tracking-wider mb-3 border-b border-sky-100 pb-1 inline-block">Referenser</h3>
+                <table class="w-full text-sm">
+                  <tr>
+                    <td class="text-gray-500 py-1 w-28">Vår referens:</td>
+                    <td class="font-medium text-gray-900 py-1" id="previewOurRef">-</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-500 py-1">Er referens:</td>
+                    <td class="font-medium text-gray-900 py-1" id="previewYourRef">-</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-500 py-1">Leveranssätt:</td>
+                    <td class="font-medium text-gray-900 py-1" id="previewDeliveryMethod">-</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-500 py-1">Leveransvillkor:</td>
+                    <td class="font-medium text-gray-900 py-1" id="previewDeliveryTerms">-</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Main Table -->
+            <div class="mb-6">
+              <table class="w-full print-table">
+                <thead>
+                  <tr>
+                    <th class="w-24">Art.nr</th>
+                    <th>Benämning</th>
+                    <th class="w-20 text-right">Antal</th>
+                    <th class="w-16 text-center">Enhet</th>
+                    <th class="w-24 text-right">Á-pris</th>
+                    <th class="w-20 text-right">Rabatt</th>
+                    <th class="w-28 text-right">Belopp</th>
+                  </tr>
+                </thead>
+                <tbody id="previewTableBody">
+                  <!-- Rows generated here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Totals & Summary -->
+            <div class="flex justify-end mb-8 print-row-right">
+              <div class="w-1/2 bg-gray-50 p-6 rounded-xl print-col-50">
+                <table class="w-full text-sm">
+                  <tr id="grossRow" class="hidden">
+                    <td class="text-gray-600 py-1">Summa</td>
+                    <td class="text-right font-medium py-1" id="previewGrossTotal">0,00</td>
+                  </tr>
+                  <tr id="discountRow" class="hidden">
+                    <td class="text-gray-600 py-1">Rabatt</td>
+                    <td class="text-right font-medium py-1 text-red-500" id="previewTotalDiscount">0,00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-600 py-1 font-semibold">Netto (exkl. moms)</td>
+                    <td class="text-right font-medium py-1 font-semibold" id="previewNetTotal">0,00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-600 py-1">Frakt</td>
+                    <td class="text-right font-medium py-1" id="previewFreight">0,00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-600 py-1">Expeditionsavgift</td>
+                    <td class="text-right font-medium py-1" id="previewAdminFee">0,00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-600 py-1">Moms (25%)</td>
+                    <td class="text-right font-medium py-1" id="previewVatTotal">0,00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-600 py-1">Öresutjämning</td>
+                    <td class="text-right font-medium py-1" id="previewRounding">0,00</td>
+                  </tr>
+                  <tr class="border-t-2 border-gray-800 text-lg">
+                    <td class="font-bold py-3 text-gray-900">Att betala (SEK)</td>
+                    <td class="text-right font-bold py-3 text-gray-900" id="previewGrandTotal">0,00</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- VAT Specification (Momsunderlag) -->
+            <div class="mb-8">
+              <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Momsunderlag</h4>
+              <table class="w-full text-sm border-t border-gray-200">
+                <thead>
+                  <tr class="text-gray-500 text-xs">
+                    <th class="text-left py-2 font-normal">Moms %</th>
+                    <th class="text-right py-2 font-normal">Beskattningsunderlag</th>
+                    <th class="text-right py-2 font-normal">Momsbelopp</th>
+                    <th class="text-right py-2 font-normal">Totalt</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="py-1">25 %</td>
+                    <td class="text-right py-1" id="vatBase25">0,00</td>
+                    <td class="text-right py-1" id="vatAmount25">0,00</td>
+                    <td class="text-right py-1" id="vatTotal25">0,00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Terms Footer -->
+            <div class="mb-8 text-sm text-gray-600">
+              <div class="grid grid-cols-2 gap-8 print-row">
+                <div class="print-col-50">
+                  <span class="font-semibold block mb-1 text-gray-900">Betalningsvillkor:</span>
+                  <span id="previewPaymentTerms">-</span>
+                </div>
+                <div class="print-col-50">
+                  <span class="font-semibold block mb-1 text-gray-900">Dröjsmålsränta:</span>
+                  <span id="previewLateInterest">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="absolute bottom-0 left-0 right-0 bg-gray-50 p-6 text-[8pt] text-gray-500 border-t border-gray-200">
+            <div class="grid grid-cols-4 gap-4">
+              <div>
+                <strong class="block text-gray-900 mb-1">Adress</strong>
+                Siteflow AB<br>
+                Teknikgatan 1<br>
+                111 22 Stockholm
+              </div>
+              <div>
+                <strong class="block text-gray-900 mb-1">Kontakt</strong>
+                <span id="footerPhone">Tel: -</span><br>
+                <span id="footerEmail">E-post: -</span><br>
+                <span id="footerWeb">Webb: -</span>
+              </div>
+              <div>
+                <strong class="block text-gray-900 mb-1">Företagsuppgifter</strong>
+                <span id="footerOrg">Org.nr: -</span><br>
+                Godkänd för F-skatt<br>
+                Säte: Stockholm
+              </div>
+              <div>
+                <strong class="block text-gray-900 mb-1">Bankuppgifter</strong>
+                <span id="footerBg">Bankgiro: -</span><br>
+                <span id="footerIban">IBAN: -</span><br>
+                <span id="footerBic">BIC: -</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // State
+    let pricing = null;
+    let lineItems = [];
+
+    // Mock Data
+    const customers = [
+      { 
+        id: 'c1', 
+        name: 'Acme Corp AB', 
+        address: 'Storgatan 12\n111 22 Stockholm', 
+        org: '556123-4567', 
+        no: '1001' 
+      },
+      { 
+        id: 'c2', 
+        name: 'TechStart Inc', 
+        address: 'Innovationsvägen 5\n223 70 Lund', 
+        org: '556987-6543', 
+        no: '1002' 
+      },
+      { 
+        id: 'c3', 
+        name: 'Bygg & Betong HB', 
+        address: 'Cementvägen 8\n417 55 Göteborg', 
+        org: '969696-9696', 
+        no: '1003' 
+      },
+      { 
+        id: 'c4', 
+        name: 'Lokalhandlarn AB', 
+        address: 'Torget 1\n903 26 Umeå', 
+        org: '556555-5555', 
+        no: '1004' 
+      },
+      { 
+        id: 'c5', 
+        name: 'Testbolaget AB', 
+        address: 'Testvägen 123\n123 45 Teststad', 
+        org: '556000-1234', 
+        no: '1005' 
+      }
+    ];
+
+    const accountManagers = [
+      "Alexander R",
+      "Johan S",
+      "Maria L",
+      "Erik K",
+      "Anna B",
+      "Test Säljare"
+    ];
+    
+    // Default company info
+    const defaultCompany = {
+      phone: "08-123 45 67",
+      email: "info@siteflow.se",
+      web: "www.siteflow.se",
+      org: "556000-0000",
+      bg: "123-4567",
+      swish: "123 456 78 90",
+      iban: "SE00 0000 0000 0000 0000 0000",
+      bic: "SWEBESS"
+    };
+
+    // Initialize
+    async function init() {
+      // Load pricing
+      try {
+        const response = await fetch('../../docs/pricing/siteflow-prislista.json');
+        pricing = await response.json();
+      } catch (e) {
+        console.warn("Using fallback pricing");
+        pricing = await loadPricingFallback();
+      }
+
+      // Setup UI
+      setupQuickAdd();
+      setupDropdowns();
+      setupCompanyInfo();
+      setupEventListeners();
+      
+      // Set dates
+      document.getElementById('offerDate').valueAsDate = new Date();
+      const expiry = new Date();
+      expiry.setDate(expiry.getDate() + 30);
+      document.getElementById('expiryDate').valueAsDate = expiry;
+
+      // Add initial empty row
+      addNewLineItem();
+      
+      updatePreview();
+    }
+
+    async function loadPricingFallback() {
+      return {
+        "hourly_rates": { "rates": [
+          { "role": "Senior Elixir-arkitekt", "price_per_hour": 1600 },
+          { "role": "Elixir-utvecklare", "price_per_hour": 1300 },
+          { "role": "Frontend-utvecklare", "price_per_hour": 1200 }
+        ]},
+        "packaged_services": { "services": [
+          { "name": "MVP-system", "price_min": 200000, "price_max": 400000, "duration": "4-8 veckor" }
+        ]}
+      };
+    }
+
+    function setupQuickAdd() {
+      const roleSelect = document.getElementById('quickAddRole');
+      pricing.hourly_rates.rates.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = JSON.stringify({type: 'role', data: r});
+        opt.textContent = `${r.role} (${r.price_per_hour} kr/h)`;
+        roleSelect.appendChild(opt);
+      });
+
+      const serviceSelect = document.getElementById('quickAddService');
+      pricing.packaged_services.services.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = JSON.stringify({type: 'service', data: s});
+        opt.textContent = s.name;
+        serviceSelect.appendChild(opt);
+      });
+
+      // Listeners for quick add
+      roleSelect.addEventListener('change', (e) => {
+        if(!e.target.value) return;
+        const item = JSON.parse(e.target.value);
+        addNewLineItem({
+          desc: item.data.role,
+          qty: 1,
+          unit: 'tim',
+          price: item.data.price_per_hour
+        });
+        e.target.value = "";
+      });
+
+      serviceSelect.addEventListener('change', (e) => {
+        if(!e.target.value) return;
+        const item = JSON.parse(e.target.value);
+        const price = (item.data.price_min + item.data.price_max) / 2;
+        addNewLineItem({
+          desc: item.data.name + ` (${item.data.duration})`,
+          qty: 1,
+          unit: 'st',
+          price: price
+        });
+        e.target.value = "";
+      });
+    }
+
+    function setupDropdowns() {
+      // Customers
+      const custSelect = document.getElementById('customerSelect');
+      customers.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        custSelect.appendChild(opt);
+      });
+
+      custSelect.addEventListener('change', (e) => {
+        const customer = customers.find(c => c.id === e.target.value);
+        if (customer) {
+          document.getElementById('customerName').value = customer.name;
+          document.getElementById('customerAddress').value = customer.address;
+          document.getElementById('customerOrg').value = customer.org;
+          document.getElementById('customerNo').value = customer.no;
+          updatePreview();
+        }
+      });
+
+      // KAMs
+      const kamSelect = document.getElementById('ourRef');
+      accountManagers.forEach(kam => {
+        const opt = document.createElement('option');
+        opt.value = kam;
+        opt.textContent = kam;
+        kamSelect.appendChild(opt);
+      });
+    }
+
+    function setupCompanyInfo() {
+      document.getElementById('senderPhone').value = defaultCompany.phone;
+      document.getElementById('senderEmail').value = defaultCompany.email;
+      document.getElementById('senderWeb').value = defaultCompany.web;
+      document.getElementById('senderOrg').value = defaultCompany.org;
+      document.getElementById('senderBankgiro').value = defaultCompany.bg;
+      document.getElementById('senderSwish').value = defaultCompany.swish;
+      document.getElementById('senderIBAN').value = defaultCompany.iban;
+    }
+
+    function setupEventListeners() {
+      const inputs = document.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('input', updatePreview);
+      });
+    }
+
+    function generateArticleNumber() {
+      // Generate a random 4-digit number
+      const num = Math.floor(1000 + Math.random() * 9000);
+      return `ART-${num}`;
+    }
+
+    function addNewLineItem(data = null) {
+      const id = Date.now();
+      const container = document.getElementById('lineItemsList');
+      
+      const div = document.createElement('div');
+      div.className = "bg-white/50 p-3 rounded-xl border border-gray-200 relative group";
+      div.id = `item-${id}`;
+      
+      // Use provided art number or generate new one
+      const artNo = data && data.art ? data.art : generateArticleNumber();
+      
+      div.innerHTML = `
+        <div class="grid grid-cols-12 gap-2 mb-2">
+          <div class="col-span-2">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Art.nr</label>
+            <input type="text" class="w-full p-1 text-sm border rounded bg-gray-100 text-gray-500 item-art cursor-not-allowed" value="${artNo}" readonly>
+          </div>
+          <div class="col-span-10">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Beskrivning</label>
+            <input type="text" class="w-full p-1 text-sm border rounded bg-white item-desc" value="${data ? data.desc : ''}">
+          </div>
+        </div>
+        <div class="grid grid-cols-12 gap-2">
+          <div class="col-span-2">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Antal</label>
+            <input type="number" class="w-full p-1 text-sm border rounded bg-white item-qty" value="${data ? data.qty : 1}" oninput="calculateRow('${id}')">
+          </div>
+          <div class="col-span-2">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Enhet</label>
+            <input type="text" class="w-full p-1 text-sm border rounded bg-white item-unit" value="${data ? data.unit : 'st'}">
+          </div>
+          <div class="col-span-3">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Á-pris</label>
+            <input type="number" class="w-full p-1 text-sm border rounded bg-white item-price" value="${data ? data.price : 0}" oninput="calculateRow('${id}')">
+          </div>
+          <div class="col-span-2">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Rabatt %</label>
+            <input type="number" class="w-full p-1 text-sm border rounded bg-white item-discount text-red-500" value="0" oninput="calculateRow('${id}')">
+          </div>
+          <div class="col-span-3 text-right">
+            <label class="text-[10px] uppercase text-gray-400 font-bold">Totalt</label>
+            <div class="font-bold text-gray-700 mt-1 item-total">0 kr</div>
+          </div>
+        </div>
+        <button onclick="removeLineItem('${id}')" class="absolute -top-2 -right-2 bg-red-100 text-red-500 rounded-full p-1 hover:bg-red-200 opacity-0 group-hover:opacity-100 transition-opacity">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      `;
+      
+      container.appendChild(div);
+      
+      // Add listeners to new inputs
+      div.querySelectorAll('input').forEach(i => i.addEventListener('input', updatePreview));
+      
+      calculateRow(id);
+      updatePreview();
+    }
+
+    function removeLineItem(id) {
+      document.getElementById(`item-${id}`).remove();
+      updatePreview();
+    }
+
+    function calculateRow(id) {
+      const row = document.getElementById(`item-${id}`);
+      const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+      const price = parseFloat(row.querySelector('.item-price').value) || 0;
+      const discount = parseFloat(row.querySelector('.item-discount').value) || 0;
+      
+      const subtotal = qty * price;
+      const discountAmount = subtotal * (discount / 100);
+      const total = subtotal - discountAmount;
+      
+      row.querySelector('.item-total').textContent = total.toLocaleString('sv-SE', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' kr';
+      
+      updatePreview();
+    }
+
+    function updatePreview() {
+      // 1. Update Header Info
+      document.getElementById('previewCustomerName').textContent = document.getElementById('customerName').value || 'Kundnamn';
+      document.getElementById('previewCustomerAddress').textContent = document.getElementById('customerAddress').value || '';
+      
+      document.getElementById('previewDate').textContent = document.getElementById('offerDate').value;
+      document.getElementById('previewExpiry').textContent = document.getElementById('expiryDate').value;
+      document.getElementById('previewCustomerNo').textContent = document.getElementById('customerNo').value;
+      
+      document.getElementById('previewOurRef').textContent = document.getElementById('ourRef').value;
+      document.getElementById('previewYourRef').textContent = document.getElementById('yourRef').value;
+      document.getElementById('previewDeliveryMethod').textContent = document.getElementById('deliveryMethod').value;
+      document.getElementById('previewDeliveryTerms').textContent = document.getElementById('deliveryTerms').value;
+
+      // 2. Update Table Rows
+      const tbody = document.getElementById('previewTableBody');
+      tbody.innerHTML = '';
+      
+      let netTotal = 0;
+      let totalDiscount = 0;
+      
+      document.querySelectorAll('#lineItemsList > div').forEach(row => {
+        const art = row.querySelector('.item-art').value;
+        const desc = row.querySelector('.item-desc').value;
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const unit = row.querySelector('.item-unit').value;
+        const price = parseFloat(row.querySelector('.item-price').value) || 0;
+        const discount = parseFloat(row.querySelector('.item-discount').value) || 0;
+        
+        const rowSum = qty * price;
+        const rowDiscount = rowSum * (discount / 100);
+        const rowTotal = rowSum - rowDiscount;
+        
+        netTotal += rowTotal;
+        totalDiscount += rowDiscount;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${art}</td>
+          <td>${desc}</td>
+          <td class="text-right">${qty}</td>
+          <td class="text-center">${unit}</td>
+          <td class="text-right">${price.toLocaleString('sv-SE', {minimumFractionDigits: 2})}</td>
+          <td class="text-right text-red-500">${discount > 0 ? discount + '%' : ''}</td>
+          <td class="text-right font-medium">${rowTotal.toLocaleString('sv-SE', {minimumFractionDigits: 2})}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // 3. Update Totals
+      const freight = parseFloat(document.getElementById('freightCost').value) || 0;
+      const adminFee = parseFloat(document.getElementById('adminFee').value) || 0;
+      
+      const baseAmount = netTotal + freight + adminFee;
+      const vatRate = 0.25; // Standard 25%
+      const vatAmount = baseAmount * vatRate;
+      
+      // Rounding logic (Öresutjämning)
+      const totalWithVatExact = baseAmount + vatAmount;
+      const totalToPay = Math.round(totalWithVatExact);
+      const rounding = totalToPay - totalWithVatExact;
+
+      // Update Discount Rows
+      const grossTotal = netTotal + totalDiscount;
+      const grossRow = document.getElementById('grossRow');
+      const discountRow = document.getElementById('discountRow');
+      
+      if (totalDiscount > 0) {
+        grossRow.classList.remove('hidden');
+        discountRow.classList.remove('hidden');
+        document.getElementById('previewGrossTotal').textContent = grossTotal.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+        document.getElementById('previewTotalDiscount').textContent = '-' + totalDiscount.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      } else {
+        grossRow.classList.add('hidden');
+        discountRow.classList.add('hidden');
+      }
+
+      document.getElementById('previewNetTotal').textContent = netTotal.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('previewFreight').textContent = freight.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('previewAdminFee').textContent = adminFee.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('previewVatTotal').textContent = vatAmount.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('previewRounding').textContent = rounding.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('previewGrandTotal').textContent = totalToPay.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+
+      // 4. Update VAT Table
+      document.getElementById('vatBase25').textContent = baseAmount.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('vatAmount25').textContent = vatAmount.toLocaleString('sv-SE', {minimumFractionDigits: 2});
+      document.getElementById('vatTotal25').textContent = (baseAmount + vatAmount).toLocaleString('sv-SE', {minimumFractionDigits: 2});
+
+      // 5. Update Footer Terms & Info
+      document.getElementById('previewPaymentTerms').textContent = document.getElementById('paymentTerms').value;
+      document.getElementById('previewLateInterest').textContent = document.getElementById('lateInterest').value;
+      
+      document.getElementById('footerPhone').textContent = `Tel: ${document.getElementById('senderPhone').value}`;
+      document.getElementById('footerEmail').textContent = `E-post: ${document.getElementById('senderEmail').value}`;
+      document.getElementById('footerWeb').textContent = `Webb: ${document.getElementById('senderWeb').value}`;
+      document.getElementById('footerOrg').textContent = `Org.nr: ${document.getElementById('senderOrg').value}`;
+      document.getElementById('footerBg').textContent = `Bankgiro: ${document.getElementById('senderBankgiro').value}`;
+      document.getElementById('footerIban').textContent = `IBAN: ${document.getElementById('senderIBAN').value}`;
+      document.getElementById('footerBic').textContent = `BIC: ${document.getElementById('senderIBAN').value ? defaultCompany.bic : ''}`; // Simplified
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>

@@ -1,44 +1,30 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight, Lock, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, ArrowRight, Lock, Loader2, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Page } from '../types';
+import { useAuth } from '../src/context/AuthContext';
 
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  onNavigate: (page: Page) => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
   const { t } = useTranslation();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<{ user: any; token: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    setSuccess(null);
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/sign-in', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: { email, password }
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
-      }
-
-      // Store token in localStorage
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-
-      setSuccess(data);
-      console.log('Login successful:', data);
+      await login(email, password);
+      // Redirect to dashboard on success
+      onNavigate('dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -75,14 +61,6 @@ const LoginPage: React.FC = () => {
                   <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                     <AlertCircle className="w-5 h-5 flex-shrink-0" />
                     <span>{error}</span>
-                  </div>
-                )}
-
-                {/* Success Message */}
-                {success && (
-                  <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                    <span>Inloggad som {success.user.email}</span>
                   </div>
                 )}
 
@@ -189,8 +167,31 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
 
+          {/* Demo Credentials */}
+          <div className="mt-6 bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700">
+            <p className="text-sm font-medium text-slate-300 mb-3">Demo-konton:</p>
+            <div className="space-y-2">
+              <button
+                type="button"
+                onClick={() => { setEmail('admin@siteflow.se'); setPassword('AdminPassword123!'); }}
+                className="w-full text-left px-3 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg transition-colors"
+              >
+                <span className="text-xs text-cyan-400 font-medium">Admin</span>
+                <p className="text-sm text-slate-300">admin@siteflow.se</p>
+              </button>
+              <button
+                type="button"
+                onClick={() => { setEmail('demo@siteflow.se'); setPassword('Password123'); }}
+                className="w-full text-left px-3 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg transition-colors"
+              >
+                <span className="text-xs text-blue-400 font-medium">Customer</span>
+                <p className="text-sm text-slate-300">demo@siteflow.se</p>
+              </button>
+            </div>
+          </div>
+
           {/* Security Note */}
-          <div className="mt-8 text-center">
+          <div className="mt-6 text-center">
             <p className="text-sm text-slate-400">
               {t('loginPage.securityNote')}
             </p>

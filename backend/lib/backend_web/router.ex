@@ -9,6 +9,7 @@ defmodule BackendWeb.Router do
 
   pipeline :authenticated do
     plug :require_authenticated_user
+    plug :set_ash_actor
   end
 
   # Public API routes
@@ -22,6 +23,15 @@ defmodule BackendWeb.Router do
     post "/auth/register", BackendWeb.AuthController, :register
     post "/auth/sign-in", BackendWeb.AuthController, :sign_in
     delete "/auth/sign-out", BackendWeb.AuthController, :sign_out
+  end
+
+  # Protected API routes - Ash RPC
+  scope "/api" do
+    pipe_through [:api, :authenticated]
+
+    # Ash RPC endpoints
+    post "/rpc/run", BackendWeb.AshTypescriptRpcController, :run
+    post "/rpc/validate", BackendWeb.AshTypescriptRpcController, :validate
   end
 
   # Protected API routes - Ash JSON API
@@ -59,6 +69,14 @@ defmodule BackendWeb.Router do
       |> Phoenix.Controller.put_view(BackendWeb.ErrorJSON)
       |> Phoenix.Controller.render("401.json")
       |> halt()
+    end
+  end
+
+  defp set_ash_actor(conn, _) do
+    if conn.assigns[:current_user] do
+      Ash.PlugHelpers.set_actor(conn, conn.assigns[:current_user])
+    else
+      conn
     end
   end
 end

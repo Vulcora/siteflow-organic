@@ -21,17 +21,23 @@ defmodule Backend.Portal.Document do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can read all documents
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Customers can read documents for their company's projects
       authorize_if expr(project.company_id == ^actor(:company_id))
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(^actor(:role) in [:manager, :user])
+      # All authenticated users can upload documents
+      authorize_if always()
     end
 
     policy action(:destroy) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Admins can delete any document
+      authorize_if actor_attribute_equals(:role, :siteflow_admin)
+      # Uploaders can delete their own documents
       authorize_if expr(uploaded_by_id == ^actor(:id))
     end
   end

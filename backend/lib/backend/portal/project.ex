@@ -36,18 +36,38 @@ defmodule Backend.Portal.Project do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can read all projects
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Users can read their own company's projects
       authorize_if expr(company_id == ^actor(:company_id))
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(^actor(:role) in [:manager])
+      # Admins, KAMs, and PLs can create projects
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl])
+      # Customers can create project requests (draft state)
+      authorize_if expr(^actor(:role) == :customer)
     end
 
     policy action_type(:update) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(company_id == ^actor(:company_id) and ^actor(:role) in [:manager])
+      # Admins and PLs can update any project
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_pl])
+      # Developers can update projects (for time tracking)
+      authorize_if expr(^actor(:role) in [:siteflow_dev_frontend, :siteflow_dev_backend,
+                                          :siteflow_dev_fullstack])
+    end
+
+    # State transition policies
+    policy action(:approve) do
+      # Only admins and PLs can approve projects
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_pl])
+    end
+
+    policy action(:reject) do
+      # Only admins and PLs can reject projects
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_pl])
     end
   end
 
@@ -92,6 +112,18 @@ defmodule Backend.Portal.Project do
     update :cancel do
       accept [:cancellation_reason]
       change transition_state(:cancelled)
+    end
+
+    update :set_priority do
+      accept [:is_priority]
+    end
+
+    update :toggle_priority do
+      require_atomic? false
+      change fn changeset, _context ->
+        current = Ash.Changeset.get_attribute(changeset, :is_priority) || false
+        Ash.Changeset.change_attribute(changeset, :is_priority, !current)
+      end
     end
 
     read :by_company do
@@ -158,6 +190,13 @@ defmodule Backend.Portal.Project do
       public? true
     end
 
+    attribute :is_priority, :boolean do
+      default false
+      allow_nil? false
+      public? true
+      description "Flag to mark high-priority projects/requests"
+    end
+
     create_timestamp :inserted_at
     update_timestamp :updated_at
   end
@@ -171,5 +210,12 @@ defmodule Backend.Portal.Project do
     has_many :tickets, Backend.Portal.Ticket
     has_many :time_entries, Backend.Portal.TimeEntry
     has_many :documents, Backend.Portal.Document
+    has_many :internal_notes, Backend.Portal.InternalNote
+
+    # RAG/AI System relationships
+    has_many :embeddings, Backend.Portal.Embedding
+    has_many :generated_documents, Backend.Portal.GeneratedDocument
+    has_many :chat_messages, Backend.Portal.ChatMessage
+    has_many :manual_knowledge_entries, Backend.Portal.ManualKnowledgeEntry
   end
 end

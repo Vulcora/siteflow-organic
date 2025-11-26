@@ -51,6 +51,27 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Oban configuration for background jobs (RAG/AI system)
+config :backend, Oban,
+  repo: Backend.Repo,
+  queues: [
+    default: 10,
+    embeddings: 5,       # Vector embedding generation
+    documents: 3,        # AI document generation
+    ai_chat: 5           # RAG chat processing
+  ],
+  plugins: [
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},  # Keep jobs for 7 days
+    Oban.Plugins.Stager
+  ]
+
+# Gemini AI configuration
+config :backend, :gemini,
+  api_key: System.get_env("GEMINI_API_KEY"),
+  embedding_model: "text-embedding-004",
+  generation_model: "gemini-2.0-flash-exp",
+  embedding_dimensions: 768
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

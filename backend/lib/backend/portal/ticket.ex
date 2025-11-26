@@ -36,18 +36,37 @@ defmodule Backend.Portal.Ticket do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:role, :admin)
+      # Siteflow staff can read all tickets
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Users can read tickets for their company's projects
       authorize_if expr(project.company_id == ^actor(:company_id))
     end
 
     policy action_type(:create) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(^actor(:role) in [:manager, :user])
+      # All authenticated users can create tickets
+      authorize_if always()
     end
 
     policy action_type(:update) do
-      authorize_if actor_attribute_equals(:role, :admin)
-      authorize_if expr(project.company_id == ^actor(:company_id) and ^actor(:role) in [:manager, :user])
+      # Siteflow staff can update all tickets
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_kam, :siteflow_pl,
+                                           :siteflow_dev_frontend, :siteflow_dev_backend,
+                                           :siteflow_dev_fullstack])
+      # Customers can update tickets for their company's projects
+      authorize_if expr(project.company_id == ^actor(:company_id) and ^actor(:role) == :customer)
+    end
+
+    # Specific action policies
+    policy action(:assign) do
+      # PLs and admins can assign tickets
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_pl])
+    end
+
+    policy action(:approve) do
+      # PLs and admins can approve ticket reviews
+      authorize_if expr(^actor(:role) in [:siteflow_admin, :siteflow_pl])
     end
   end
 

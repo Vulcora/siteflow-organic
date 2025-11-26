@@ -71,7 +71,12 @@ defmodule Backend.MixProject do
       {:ash_typescript, "~> 0.3"},
 
       # SAT solver for Ash policy verification (pure Elixir, no NIF)
-      {:simple_sat, "~> 0.1"}
+      {:simple_sat, "~> 0.1"},
+
+      # RAG/AI System
+      {:pgvector, "~> 0.3"},  # Vector embeddings in PostgreSQL
+      {:oban, "~> 2.18"},     # Background job processing
+      {:req, "~> 0.5"}        # HTTP client for Gemini API
     ]
   end
 

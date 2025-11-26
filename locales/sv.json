@@ -490,5 +490,663 @@
     "stat2": "Historisk uptime",
     "stat3": "Användare per server",
     "stat4": "Gömda avgifter"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Välkommen tillbaka!",
+    "welcomeSubtitle": "Här är en överblick av ditt konto och aktiva projekt.",
+    "nav": {
+      "overview": "Översikt",
+      "projects": "Projekt",
+      "tickets": "Ärenden",
+      "timeEntries": "Tidrapporter",
+      "documents": "Dokument",
+      "team": "Team",
+      "companies": "Företag",
+      "settings": "Inställningar",
+      "logout": "Logga ut",
+      "profile": "Min profil"
+    },
+    "stats": {
+      "activeProjects": "Aktiva projekt",
+      "openTickets": "Öppna ärenden",
+      "criticalIssues": "Kritiska problem",
+      "thisMonth": "Timmar denna månad"
+    },
+    "recentTickets": "Senaste ärenden",
+    "projectsOverview": "Projektöversikt",
+    "viewAll": "Visa alla",
+    "noTickets": "Inga ärenden att visa",
+    "noProjects": "Inga projekt att visa",
+    "active": "Aktiv"
+  },
+  "projectForm": {
+    "title": "Berätta om ditt projekt",
+    "subtitle": "Desto mer information du ger oss, desto bättre kan vi hjälpa dig.",
+    "selectType": "Vad ska vi bygga åt er?",
+    "typeWebsite": "Hemsida",
+    "typeSystem": "System/Applikation",
+    "typeBoth": "Båda",
+    "next": "Nästa",
+    "previous": "Föregående",
+    "save": "Spara utkast",
+    "submit": "Skicka in",
+    "review": "Granska",
+    "edit": "Redigera",
+    "progress": "Steg {{current}} av {{total}}",
+    "website": {
+      "section1": {
+        "title": "Grundläggande Information",
+        "q1": {
+          "question": "Har ni en befintlig hemsida idag?",
+          "yes": "Ja",
+          "no": "Nej",
+          "urlLabel": "Vad är URL:en?",
+          "workingWellLabel": "Vad fungerar bra med nuvarande hemsida?",
+          "needsImprovementLabel": "Vad fungerar dåligt/vad vill ni förbättra?"
+        },
+        "q2": {
+          "question": "Vad är huvudsyftet med hemsidan?",
+          "inform": "Informera om företaget och tjänster",
+          "sell": "Sälja produkter (e-handel)",
+          "leads": "Generera leads/kontakter",
+          "booking": "Boka tjänster/tider",
+          "portfolio": "Visa portfolio/projekt",
+          "blog": "Blogg/innehåll",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv annat syfte..."
+        },
+        "q3": {
+          "question": "Vilka är era huvudsakliga målgrupper?",
+          "placeholder": "T.ex. småföretagare i Sverige, IT-chefer i enterprise-företag, privatpersoner 25-45 år..."
+        }
+      },
+      "section2": {
+        "title": "Funktioner & Innehåll",
+        "q4": {
+          "question": "Vilka sidor/sektioner behöver hemsidan?",
+          "home": "Startsida",
+          "about": "Om oss",
+          "services": "Tjänster/Produkter",
+          "portfolio": "Portfolio/Case studies",
+          "blog": "Blogg",
+          "contact": "Kontakt",
+          "team": "Team/Medarbetare",
+          "faq": "FAQ",
+          "pricing": "Priser",
+          "booking": "Booking-system",
+          "customerPortal": "Kundportal/Login",
+          "ecommerce": "E-handel/Shop",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv andra sidor..."
+        },
+        "q5": {
+          "question": "Vilka funktioner behöver ni?",
+          "contactForm": "Kontaktformulär",
+          "newsletter": "Newsletter-anmälan",
+          "booking": "Bokning/Tidsbokning",
+          "liveChat": "Live chat",
+          "search": "Sökfunktion",
+          "multilang": "Flerspråksstöd",
+          "multilangPlaceholder": "Ange språk...",
+          "payments": "Betalningar online",
+          "cms": "CMS (Content Management System) för att uppdatera själva",
+          "crmIntegration": "Integration med CRM-system",
+          "otherIntegration": "Integration med annat system",
+          "otherIntegrationPlaceholder": "Ange vilket system...",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv andra funktioner..."
+        },
+        "q6": {
+          "question": "Hur många sidor ungefär?",
+          "1-5": "1-5 sidor",
+          "6-10": "6-10 sidor",
+          "11-20": "11-20 sidor",
+          "20+": "20+ sidor"
+        }
+      },
+      "section3": {
+        "title": "Design & Varumärke",
+        "q7": {
+          "question": "Ladda upp er logotyp",
+          "primary": "Primär logotyp",
+          "secondary": "Sekundär logotyp (om finns)",
+          "dark": "Logotyp för mörk bakgrund (om finns)",
+          "uploadButton": "Välj fil",
+          "fileHelp": "PNG, SVG, AI, PDF - max 10MB"
+        },
+        "q8": {
+          "question": "Välj er färgpalett",
+          "option1Title": "Använd befintliga färger",
+          "primaryColor": "Primärfärg (hex)",
+          "secondaryColor": "Sekundärfärg (hex)",
+          "accentColor": "Accentfärg (hex)",
+          "option2Title": "Välj från våra förslag",
+          "option3Title": "Vi behöver hjälp med färgval",
+          "helpWithColors": "Låt Siteflow föreslå färgpalett"
+        },
+        "q9": {
+          "question": "Ladda upp designinspiration (Valfritt)",
+          "linkLabel": "Länk {{number}}",
+          "linkPlaceholder": "https://exempel.se",
+          "addLink": "Lägg till länk"
+        },
+        "q10": {
+          "question": "Vilken känsla/stil vill ni förmedla?",
+          "modern": "Modern & minimalistisk",
+          "professional": "Professionell & företagsmässig",
+          "creative": "Kreativ & lekfull",
+          "elegant": "Elegant & exklusiv",
+          "technical": "Teknisk & innovativ",
+          "warm": "Varm & personlig",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv stil..."
+        },
+        "q11": {
+          "question": "Har ni en grafisk profil/brandbook?",
+          "yes": "Ja",
+          "no": "Nej",
+          "uploadButton": "Ladda upp PDF"
+        }
+      },
+      "section4": {
+        "title": "Innehåll & Bilder",
+        "q12": {
+          "question": "Vem kommer skriva texterna?",
+          "ready": "Vi har redan alla texter färdiga",
+          "helpStructure": "Vi skriver texterna, men vill ha hjälp med struktur",
+          "siteflowWrites": "Vi vill att Siteflow skriver alla texter",
+          "combination": "Kombination/behöver diskutera"
+        },
+        "q13": {
+          "question": "Har ni professionella bilder/foton?",
+          "haveAll": "Ja, vi har allt vi behöver",
+          "haveSome": "Vi har en del, men behöver komplettera",
+          "needPhotography": "Nej, vi behöver hjälp med fotografering",
+          "useStock": "Vi vill använda stockbilder"
+        },
+        "q14": {
+          "question": "Behöver ni hjälp med video?",
+          "yes": "Ja, vi vill ha video på hemsidan",
+          "no": "Nej",
+          "unsure": "Osäker/vill diskutera"
+        }
+      },
+      "section5": {
+        "title": "Tekniska Krav",
+        "q15": {
+          "question": "Behöver hemsidan vara mobilanpassad (responsiv)?",
+          "yes": "Ja (Standard - alltid rekommenderat)",
+          "no": "Nej"
+        },
+        "q16": {
+          "question": "Har ni särskilda krav gällande prestanda/hastighet?",
+          "placeholder": "T.ex. 'Sidan måste laddas på under 2 sekunder', 'Vi behöver hantera 10 000 samtidiga besökare'..."
+        },
+        "q17": {
+          "question": "Behöver hemsidan vara tillgänglighetsanpassad (WCAG)?",
+          "levelA": "Ja, nivå A",
+          "levelAA": "Ja, nivå AA",
+          "levelAAA": "Ja, nivå AAA",
+          "noRequirements": "Inga specifika krav"
+        },
+        "q18": {
+          "question": "Hosting & Domän",
+          "haveDomain": "Vi har redan domän",
+          "domainPlaceholder": "exempel.se",
+          "registerDomain": "Vi vill att Siteflow registrerar domän",
+          "haveHosting": "Vi har redan hosting",
+          "siteflowHosting": "Vi vill att Siteflow hanterar hosting"
+        }
+      },
+      "section6": {
+        "title": "SEO & Marknadsföring",
+        "q19": {
+          "question": "Är SEO (sökmotoroptimering) viktigt för er?",
+          "veryImportant": "Ja, mycket viktigt",
+          "important": "Ja, ganska viktigt",
+          "notPriority": "Nej, inte prioritet just nu"
+        },
+        "q20": {
+          "question": "Behöver ni hjälp med:",
+          "analytics": "Google Analytics-uppsättning",
+          "searchConsole": "Google Search Console",
+          "gdpr": "Cookie-consent/GDPR",
+          "socialMedia": "Social media-integration",
+          "emailMarketing": "Email-marknadsföring (MailChimp, etc)"
+        }
+      },
+      "section7": {
+        "title": "Budget & Timeline",
+        "q21": {
+          "question": "Vad är er budget för projektet?",
+          "under50k": "Under 50 000 kr",
+          "50-100k": "50 000 - 100 000 kr",
+          "100-200k": "100 000 - 200 000 kr",
+          "200-500k": "200 000 - 500 000 kr",
+          "500k+": "500 000+ kr",
+          "noFixed": "Har ingen fast budget/vill diskutera"
+        },
+        "q22": {
+          "question": "När behöver hemsidan vara klar?",
+          "asap": "Så snart som möjligt",
+          "1month": "Inom 1 månad",
+          "2-3months": "Inom 2-3 månader",
+          "6months": "Inom 6 månader",
+          "noDate": "Inget specifikt datum",
+          "specificDate": "Specifikt datum",
+          "datePlaceholder": "ÅÅÅÅ-MM-DD"
+        },
+        "q23": {
+          "question": "Finns det några viktiga milstolpar/deadlines?",
+          "placeholder": "T.ex. produktlansering, mässa, etc..."
+        }
+      },
+      "section8": {
+        "title": "Övrigt",
+        "q24": {
+          "question": "Något annat vi bör veta om projektet?",
+          "placeholder": "Övriga önskemål, krav, frågor..."
+        }
+      }
+    },
+    "system": {
+      "section1": {
+        "title": "Grundläggande Information",
+        "q1": {
+          "question": "Har ni ett befintligt system idag?",
+          "yes": "Ja",
+          "no": "Nej",
+          "descriptionLabel": "Beskriv systemet",
+          "challengesLabel": "Vilka är de största utmaningarna med nuvarande system?",
+          "workingWellLabel": "Vad fungerar bra som ni vill behålla?",
+          "integrationLabel": "Behöver det nya systemet integrera med det gamla?"
+        },
+        "q2": {
+          "question": "Vad ska systemet göra? (huvudsyfte)",
+          "crm": "CRM (Customer Relationship Management)",
+          "erp": "ERP (Enterprise Resource Planning)",
+          "booking": "Bokningssystem",
+          "ecommerce": "E-handel/Marketplace",
+          "projectManagement": "Projekthantering",
+          "internalTool": "Intern verktyg för anställda",
+          "customerPortal": "Kundportal",
+          "reporting": "Rapportering/Analytics",
+          "automation": "Automatisering av processer",
+          "iot": "IoT/Datavisualisering",
+          "mobileApp": "Mobil app",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv systemet..."
+        },
+        "q3": {
+          "question": "Beskriv systemet med egna ord",
+          "placeholder": "Så detaljerat som möjligt - vad ska systemet göra, vilka problem ska det lösa, hur ska det användas..."
+        },
+        "q4": {
+          "question": "Vem kommer använda systemet?",
+          "employees": "Anställda internt",
+          "customers": "Kunder/Slutanvändare",
+          "partners": "Partners/Återförsäljare",
+          "admins": "Administratörer",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv användare..."
+        },
+        "q5": {
+          "question": "Hur många användare ungefär?",
+          "1-10": "1-10",
+          "11-50": "11-50",
+          "51-200": "51-200",
+          "201-1000": "201-1000",
+          "1000+": "1000+"
+        }
+      },
+      "section2": {
+        "title": "Funktioner & Features",
+        "q6": {
+          "question": "Vilka huvudfunktioner behöver systemet?",
+          "userManagement": "Användarhantering (registrering, login, roller)",
+          "dashboard": "Dashboard/Översikt",
+          "dataVisualization": "Datavisualisering (grafer, diagram)",
+          "crud": "CRUD-operationer (Skapa, Läsa, Uppdatera, Ta bort data)",
+          "search": "Sökfunktionalitet",
+          "filterSort": "Filter & Sortering",
+          "notifications": "Notifikationer (email, push, SMS)",
+          "fileUpload": "Filuppladdning/Dokumenthantering",
+          "calendar": "Kalender/Tidsbokning",
+          "payments": "Betalningar/Fakturering",
+          "reports": "Rapporter/Export (PDF, Excel, etc)",
+          "api": "API för tredjepartsintegration",
+          "realtime": "Real-time uppdateringar",
+          "chat": "Chat/Meddelanden mellan användare",
+          "workflow": "Workflow/Automatiseringar",
+          "auditLog": "Audit log/Historik",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv funktioner..."
+        },
+        "q7": {
+          "question": "Beskriv era viktigaste user flows/arbetsflöden",
+          "placeholder": "T.ex. 'Kund loggar in → Söker produkt → Lägger order → Får bekräftelse'"
+        },
+        "q8": {
+          "question": "Behöver systemet integrera med andra system?",
+          "accounting": "Bokföringssystem",
+          "accountingPlaceholder": "Ange vilket...",
+          "crm": "CRM (Salesforce, HubSpot, etc)",
+          "payment": "Betalningsleverantör (Stripe, Klarna, Swish, etc)",
+          "email": "Email (Outlook, Gmail, etc)",
+          "calendar": "Kalender (Google Calendar, Outlook)",
+          "inventory": "Lagersystem",
+          "logistics": "Logistik/Frakt",
+          "socialMedia": "Sociala medier",
+          "analytics": "Analytics (Google Analytics, Mixpanel, etc)",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv integration..."
+        }
+      },
+      "section3": {
+        "title": "Datahantering",
+        "q9": {
+          "question": "Vilken typ av data kommer systemet hantera?",
+          "customerData": "Kunddata",
+          "productData": "Produktdata",
+          "transactions": "Transaktioner/Beställningar",
+          "documents": "Dokument/Filer",
+          "userContent": "Användargenererat innehåll",
+          "sensitive": "Känslig/Personlig data (kräver extra säkerhet)",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv datatyper..."
+        },
+        "q10": {
+          "question": "Hur viktigt är GDPR-compliance?",
+          "critical": "Kritiskt viktigt",
+          "important": "Viktigt",
+          "lessImportant": "Mindre viktigt"
+        },
+        "q11": {
+          "question": "Behöver data exporteras/importeras?",
+          "regularExports": "Ja, regelbundna exporter",
+          "onetimeImport": "Ja, engångsimport av befintlig data",
+          "both": "Både import och export",
+          "no": "Nej"
+        }
+      },
+      "section4": {
+        "title": "Användargränssnitt & Design",
+        "q12": {
+          "question": "Ladda upp er logotyp",
+          "uploadButton": "Välj fil",
+          "fileHelp": "PNG, SVG, AI, PDF - max 10MB"
+        },
+        "q13": {
+          "question": "Välj färgpalett för systemet",
+          "primaryColor": "Primärfärg (hex)",
+          "secondaryColor": "Sekundärfärg (hex)",
+          "accentColor": "Accentfärg (hex)",
+          "orSelector": "Eller väljare/låt Siteflow föreslå"
+        },
+        "q14": {
+          "question": "Har ni designpreferenser?",
+          "modern": "Modern & minimalistisk",
+          "dataHeavy": "Data-tung (många tabeller/grafer)",
+          "mobileFirst": "Mobil-first",
+          "desktopFirst": "Desktop-first",
+          "followBrand": "Följ vår befintliga design/brandbook",
+          "inspired": "Inspirerad av",
+          "inspiredPlaceholder": "Länk/beskrivning..."
+        },
+        "q15": {
+          "question": "Ladda upp wireframes/mockups (Valfritt)",
+          "uploadButton": "Välj filer",
+          "description": "Om ni redan har skisser eller designförslag"
+        },
+        "q16": {
+          "question": "Behöver systemet fungera på mobil/surfplatta?",
+          "responsiveWeb": "Ja, responsiv webbapp",
+          "nativeApp": "Ja, vi vill ha native mobilapp (iOS/Android)",
+          "desktopOnly": "Endast desktop",
+          "unsure": "Osäker/vill diskutera"
+        }
+      },
+      "section5": {
+        "title": "Tekniska Krav & Säkerhet",
+        "q17": {
+          "question": "Finns det särskilda tekniska krav?",
+          "language": "Specifik programmeringsspråk",
+          "languagePlaceholder": "Ange språk...",
+          "database": "Specifik databas (PostgreSQL, MongoDB, etc)",
+          "cloudProvider": "Molnleverantör (AWS, Azure, Google Cloud)",
+          "onPremise": "On-premise hosting",
+          "noRequirements": "Inga specifika krav"
+        },
+        "q18": {
+          "question": "Säkerhetskrav",
+          "2fa": "Two-factor authentication (2FA)",
+          "sso": "Single Sign-On (SSO)",
+          "rbac": "Rollbaserad åtkomstkontroll",
+          "encryption": "Kryptering av känslig data",
+          "ipWhitelist": "IP-whitelist",
+          "auditLogging": "Audit logging",
+          "penetrationTesting": "Penetrationstester",
+          "certification": "ISO/SOC-certifiering",
+          "other": "Annat",
+          "otherPlaceholder": "Beskriv krav..."
+        },
+        "q19": {
+          "question": "Prestanda & Skalning",
+          "concurrentUsers": "Hur många samtidiga användare förväntas?",
+          "responseTime": "Kritisk responstid? (t.ex. 'under 200ms')",
+          "dataGrowth": "Förväntad datatillväxt per år?"
+        },
+        "q20": {
+          "question": "Backup & Disaster Recovery",
+          "dailyBackups": "Dagliga backups",
+          "weeklyBackups": "Veckovisa backups",
+          "continuousBackup": "Kontinuerlig backup",
+          "redundantInfra": "Redundant infrastructure",
+          "recoveryPlan": "Disaster recovery plan"
+        }
+      },
+      "section6": {
+        "title": "Admin & Underhåll",
+        "q21": {
+          "question": "Vem ska kunna administrera systemet?",
+          "needAdminUI": "Vi behöver ett admin-gränssnitt",
+          "siteflowOnly": "Endast Siteflow-support",
+          "both": "Både oss och Siteflow"
+        },
+        "q22": {
+          "question": "Behöver ni utbildning för administratörer?",
+          "onsite": "Ja, on-site",
+          "remote": "Ja, remote/video",
+          "documentation": "Ja, dokumentation räcker",
+          "no": "Nej"
+        },
+        "q23": {
+          "question": "Dokumentation",
+          "userDocs": "Användardokumentation",
+          "techDocs": "Teknisk dokumentation",
+          "apiDocs": "API-dokumentation",
+          "videoTutorials": "Video-tutorials",
+          "all": "Allt ovanstående"
+        }
+      },
+      "section7": {
+        "title": "Budget & Timeline",
+        "q24": {
+          "question": "Vad är er budget för projektet?",
+          "under100k": "Under 100 000 kr",
+          "100-250k": "100 000 - 250 000 kr",
+          "250-500k": "250 000 - 500 000 kr",
+          "500k-1M": "500 000 - 1 000 000 kr",
+          "1M+": "1 000 000+ kr",
+          "noFixed": "Har ingen fast budget/vill diskutera"
+        },
+        "q25": {
+          "question": "När behöver systemet vara klart?",
+          "asap": "Så snart som möjligt",
+          "2months": "Inom 2 månader",
+          "3-6months": "Inom 3-6 månader",
+          "6-12months": "Inom 6-12 månader",
+          "12months+": "12+ månader",
+          "noDate": "Inget specifikt datum",
+          "specificDate": "Specifikt datum",
+          "datePlaceholder": "ÅÅÅÅ-MM-DD"
+        },
+        "q26": {
+          "question": "Är detta ett MVP (Minimum Viable Product) eller full version?",
+          "mvp": "MVP - vi vill lansera snabbt med grundfunktioner",
+          "fullVersion": "Full version från start",
+          "unsure": "Osäker/vill diskutera"
+        }
+      },
+      "section8": {
+        "title": "Support & Underhåll efter lansering",
+        "q27": {
+          "question": "Vilken nivå av support behöver ni efter lansering?",
+          "basic": "Grundsupport (bug fixes)",
+          "standard": "Standard support (5x8, svarstid 24h)",
+          "premium": "Premium support (24/7, svarstid 2h)",
+          "selfMaintain": "Vi sköter underhållet själva",
+          "unsure": "Osäker/vill diskutera"
+        },
+        "q28": {
+          "question": "Planerar ni vidareutveckling efter lansering?",
+          "continuous": "Ja, kontinuerlig utveckling",
+          "sporadic": "Ja, men mer sporadiskt",
+          "maintenanceOnly": "Nej, bara underhåll",
+          "unsure": "Osäker"
+        }
+      },
+      "section9": {
+        "title": "Övrigt",
+        "q29": {
+          "question": "Nuvarande utmaningar & problem",
+          "placeholder": "Beskriv i detalj vilka problem/utmaningar ni har idag som systemet ska lösa..."
+        },
+        "q30": {
+          "question": "Success metrics",
+          "placeholder": "Hur mäter ni att projektet är lyckat? T.ex. '50% minskning i manuellt arbete', '500 aktiva användare första månaden'"
+        },
+        "q31": {
+          "question": "Något annat vi bör veta?",
+          "placeholder": "Övriga önskemål, krav, frågor..."
+        }
+      }
+    },
+    "review": {
+      "title": "Granska din information",
+      "subtitle": "Se över alla dina svar innan du skickar in",
+      "edit": "Redigera",
+      "editSection": "Redigera",
+      "noAnswer": "Inget svar",
+      "submitButton": "Skicka in projektförfrågan",
+      "confirmTitle": "Bekräfta inlämning",
+      "confirmMessage": "Är du säker på att du vill skicka in projektförfrågan? Du kan inte redigera den efter inlämning.",
+      "confirmYes": "Ja, skicka in",
+      "confirmNo": "Nej, fortsätt redigera"
+    },
+    "confirmation": {
+      "title": "Tack för din projektförfrågan!",
+      "subtitle": "Vi har tagit emot din projektförfrågan",
+      "message": "Din förfrågan har skickats in. Vårt team kommer att granska den och återkoppla inom 2 arbetsdagar.",
+      "nextSteps": "Vad händer nu?",
+      "step1": "Vårt team granskar din förfrågan och kontaktar dig för eventuella frågor",
+      "step2": "Vi skapar en produktplan baserad på dina behov och skickar den för godkännande",
+      "step3": "Efter ditt godkännande påbörjar vi projektet enligt överenskommen tidplan",
+      "referenceId": "Referensnummer",
+      "backToDashboard": "Tillbaka till dashboard"
+    },
+    "sections": {
+      "basic_info": "Grundläggande information",
+      "current_situation": "Nuvarande situation",
+      "goals": "Mål & Vision",
+      "design": "Design & Varumärke",
+      "content": "Innehåll",
+      "functionality": "Funktionalitet",
+      "technical": "Tekniska krav",
+      "budget_timeline": "Budget & Tidplan"
+    }
+  },
+  "common": {
+    "loading": "Laddar...",
+    "close": "Stäng",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "edit": "Redigera",
+    "view": "Visa",
+    "search": "Sök",
+    "filter": "Filtrera",
+    "export": "Exportera",
+    "import": "Importera"
+  },
+  "admin": {
+    "formResponses": {
+      "title": "Projektförfrågningar",
+      "subtitle": "{{count}} förfrågningar totalt",
+      "empty": {
+        "title": "Inga projektförfrågningar",
+        "message": "Det finns inga inskickade projektförfrågningar ännu."
+      },
+      "types": {
+        "website": "Hemsida",
+        "system": "System",
+        "both": "Hemsida & System"
+      },
+      "viewDetails": "Visa detaljer",
+      "sectionOverview": "Sektionsöversikt",
+      "noAnswer": "Inget svar",
+      "lastUpdated": "Senast uppdaterad",
+      "priority": {
+        "label": "Prioritet",
+        "markAsPriority": "Markera som prioritet",
+        "removePriority": "Ta bort prioritet",
+        "isPriority": "Prioriterad"
+      },
+      "internalNotes": {
+        "title": "Interna anteckningar",
+        "empty": "Inga interna anteckningar",
+        "add": "Lägg till anteckning",
+        "placeholder": "Skriv en intern anteckning...",
+        "save": "Spara",
+        "cancel": "Avbryt",
+        "delete": "Ta bort",
+        "edit": "Redigera",
+        "confirmDelete": "Är du säker på att du vill ta bort denna anteckning?",
+        "by": "av",
+        "updated": "Uppdaterad"
+      }
+    },
+    "fileBrowser": {
+      "title": "Filhantering",
+      "subtitle": "{{count}} filer totalt",
+      "empty": {
+        "title": "Inga filer",
+        "message": "Det finns inga uppladdade filer ännu."
+      },
+      "search": "Sök filer...",
+      "allCategories": "Alla kategorier",
+      "allFiles": "Alla filer",
+      "companies": "Företag",
+      "projects": "Projekt",
+      "categories": "Kategorier",
+      "files": "filer",
+      "sortName": "Namn",
+      "sortCategory": "Kategori",
+      "sortSize": "Storlek",
+      "sortDate": "Datum",
+      "actions": "Åtgärder",
+      "noFiles": "Inga filer i denna mapp",
+      "download": "Ladda ner",
+      "previewNotAvailable": "Förhandsgranskning ej tillgänglig för denna filtyp",
+      "category": {
+        "contract": "Kontrakt",
+        "specification": "Specifikation",
+        "design": "Design",
+        "report": "Rapport",
+        "invoice": "Faktura",
+        "other": "Övrigt"
+      }
+    }
   }
 }
