@@ -25,7 +25,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
     { label: t('nav.home'), page: 'home' },
     { label: t('nav.philosophy'), page: 'philosophy' },
     { label: t('nav.audience'), page: 'audience' },
-    { label: t('nav.results'), page: 'results' },
+    { label: t('nav.caseStudies'), page: 'caseStudies' },
+    { label: t('nav.blog'), page: 'blog' },
   ];
 
   const toggleLanguage = () => {

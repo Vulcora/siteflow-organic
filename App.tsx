@@ -17,6 +17,12 @@ const AudiencePage = lazy(() => import('./components/AudiencePage'));
 const ResultsPage = lazy(() => import('./components/ResultsPage'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
 const LoginPage = lazy(() => import('./components/LoginPage'));
+const BlogPage = lazy(() => import('./components/BlogPage'));
+const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
+const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
+const CaseStudyPage = lazy(() => import('./components/CaseStudyPage'));
+const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('./components/TermsOfServicePage'));
 
 import { Page } from './types';
 
@@ -29,18 +35,26 @@ const PageLoader = () => (
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentBlogSlug, setCurrentBlogSlug] = useState<string | null>(null);
+  const [currentCaseStudySlug, setCurrentCaseStudySlug] = useState<string | null>(null);
 
   // Handle side effects of navigation (SEO Title + Scroll)
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     const titles: Record<Page, string> = {
       home: 'Siteflow | Digitala system som flödar naturligt',
       philosophy: 'Vår Filosofi | Siteflow',
       audience: 'För Vem? | Siteflow',
       results: 'Resultat & Case | Siteflow',
       contact: 'Starta Dialog | Siteflow',
-      login: 'Logga in | Siteflow'
+      login: 'Logga in | Siteflow',
+      blog: 'Blogg | Siteflow',
+      blogPost: 'Blogg | Siteflow',
+      caseStudies: 'Kundcase | Siteflow',
+      caseStudy: 'Kundcase | Siteflow',
+      privacy: 'Integritetspolicy | Siteflow',
+      terms: 'Användarvillkor | Siteflow'
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -48,6 +62,32 @@ const App: React.FC = () => {
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
+    if (page !== 'blogPost') {
+      setCurrentBlogSlug(null);
+    }
+    if (page !== 'caseStudy') {
+      setCurrentCaseStudySlug(null);
+    }
+  };
+
+  const handleSelectBlogPost = (slug: string) => {
+    setCurrentBlogSlug(slug);
+    setCurrentPage('blogPost');
+  };
+
+  const handleBackToBlog = () => {
+    setCurrentBlogSlug(null);
+    setCurrentPage('blog');
+  };
+
+  const handleSelectCaseStudy = (slug: string) => {
+    setCurrentCaseStudySlug(slug);
+    setCurrentPage('caseStudy');
+  };
+
+  const handleBackToCaseStudies = () => {
+    setCurrentCaseStudySlug(null);
+    setCurrentPage('caseStudies');
   };
 
   const renderPage = () => {
@@ -76,6 +116,22 @@ const App: React.FC = () => {
         return <Suspense fallback={<PageLoader />}><ContactPage /></Suspense>;
       case 'login':
         return <Suspense fallback={<PageLoader />}><LoginPage /></Suspense>;
+      case 'blog':
+        return <Suspense fallback={<PageLoader />}><BlogPage onNavigate={handleNavigate} onSelectPost={handleSelectBlogPost} /></Suspense>;
+      case 'blogPost':
+        return currentBlogSlug ? (
+          <Suspense fallback={<PageLoader />}><BlogPostPage slug={currentBlogSlug} onNavigate={handleNavigate} onBack={handleBackToBlog} /></Suspense>
+        ) : null;
+      case 'caseStudies':
+        return <Suspense fallback={<PageLoader />}><CaseStudiesPage onNavigate={handleNavigate} onSelectCase={handleSelectCaseStudy} /></Suspense>;
+      case 'caseStudy':
+        return currentCaseStudySlug ? (
+          <Suspense fallback={<PageLoader />}><CaseStudyPage slug={currentCaseStudySlug} onNavigate={handleNavigate} onBack={handleBackToCaseStudies} /></Suspense>
+        ) : null;
+      case 'privacy':
+        return <Suspense fallback={<PageLoader />}><PrivacyPolicyPage onNavigate={handleNavigate} /></Suspense>;
+      case 'terms':
+        return <Suspense fallback={<PageLoader />}><TermsOfServicePage onNavigate={handleNavigate} /></Suspense>;
       default:
         return <Hero onNavigate={handleNavigate} />;
     }
@@ -87,7 +143,7 @@ const App: React.FC = () => {
       <main className="flex-grow">
         {renderPage()}
       </main>
-      <Footer />
+      <Footer onNavigate={handleNavigate} />
     </div>
   );
 };

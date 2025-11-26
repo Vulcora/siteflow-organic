@@ -15,6 +15,9 @@ const AudiencePage: React.FC<AudiencePageProps> = ({ onNavigate }) => {
     <div className="min-h-screen">
       {/* Header */}
       <div className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
+         {/* Background Image */}
+         <div className="absolute inset-0 bg-[url('/ilustration/4.png')] bg-cover bg-center opacity-10"></div>
+
          {/* Background Effects */}
          <div className="absolute inset-0 overflow-hidden pointer-events-none">
            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3"></div>

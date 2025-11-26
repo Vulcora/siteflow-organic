@@ -1,33 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main Pages -->
   <url>
     <loc>https://siteflow.se/</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2025-11-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
   <url>
     <loc>https://siteflow.se/philosophy</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2025-11-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://siteflow.se/audience</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2025-11-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://siteflow.se/results</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2025-11-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://siteflow.se/contact</loc>
-    <lastmod>2025-11-25</lastmod>
+    <lastmod>2025-11-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Blog Section -->
+  <url>
+    <loc>https://siteflow.se/blogg</loc>
+    <lastmod>2025-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://siteflow.se/blogg/tekniken-bakom-siteflow</loc>
+    <lastmod>2024-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/blogg/system-som-haller</loc>
+    <lastmod>2024-11-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/blogg/system-zoo</loc>
+    <lastmod>2024-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Case Studies Section -->
+  <url>
+    <loc>https://siteflow.se/kundcase</loc>
+    <lastmod>2025-11-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Case Studies -->
+  <url>
+    <loc>https://siteflow.se/kundcase/e-handel-automation</loc>
+    <lastmod>2024-11-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/kundcase/logistik-modernisering</loc>
+    <lastmod>2024-11-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/kundcase/healthcare-tech-debt</loc>
+    <lastmod>2024-10-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/kundcase/fintech-betalningsintegration</loc>
+    <lastmod>2024-11-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://siteflow.se/integritetspolicy</loc>
+    <lastmod>2025-11-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://siteflow.se/anvandarvillkor</loc>
+    <lastmod>2025-11-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
