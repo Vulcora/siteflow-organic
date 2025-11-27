@@ -61,8 +61,7 @@ config :backend, Oban,
     ai_chat: 5           # RAG chat processing
   ],
   plugins: [
-    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},  # Keep jobs for 7 days
-    Oban.Plugins.Stager
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7}  # Keep jobs for 7 days
   ]
 
 # Gemini AI configuration

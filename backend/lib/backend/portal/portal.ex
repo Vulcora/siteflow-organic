@@ -110,6 +110,24 @@ defmodule Backend.Portal do
       rpc_action :manual_knowledge_entry_update, :update
       rpc_action :manual_knowledge_entry_destroy, :destroy
     end
+
+    # Product Plan System
+    resource Backend.Portal.ProductPlan do
+      rpc_action :product_plan_read, :read
+      rpc_action :product_plan_by_project, :by_project
+      rpc_action :product_plan_active_by_project, :active_by_project
+      rpc_action :product_plan_pending_approval, :pending_approval
+      rpc_action :product_plan_needing_revision, :needing_revision
+      rpc_action :product_plan_create, :create
+      rpc_action :product_plan_update, :update
+      rpc_action :product_plan_send_to_customer, :send_to_customer
+      rpc_action :product_plan_mark_viewed, :mark_viewed
+      rpc_action :product_plan_approve, :approve
+      rpc_action :product_plan_request_changes, :request_changes
+      rpc_action :product_plan_revise, :revise
+      rpc_action :product_plan_archive, :archive
+      rpc_action :product_plan_destroy, :destroy
+    end
   end
 
   resources do
@@ -127,5 +145,7 @@ defmodule Backend.Portal do
     resource Backend.Portal.GeneratedDocument
     resource Backend.Portal.ChatMessage
     resource Backend.Portal.ManualKnowledgeEntry
+    # Product Plan System
+    resource Backend.Portal.ProductPlan
   end
 end

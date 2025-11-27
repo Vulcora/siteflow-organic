@@ -29,10 +29,10 @@ Denna fil jämför [customer-portal-spec.md](customer-portal-spec.md) mot den nu
 
 ### Implementationsstadium
 - **Fas:** MVP+ (mer än MVP, men inte alla "future features")
-- **Backend:** ~75% komplett (grundläggande CRUD, autentisering och FormResponse fungerar)
+- **Backend:** ~90% komplett (CRUD, autentisering, FormResponse, RAG/AI services, Onboarding, ProductPlan)
 - **Frontend:** ~60% komplett (dashboards, formulär och dynamiska projektformulär implementerade)
-- **Integration:** ~65% komplett (RPC-anrop fungerar, men filuppladdning och notifikationer saknas)
-- **AI/RAG:** 📋 Planerat (pgvector, Gemini, streaming chat - se detaljerad plan)
+- **Integration:** ~70% komplett (RPC-anrop fungerar, RAG backend redo, men filuppladdning och notifikationer saknas)
+- **AI/RAG:** ✅ Backend KLART (GeminiClient, EmbeddingService, DocumentGenerator, RAGService, Oban workers)
 
 ---
 
@@ -167,12 +167,22 @@ Denna fil jämför [customer-portal-spec.md](customer-portal-spec.md) mot den nu
 - [x] POST /api/auth/register
 - [x] POST /api/auth/sign-in
 - [x] DELETE /api/auth/sign-out
+- [x] GET /api/onboarding/validate/:token - Validera invitation token (2025-11-27)
+- [x] POST /api/onboarding/register - Registrera via invitation (2025-11-27)
 
 #### ✅ Protected Endpoints
 - [x] POST /api/rpc/run - Execute RPC actions
 - [x] POST /api/rpc/validate - Validate RPC actions
 - [x] /api/accounts/* - Accounts domain JSON API
 - [x] /api/portal/* - Portal domain JSON API
+
+#### ✅ RPC Actions (tillagda 2025-11-27)
+ProductPlan:
+- [x] product_plan_read, product_plan_by_project, product_plan_active_by_project
+- [x] product_plan_pending_approval, product_plan_needing_revision
+- [x] product_plan_create, product_plan_update, product_plan_destroy
+- [x] product_plan_send_to_customer, product_plan_mark_viewed
+- [x] product_plan_approve, product_plan_request_changes, product_plan_revise, product_plan_archive
 
 ### DevOps & Setup
 - [x] PowerShell scripts för Windows development
@@ -189,32 +199,36 @@ Denna fil jämför [customer-portal-spec.md](customer-portal-spec.md) mot den nu
 ### Kundflöde från Spec
 
 #### ❌ Steg 1: Email-inbjudan **[ARIAN]**
-- [ ] **[ARIAN]** Email-sending funktionalitet (ingen integration med SendGrid/AWS SES ännu)
+- [ ] **[ARIAN]** Email-sending funktionalitet 
 - [ ] **[ARIAN]** Email-mallar för inbjudan
 - [ ] **[ARIAN]** "Kom igång"-knapp i email som leder till registrering
 
-#### ❌ Steg 2: Onboarding via Inbjudningslänk
+#### ⚠️ Steg 2: Onboarding via Inbjudningslänk (BACKEND KLART 2025-11-27)
 **Kunder kan INTE registrera sig själva - de får en inbjudningslänk från Siteflow:**
 
-**Steg 2a: Företagsinformation**
-- [ ] Registreringsflöde via invitation token (enda sättet att komma in)
-- [ ] Företagsnamn (obligatoriskt)
-- [ ] Kontaktperson: för- och efternamn (obligatoriskt)
-- [ ] Email (obligatoriskt)
-- [ ] Telefonnummer (obligatoriskt)
-- [ ] Organisationsnummer (VALFRITT - för utländska kunder)
-- [ ] Antal anställda (dropdown: 1-10, 11-50, 51-200, 201+)
-- [ ] Bransch (dropdown med sök)
-- [ ] Företagets webbplats
-- [ ] Lösenord (skapa)
-- [ ] Logotyp-uppladdning (valfritt men uppmuntras)
-- [ ] Valfria fält: Adress, Faktureringsadress
+**Steg 2a: Företagsinformation - BACKEND KLART**
+- [x] Registreringsflöde via invitation token (enda sättet att komma in)
+- [x] OnboardingService + OnboardingController implementerat
+- [x] API: `GET /api/onboarding/validate/:token` - Validera token
+- [x] API: `POST /api/onboarding/register` - Registrera användare + företag
+- [x] Företagsnamn (obligatoriskt)
+- [x] Kontaktperson: för- och efternamn (obligatoriskt)
+- [x] Email (obligatoriskt)
+- [x] Telefonnummer (obligatoriskt)
+- [x] Organisationsnummer (VALFRITT - nullable för utländska kunder, validering för 10 siffror om angivet)
+- [x] Antal anställda (employee_count fält)
+- [x] Bransch (industry fält)
+- [x] Företagets webbplats (website fält)
+- [x] Lösenord (via register_with_password action)
+- [x] Logotyp-URL (logo_url fält)
+- [x] Faktureringsadress (billing_address, billing_city, billing_postal_code, billing_country)
+- [ ] **Frontend UI för onboarding-formulär** (saknas)
 
 **Steg 2b: RAG-indexering (bakgrund)**
-- [ ] När företagsinfo är klart → RAG indexerar automatiskt i bakgrunden
-- [ ] Kunden ser inte detta, går direkt vidare till projektformulär
+- [x] När företagsinfo är klart → Logger meddelar att RAG indexeras vid första projektet
+- [ ] Faktisk RAG-indexering av företagsinfo (triggas vid projekt-skapande)
 
-**Status:** Vi har bara en enkel LoginPage, inget registreringsformulär.
+**Status:** Backend KLART! Frontend onboarding-formulär saknas.
 
 #### ✅ Steg 3: Dynamiska Projektformulär
 **IMPLEMENTERAT!**
@@ -269,17 +283,19 @@ Denna fil jämför [customer-portal-spec.md](customer-portal-spec.md) mot den nu
   - [x] Markera som prioritet (is_priority på Project, toggle-knapp i AdminFormResponseView)
   - [x] Lägg till interna anteckningar (InternalNote-resurs, visas i detail-modal)
 
-#### ❌ Produktplan-funktionalitet
-Specen beskriver ett omfattande produktplan-system som **helt saknas**:
-- [ ] ProductPlan-resurs i databasen (finns ej i schema!)
-- [ ] Produktplan-mall (markdown/HTML)
-- [ ] Admin kan skapa produktplan
-- [ ] Ladda upp produktplan som PDF eller strukturerad data
-- [ ] Kund-godkännandeflöde
+#### ✅ Produktplan-funktionalitet (IMPLEMENTERAT 2025-11-27)
+- [x] ProductPlan-resurs i databasen
+- [x] Admin kan skapa produktplan (create action)
+- [x] Ladda upp produktplan som PDF (pdf_url fält)
+- [x] Markdown-innehåll (content fält)
+- [x] Kund-godkännandeflöde (approve/request_changes actions)
+- [x] Kund kan godkänna eller begära ändringar
+- [x] Versionshantering vid revision
+- [x] State machine: draft → sent → viewed → approved/changes_requested → revised → archived
 - [ ] **[ARIAN]** Email-notifikation till kund när produktplan är klar
-- [ ] Kund kan godkänna eller begära ändringar
+- [ ] Frontend UI för produktplan (admin + kund)
 
-**Status:** Ingen produktplan-funktionalitet implementerad alls.
+**Status:** Backend KLART! Frontend UI saknas.
 
 ### Kundportal - Dashboard-funktioner som saknas
 
@@ -512,17 +528,17 @@ Specen definierar ett MVP (Fas 1) med följande krav:
 
 | Feature | Status | Kommentar |
 |---------|--------|-----------|
-| ✅ Kundinbjudan via email | ❌ Saknas | Invitation-resurs finns, men ingen email-sending |
-| ✅ Registrering & företagsinformation | ❌ Saknas | Ingen onboarding-flow |
+| ✅ Kundinbjudan via email | ⚠️ Delvis | Invitation-resurs finns, OnboardingService KLART, men email-sending saknas [ARIAN] |
+| ✅ Registrering & företagsinformation | ⚠️ Delvis | Backend KLART (OnboardingService), frontend UI saknas |
 | ✅ Dynamiskt formulär (hemsida/system) | ✅ Ja | DynamicProjectForm med 24+31 frågor, FormResponse backend |
 | ✅ Admin tar emot förfrågningar | ⚠️ Delvis | Admin kan se projekt, formulärsvar lagras i FormResponse |
-| ✅ Produktplan-upload | ❌ Saknas | Ingen ProductPlan-resurs |
-| ✅ Kund-godkännande | ❌ Saknas | Ingen godkännandemekanism |
+| ✅ Produktplan-upload | ✅ Ja | ProductPlan-resurs med full state machine (2025-11-27) |
+| ✅ Kund-godkännande | ✅ Ja | ProductPlan approve/request_changes actions KLART |
 | ✅ Enkel dashboard för kund | ⚠️ Delvis | CustomerDashboard finns, men saknar progress/timeline |
-| ✅ Admin kan posta uppdateringar | ❌ Saknas | Ingen Updates-resurs eller feed |
+| ✅ Admin kan posta uppdateringar | ❌ Saknas | Ingen Updates-resurs eller feed [ARIAN] |
 | ✅ Ticket-system (basic) | ✅ Ja | Fungerar med CRUD och state machine |
 
-**MVP-score: 3/9 komplett, 2/9 delvis**
+**MVP-score: 5/9 komplett, 3/9 delvis, 1/9 saknas**
 
 ---
 
@@ -538,11 +554,11 @@ Baserat på spec och vad som saknas, här är vad som bör implementeras härnä
    - ~~JSON schema för dynamiska formulär~~ ✅
    - ~~översättning~~ ✅ (svenska och engelska)
 
-2. **Produktplan-system**
-   - ProductPlan-resurs i backend
-   - Admin kan skapa/ladda upp produktplan
-   - Kund kan godkänna/begära ändringar
-   - Visa produktplan för kund
+2. ~~**Produktplan-system**~~ ✅ **KLART! (2025-11-27)**
+   - ~~ProductPlan-resurs i backend~~ ✅
+   - ~~Admin kan skapa/ladda upp produktplan~~ ✅
+   - ~~Kund kan godkänna/begära ändringar~~ ✅
+   - [ ] Frontend UI för produktplan (admin + kund) - SAKNAS
 
 3. **Email-integration** **[ARIAN]**
    - **[ARIAN]** SendGrid eller AWS SES setup
@@ -551,20 +567,23 @@ Baserat på spec och vad som saknas, här är vad som bör implementeras härnä
    - **[ARIAN]** Template system med interpolation
    - **[ARIAN]** Delivery tracking och retries
 
-4. **Onboarding-flow** (kunder kan EJ registrera sig själva)
-   - Invitation token är enda sättet in
-   - Steg 1: Företagsinfo + logga-uppladdning (org.nr valfritt för utländska)
-   - Steg 2: RAG indexerar företagsinfo i bakgrunden (kunden ser ej)
-   - Steg 3: Projektformulär (redan implementerat)
+4. ~~**Onboarding-flow**~~ ⚠️ **Backend KLART! (2025-11-27)**
+   - ~~Invitation token är enda sättet in~~ ✅
+   - ~~OnboardingService + OnboardingController~~ ✅
+   - ~~Company-resurs utökad med onboarding-fält~~ ✅
+   - ~~org.nr valfritt för utländska kunder~~ ✅
+   - [ ] Frontend onboarding-formulär - SAKNAS
    - **[ARIAN]** "Kom igång"-email med inbjudningslänk
 
 ### 🟡 Högt prioriterade (Förbättrar UX)
-5. **🤖 RAG/AI-system** (PLANERAT - se detaljerad plan nedan)
-   - Vector database (pgvector) för embeddings
-   - Automatisk dokumentgenerering från formulärsvar
-   - Streaming RAG-chat för admin/dev
-   - Manuell kunskapshantering via AI
-   - Access control: Admin + staff med `can_use_ai_chat`
+5. ~~**🤖 RAG/AI-system**~~ ✅ **BACKEND KLART! (2025-11-27)**
+   - ~~Vector database (pgvector/float[] fallback) för embeddings~~ ✅
+   - ~~Automatisk dokumentgenerering från formulärsvar~~ ✅ (DocumentGenerator)
+   - ~~Streaming RAG-chat för admin/dev~~ ✅ (RAGService)
+   - ~~Oban workers för bakgrundsjobb~~ ✅
+   - ~~Access control: Admin + staff med `can_use_ai_chat`~~ ✅
+   - [ ] Frontend RAG chat UI - SAKNAS
+   - [ ] Frontend GeneratedDocuments viewer - SAKNAS
 
 6. **Updates/Feed-system** **[ARIAN]**
    - **[ARIAN]** Updates-resurs i backend
@@ -634,12 +653,17 @@ Baserat på spec och vad som saknas, här är vad som bör implementeras härnä
 För att uppnå **MVP enligt spec**, fokusera på:
 
 1. ~~**Dynamiska formulär**~~ ✅ KLART - Kärnan i specen
-2. **Produktplan-system** - Nödvändigt för workflow
+2. ~~**Produktplan-system**~~ ✅ BACKEND KLART - Behöver frontend UI
 3. **Email-integration [ARIAN]** - Kritiskt för kommunikation
-4. **Onboarding-flow** - Komplett kundresa från inbjudan till dashboard
-5. **RAG/AI-system** - Intelligent dokumentgenerering och chat (se detaljerad plan)
+4. ~~**Onboarding-flow**~~ ✅ BACKEND KLART - Behöver frontend UI
+5. ~~**RAG/AI-system**~~ ✅ BACKEND KLART - Behöver frontend UI
 
-Nuvarande implementation har **bra grund** (backend-resurser, autentisering, rollsystem, dashboards, dynamiska formulär), men saknar **produktplan-flödet** och **AI-strukturering** som specen beskriver.
+**Nästa prioritet: Frontend UI för:**
+- Onboarding-formulär (registrering via invitation token)
+- ProductPlan-komponenter (admin skapar/skickar, kund godkänner)
+- RAG Chat-komponent med streaming
+
+Nuvarande implementation har **mycket bra grund** - alla backend-system för MVP är på plats!
 
 ---
 
@@ -704,9 +728,9 @@ Arian ansvarar för hela notifikations- och event-systemet med följande feature
 
 **Sammanfattning:**
 - ✅ **Bra:** Backend-resurser, rollsystem, dashboards, formulär-komponenter, **dynamiska projektformulär**, **admin filhantering**, **interna anteckningar**, **prioritets-toggle**
+- ✅ **Nytt (2025-11-27):** RAG/AI Phase 2 (GeminiClient, EmbeddingService, DocumentGenerator, RAGService, Oban workers), Onboarding-backend (OnboardingService, OnboardingController, Company utökad), ProductPlan-system (full state machine med godkännandeflöde)
 - ⚠️ **Delvis:** Basic CRUD fungerar, formulärsvar lagras, men inte det kompletta flödet
-- ❌ **Saknas:** Produktplan, email, updates/feed
-- 🤖 **Planerat:** RAG/AI-system (pgvector, Gemini, streaming chat)
+- ❌ **Saknas:** Frontend UI för onboarding/produktplan/RAG chat, email, updates/feed
 - 🔔 **Arian:** Hela notifikations- och event-systemet (email, in-app, real-time, multi-transport)
 
 **Senaste framsteg (2025-11-27):**
@@ -724,7 +748,7 @@ Arian ansvarar för hela notifikations- och event-systemet med följande feature
   - Breadcrumb-navigering
 - ✅ **Prioritets-toggle** - Markera projekt som prioriterade (is_priority på Project)
 - ✅ **Interna anteckningar** - InternalNote-resurs för Siteflow-personal (dold för kunder)
-- ✅ 250 enhetstester passerar
+- ✅ 250 enhetstester passerar (frontend)
 - 🤖 **RAG/AI-system Phase 1 KLART:**
   - Dependencies tillagda (pgvector, oban, req)
   - Oban konfigurerat i application.ex + config.exs
@@ -732,12 +756,66 @@ Arian ansvarar för hela notifikations- och event-systemet med följande feature
   - 4 Ash-resurser skapade (Embedding, GeneratedDocument, ChatMessage, ManualKnowledgeEntry)
   - User-resurs uppdaterad med can_use_ai_chat + has_ai_access calculation
   - RPC actions registrerade i Portal domain
-  - ✅ **22 tester passerar** för RAG-resurser (ChatMessage, GeneratedDocument, ManualKnowledgeEntry)
   - ✅ Migrations fungerar med/utan pgvector (fallback till float[] arrays)
 
+- 🤖 **RAG/AI-system Phase 2 KLART (2025-11-27):**
+  - ✅ **GeminiClient** (`backend/lib/backend/ai/gemini_client.ex`):
+    - `embed_text/1` - Genererar 768-dimensionella embeddings med text-embedding-004
+    - `generate_text/2` - Textgenerering med gemini-2.0-flash-exp
+    - `generate_text_stream/3` - Streaming via SSE med callback
+    - `analyze_image/2` - Vision/bildanalys
+  - ✅ **EmbeddingService** (`backend/lib/backend/ai/embedding_service.ex`):
+    - `embed_and_store/3` - Chunking (2000 tecken, 200 overlap) + embedding + lagring
+    - `search_similar/3` - Cosine similarity search
+    - Deduplication via content_hash
+  - ✅ **DocumentGenerator** (`backend/lib/backend/ai/document_generator.ex`):
+    - `generate_all_documents/2` - Genererar alla 4 dokumenttyper
+    - `generate_document/4` - Enskild dokumenttyp
+    - `regenerate_document/3` - Regenerera med versionering
+    - Dokumenttyper: project_spec, technical_requirements, design_brief, budget_timeline
+  - ✅ **RAGService** (`backend/lib/backend/ai/rag_service.ex`):
+    - `chat/4` - RAG-driven chat med streaming
+    - `build_context/2` - Hämtar relevanta embeddings
+    - `get_project_summary/1` - Projektsammanfattning
+  - ✅ **Oban Workers**:
+    - `DocumentGenerationWorker` - Asynkron dokumentgenerering
+    - `EmbeddingWorker` - Asynkron embedding-generering
+
+- ✅ **Onboarding-backend KLART (2025-11-27):**
+  - ✅ **OnboardingService** (`backend/lib/backend/accounts/onboarding_service.ex`):
+    - `validate_token/1` - Validerar invitation token
+    - `register_via_invitation/3` - Registrerar användare via inbjudan
+    - `get_invitation_details/1` - Hämtar inbjudningsinfo för onboarding
+  - ✅ **OnboardingController** (`backend/lib/backend_web/controllers/onboarding_controller.ex`):
+    - `GET /api/onboarding/validate/:token` - Validera token och hämta företagsinfo
+    - `POST /api/onboarding/register` - Registrera ny användare
+  - ✅ **Company-resurs utökad** med onboarding-fält:
+    - `employee_count` - Antal anställda (1-10, 11-50, 51-200, 201+)
+    - `industry` - Bransch/sektor
+    - `logo_url` - URL till företagslogotyp
+    - `billing_address`, `billing_city`, `billing_postal_code`, `billing_country`
+    - `org_number` nu valfritt (nullable) för utländska kunder
+    - Custom validation: OrgNumberValidation (10 siffror för svenska företag)
+
+- ✅ **ProductPlan-system KLART (2025-11-27):**
+  - ✅ **ProductPlan Ash-resurs** (`backend/lib/backend/portal/product_plan.ex`):
+    - State machine: draft → sent → viewed → approved/changes_requested → revised → archived
+    - Actions: create, update, send_to_customer, mark_viewed, approve, request_changes, revise, archive
+    - Read actions: by_project, active_by_project, pending_approval, needing_revision
+    - Calculations: is_pending_customer_action, is_approved, needs_admin_action, days_since_sent
+    - Versioning med auto-increment vid revision
+    - Timestamps: sent_at, viewed_at, approved_at, rejected_at
+    - Customer feedback och change_requests (map)
+  - ✅ **RPC actions registrerade** i Portal domain
+  - ✅ **Migration** (`20251127110000_create_product_plans.exs`)
+
+- ✅ **24 backend-tester passerar** (2025-11-27)
+- ✅ Inga kompileringsvarningar
+
 **Nästa steg:**
-- 🤖 **RAG/AI-system Phase 2** - AI Services (GeminiClient, EmbeddingService, etc.)
-- Implementera produktplan-system
+- 🎨 **Frontend: Onboarding UI** - Registreringsformulär via invitation token
+- 🎨 **Frontend: ProductPlan UI** - Admin-vy för att skapa/skicka produktplaner, kund-vy för godkännande
+- 🎨 **Frontend: RAG Chat UI** - Chat-komponent med streaming
 - **[ARIAN]** Sätt upp notifikations- och event-systemet enligt work package ovan
 
 **ACTION REQUIRED:**
@@ -808,16 +886,35 @@ Ett AI-drivet system som automatiskt strukturerar kundens svar i logiska dokumen
 - [x] Oban config i application.ex + config.exs
 - [x] Gemini API config
 
-#### Backend - AI Services
-- [ ] GeminiClient module (embeddings, generation, vision)
-- [ ] EmbeddingService (chunking, indexing)
-- [ ] DocumentGenerator (skapa dokument från formulärsvar)
-- [ ] RAGService (retrieve context, generate streaming response)
-- [ ] KnowledgeManager (manuell kunskap via AI)
+#### Backend - AI Services ✅ KLART (2025-11-27)
+- [x] GeminiClient module (`backend/lib/backend/ai/gemini_client.ex`)
+  - [x] embed_text/1 - embeddings med text-embedding-004
+  - [x] generate_text/2 - textgenerering med gemini-2.0-flash-exp
+  - [x] generate_text_stream/3 - streaming via SSE
+  - [x] analyze_image/2 - vision/bildanalys
+- [x] EmbeddingService (`backend/lib/backend/ai/embedding_service.ex`)
+  - [x] chunking (2000 tecken, 200 overlap)
+  - [x] embed_and_store/3
+  - [x] search_similar/3 (cosine similarity)
+- [x] DocumentGenerator (`backend/lib/backend/ai/document_generator.ex`)
+  - [x] generate_all_documents/2
+  - [x] generate_document/4
+  - [x] regenerate_document/3
+  - [x] 4 dokumenttyper: project_spec, technical_requirements, design_brief, budget_timeline
+- [x] RAGService (`backend/lib/backend/ai/rag_service.ex`)
+  - [x] chat/4 - RAG-driven chat med streaming
+  - [x] build_context/2
+  - [x] get_project_summary/1
+- [ ] KnowledgeManager (manuell kunskap via AI) - ej implementerat än
 
-#### Backend - Workers (Oban)
-- [ ] DocumentGenerationWorker (triggered vid form submission)
-- [ ] EmbeddingWorker (async embedding creation)
+#### Backend - Workers (Oban) ✅ KLART (2025-11-27)
+- [x] DocumentGenerationWorker (`backend/lib/backend/workers/document_generation_worker.ex`)
+  - [x] enqueue_all/2
+  - [x] enqueue_specific/3
+  - [x] enqueue_regenerate/3
+- [x] EmbeddingWorker (`backend/lib/backend/workers/embedding_worker.ex`)
+  - [x] enqueue_form_responses/1
+  - [x] enqueue_documents/1
 
 #### Backend - API
 - [ ] POST /api/rag/projects/:id/chat (streaming SSE)

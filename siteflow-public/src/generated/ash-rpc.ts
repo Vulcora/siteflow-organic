@@ -10,6 +10,7 @@ export type AshDate = string;
 export type Decimal = string;
 export type UUID = string;
 export type UtcDateTime = string;
+export type UtcDateTimeUsec = string;
 
 // User Schema
 export type UserResourceSchema = {
@@ -40,10 +41,10 @@ export type UserResourceSchema = {
 // Company Schema
 export type CompanyResourceSchema = {
   __type: "Resource";
-  __primitiveFields: "id" | "name" | "orgNumber" | "address" | "city" | "postalCode" | "country" | "phone" | "website" | "isActive";
+  __primitiveFields: "id" | "name" | "orgNumber" | "address" | "city" | "postalCode" | "country" | "phone" | "website" | "isActive" | "employeeCount" | "industry" | "logoUrl" | "billingAddress" | "billingCity" | "billingPostalCode" | "billingCountry";
   id: UUID;
   name: string;
-  orgNumber: string;
+  orgNumber: string | null;
   address: string | null;
   city: string | null;
   postalCode: string | null;
@@ -51,6 +52,13 @@ export type CompanyResourceSchema = {
   phone: string | null;
   website: string | null;
   isActive: boolean | null;
+  employeeCount: string | null;
+  industry: string | null;
+  logoUrl: string | null;
+  billingAddress: string | null;
+  billingCity: string | null;
+  billingPostalCode: string | null;
+  billingCountry: string | null;
 };
 
 
@@ -256,6 +264,38 @@ export type ManualKnowledgeEntryResourceSchema = {
 
 
 
+// ProductPlan Schema
+export type ProductPlanResourceSchema = {
+  __type: "Resource";
+  __primitiveFields: "id" | "title" | "content" | "summary" | "pdfUrl" | "version" | "status" | "sentAt" | "viewedAt" | "approvedAt" | "rejectedAt" | "customerFeedback" | "changeRequests" | "metadata" | "projectId" | "createdById" | "approvedById" | "isPendingCustomerAction" | "isApproved" | "needsAdminAction" | "daysSinceSent";
+  id: UUID;
+  title: string;
+  content: string;
+  summary: string | null;
+  pdfUrl: string | null;
+  version: number;
+  status: "draft" | "sent" | "viewed" | "approved" | "changes_requested" | "revised" | "archived";
+  sentAt: UtcDateTimeUsec | null;
+  viewedAt: UtcDateTimeUsec | null;
+  approvedAt: UtcDateTimeUsec | null;
+  rejectedAt: UtcDateTimeUsec | null;
+  customerFeedback: string | null;
+  changeRequests: Record<string, any> | null;
+  metadata: Record<string, any> | null;
+  projectId: UUID;
+  createdById: UUID | null;
+  approvedById: UUID | null;
+  isPendingCustomerAction: boolean | null;
+  isApproved: boolean | null;
+  needsAdminAction: boolean | null;
+  daysSinceSent: number | null;
+  project: { __type: "Relationship"; __resource: ProjectResourceSchema; };
+  createdBy: { __type: "Relationship"; __resource: UserResourceSchema | null; };
+  approvedBy: { __type: "Relationship"; __resource: UserResourceSchema | null; };
+};
+
+
+
 
 
 export type UserFilterInput = {
@@ -417,6 +457,48 @@ export type CompanyFilterInput = {
   isActive?: {
     eq?: boolean;
     notEq?: boolean;
+  };
+
+  employeeCount?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  industry?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  logoUrl?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  billingAddress?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  billingCity?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  billingPostalCode?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  billingCountry?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
   };
 
 
@@ -1145,6 +1227,166 @@ export type ManualKnowledgeEntryFilterInput = {
   project?: ProjectFilterInput;
 
   createdBy?: UserFilterInput;
+
+};
+export type ProductPlanFilterInput = {
+  and?: Array<ProductPlanFilterInput>;
+  or?: Array<ProductPlanFilterInput>;
+  not?: Array<ProductPlanFilterInput>;
+
+  id?: {
+    eq?: UUID;
+    notEq?: UUID;
+    in?: Array<UUID>;
+  };
+
+  title?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  content?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  summary?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  pdfUrl?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  version?: {
+    eq?: number;
+    notEq?: number;
+    greaterThan?: number;
+    greaterThanOrEqual?: number;
+    lessThan?: number;
+    lessThanOrEqual?: number;
+    in?: Array<number>;
+  };
+
+  status?: {
+    eq?: "draft" | "sent" | "viewed" | "approved" | "changes_requested" | "revised" | "archived";
+    notEq?: "draft" | "sent" | "viewed" | "approved" | "changes_requested" | "revised" | "archived";
+    in?: Array<"draft" | "sent" | "viewed" | "approved" | "changes_requested" | "revised" | "archived">;
+  };
+
+  sentAt?: {
+    eq?: UtcDateTimeUsec;
+    notEq?: UtcDateTimeUsec;
+    greaterThan?: UtcDateTimeUsec;
+    greaterThanOrEqual?: UtcDateTimeUsec;
+    lessThan?: UtcDateTimeUsec;
+    lessThanOrEqual?: UtcDateTimeUsec;
+    in?: Array<UtcDateTimeUsec>;
+  };
+
+  viewedAt?: {
+    eq?: UtcDateTimeUsec;
+    notEq?: UtcDateTimeUsec;
+    greaterThan?: UtcDateTimeUsec;
+    greaterThanOrEqual?: UtcDateTimeUsec;
+    lessThan?: UtcDateTimeUsec;
+    lessThanOrEqual?: UtcDateTimeUsec;
+    in?: Array<UtcDateTimeUsec>;
+  };
+
+  approvedAt?: {
+    eq?: UtcDateTimeUsec;
+    notEq?: UtcDateTimeUsec;
+    greaterThan?: UtcDateTimeUsec;
+    greaterThanOrEqual?: UtcDateTimeUsec;
+    lessThan?: UtcDateTimeUsec;
+    lessThanOrEqual?: UtcDateTimeUsec;
+    in?: Array<UtcDateTimeUsec>;
+  };
+
+  rejectedAt?: {
+    eq?: UtcDateTimeUsec;
+    notEq?: UtcDateTimeUsec;
+    greaterThan?: UtcDateTimeUsec;
+    greaterThanOrEqual?: UtcDateTimeUsec;
+    lessThan?: UtcDateTimeUsec;
+    lessThanOrEqual?: UtcDateTimeUsec;
+    in?: Array<UtcDateTimeUsec>;
+  };
+
+  customerFeedback?: {
+    eq?: string;
+    notEq?: string;
+    in?: Array<string>;
+  };
+
+  changeRequests?: {
+    eq?: Record<string, any>;
+    notEq?: Record<string, any>;
+    in?: Array<Record<string, any>>;
+  };
+
+  metadata?: {
+    eq?: Record<string, any>;
+    notEq?: Record<string, any>;
+    in?: Array<Record<string, any>>;
+  };
+
+  projectId?: {
+    eq?: UUID;
+    notEq?: UUID;
+    in?: Array<UUID>;
+  };
+
+  createdById?: {
+    eq?: UUID;
+    notEq?: UUID;
+    in?: Array<UUID>;
+  };
+
+  approvedById?: {
+    eq?: UUID;
+    notEq?: UUID;
+    in?: Array<UUID>;
+  };
+
+  isPendingCustomerAction?: {
+    eq?: boolean;
+    notEq?: boolean;
+  };
+
+  isApproved?: {
+    eq?: boolean;
+    notEq?: boolean;
+  };
+
+  needsAdminAction?: {
+    eq?: boolean;
+    notEq?: boolean;
+  };
+
+  daysSinceSent?: {
+    eq?: number;
+    notEq?: number;
+    greaterThan?: number;
+    greaterThanOrEqual?: number;
+    lessThan?: number;
+    lessThanOrEqual?: number;
+    in?: Array<number>;
+  };
+
+
+  project?: ProjectFilterInput;
+
+  createdBy?: UserFilterInput;
+
+  approvedBy?: UserFilterInput;
 
 };
 
@@ -1891,24 +2133,38 @@ export async function companyRead<Fields extends CompanyReadFields, Config exten
 
 export type CompanyCreateInput = {
   name: string;
-  orgNumber: string;
+  orgNumber?: string | null;
   address?: string | null;
   city?: string | null;
   postalCode?: string | null;
   country?: string | null;
   phone?: string | null;
   website?: string | null;
+  employeeCount?: string | null;
+  industry?: string | null;
+  logoUrl?: string | null;
+  billingAddress?: string | null;
+  billingCity?: string | null;
+  billingPostalCode?: string | null;
+  billingCountry?: string | null;
 };
 
 export const companyCreate = z.object({
   name: z.string().min(1),
-  orgNumber: z.string().min(1),
+  orgNumber: z.string().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   postalCode: z.string().optional(),
   country: z.string().optional(),
   phone: z.string().optional(),
   website: z.string().optional(),
+  employeeCount: z.string().optional(),
+  industry: z.string().optional(),
+  logoUrl: z.string().optional(),
+  billingAddress: z.string().optional(),
+  billingCity: z.string().optional(),
+  billingPostalCode: z.string().optional(),
+  billingCountry: z.string().optional(),
 });
 
 export type CompanyCreateFields = UnifiedFieldSelection<CompanyResourceSchema>[];
@@ -1946,22 +2202,38 @@ export async function companyCreate<Fields extends CompanyCreateFields | undefin
 
 export type CompanyUpdateInput = {
   name?: string;
+  orgNumber?: string | null;
   address?: string | null;
   city?: string | null;
   postalCode?: string | null;
   country?: string | null;
   phone?: string | null;
   website?: string | null;
+  employeeCount?: string | null;
+  industry?: string | null;
+  logoUrl?: string | null;
+  billingAddress?: string | null;
+  billingCity?: string | null;
+  billingPostalCode?: string | null;
+  billingCountry?: string | null;
 };
 
 export const companyUpdate = z.object({
   name: z.string().min(1).optional(),
+  orgNumber: z.string().optional(),
   address: z.string().optional(),
   city: z.string().optional(),
   postalCode: z.string().optional(),
   country: z.string().optional(),
   phone: z.string().optional(),
   website: z.string().optional(),
+  employeeCount: z.string().optional(),
+  industry: z.string().optional(),
+  logoUrl: z.string().optional(),
+  billingAddress: z.string().optional(),
+  billingCity: z.string().optional(),
+  billingPostalCode: z.string().optional(),
+  billingCountry: z.string().optional(),
 });
 
 export type CompanyUpdateFields = UnifiedFieldSelection<CompanyResourceSchema>[];
@@ -4967,6 +5239,590 @@ export async function manualKnowledgeEntryDestroy(
   };
 
   return executeActionRpcRequest<ManualKnowledgeEntryDestroyResult>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanReadFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+
+export type InferProductPlanReadResult<
+  Fields extends ProductPlanReadFields | undefined,
+  Page extends ProductPlanReadConfig["page"] = undefined
+> = ConditionalPaginatedResultMixed<Page, Array<InferResult<ProductPlanResourceSchema, Fields>>, {
+  results: Array<InferResult<ProductPlanResourceSchema, Fields>>;
+  hasMore: boolean;
+  limit: number;
+  offset: number;
+  count?: number | null;
+  type: "offset";
+}, {
+  results: Array<InferResult<ProductPlanResourceSchema, Fields>>;
+  hasMore: boolean;
+  limit: number;
+  after: string | null;
+  before: string | null;
+  previousPage: string;
+  nextPage: string;
+  count?: number | null;
+  type: "keyset";
+}>;
+
+export type ProductPlanReadConfig = {
+  fields: ProductPlanReadFields;
+  filter?: ProductPlanFilterInput;
+  sort?: string;
+  page?: (
+    {
+      limit?: number;
+      offset?: number;
+      count?: boolean;
+    } | {
+      limit?: number;
+      after?: string;
+      before?: string;
+    }
+  );
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+};
+
+export type ProductPlanReadResult<Fields extends ProductPlanReadFields, Page extends ProductPlanReadConfig["page"] = undefined> = | { success: true; data: InferProductPlanReadResult<Fields, Page>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanRead<Fields extends ProductPlanReadFields, Config extends ProductPlanReadConfig = ProductPlanReadConfig>(
+  config: Config & { fields: Fields }
+): Promise<ProductPlanReadResult<Fields, Config["page"]>> {
+  const payload = {
+    action: "product_plan_read",
+    ...(config.fields !== undefined && { fields: config.fields }),
+    ...(config.filter && { filter: config.filter }),
+    ...(config.sort && { sort: config.sort }),
+    ...(config.page && { page: config.page })
+  };
+
+  return executeActionRpcRequest<ProductPlanReadResult<Fields, Config["page"]>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanByProjectInput = {
+  projectId: UUID;
+};
+
+export const productPlanByProject = z.object({
+  projectId: z.uuid(),
+});
+
+export type ProductPlanByProjectFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+export type InferProductPlanByProjectResult<
+  Fields extends ProductPlanByProjectFields,
+> = Array<InferResult<ProductPlanResourceSchema, Fields>>;
+
+export type ProductPlanByProjectResult<Fields extends ProductPlanByProjectFields> = | { success: true; data: InferProductPlanByProjectResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanByProject<Fields extends ProductPlanByProjectFields>(
+  config: {
+  input: ProductPlanByProjectInput;
+  fields: Fields;
+  filter?: ProductPlanFilterInput;
+  sort?: string;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanByProjectResult<Fields>> {
+  const payload = {
+    action: "product_plan_by_project",
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields }),
+    ...(config.filter && { filter: config.filter }),
+    ...(config.sort && { sort: config.sort })
+  };
+
+  return executeActionRpcRequest<ProductPlanByProjectResult<Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanActiveByProjectInput = {
+  projectId: UUID;
+};
+
+export const productPlanActiveByProject = z.object({
+  projectId: z.uuid(),
+});
+
+export type ProductPlanActiveByProjectFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+export type InferProductPlanActiveByProjectResult<
+  Fields extends ProductPlanActiveByProjectFields,
+> = InferResult<ProductPlanResourceSchema, Fields> | null;
+
+export type ProductPlanActiveByProjectResult<Fields extends ProductPlanActiveByProjectFields> = | { success: true; data: InferProductPlanActiveByProjectResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanActiveByProject<Fields extends ProductPlanActiveByProjectFields>(
+  config: {
+  input: ProductPlanActiveByProjectInput;
+  fields: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanActiveByProjectResult<Fields>> {
+  const payload = {
+    action: "product_plan_active_by_project",
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanActiveByProjectResult<Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanPendingApprovalFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+export type InferProductPlanPendingApprovalResult<
+  Fields extends ProductPlanPendingApprovalFields,
+> = Array<InferResult<ProductPlanResourceSchema, Fields>>;
+
+export type ProductPlanPendingApprovalResult<Fields extends ProductPlanPendingApprovalFields> = | { success: true; data: InferProductPlanPendingApprovalResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanPendingApproval<Fields extends ProductPlanPendingApprovalFields>(
+  config: {
+  fields: Fields;
+  filter?: ProductPlanFilterInput;
+  sort?: string;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanPendingApprovalResult<Fields>> {
+  const payload = {
+    action: "product_plan_pending_approval",
+    ...(config.fields !== undefined && { fields: config.fields }),
+    ...(config.filter && { filter: config.filter }),
+    ...(config.sort && { sort: config.sort })
+  };
+
+  return executeActionRpcRequest<ProductPlanPendingApprovalResult<Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanNeedingRevisionFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+export type InferProductPlanNeedingRevisionResult<
+  Fields extends ProductPlanNeedingRevisionFields,
+> = Array<InferResult<ProductPlanResourceSchema, Fields>>;
+
+export type ProductPlanNeedingRevisionResult<Fields extends ProductPlanNeedingRevisionFields> = | { success: true; data: InferProductPlanNeedingRevisionResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanNeedingRevision<Fields extends ProductPlanNeedingRevisionFields>(
+  config: {
+  fields: Fields;
+  filter?: ProductPlanFilterInput;
+  sort?: string;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanNeedingRevisionResult<Fields>> {
+  const payload = {
+    action: "product_plan_needing_revision",
+    ...(config.fields !== undefined && { fields: config.fields }),
+    ...(config.filter && { filter: config.filter }),
+    ...(config.sort && { sort: config.sort })
+  };
+
+  return executeActionRpcRequest<ProductPlanNeedingRevisionResult<Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanCreateInput = {
+  projectId: UUID;
+  title: string;
+  content: string;
+  summary?: string | null;
+  pdfUrl?: string | null;
+  metadata?: Record<string, any> | null;
+};
+
+export const productPlanCreate = z.object({
+  projectId: z.uuid(),
+  title: z.string().min(1),
+  content: z.string().min(1),
+  summary: z.string().optional(),
+  pdfUrl: z.string().optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
+});
+
+export type ProductPlanCreateFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanCreateResult<
+  Fields extends ProductPlanCreateFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanCreateResult<Fields extends ProductPlanCreateFields | undefined = undefined> = | { success: true; data: InferProductPlanCreateResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanCreate<Fields extends ProductPlanCreateFields | undefined = undefined>(
+  config: {
+  input: ProductPlanCreateInput;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanCreateResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_create",
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanCreateResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanUpdateInput = {
+  title?: string;
+  content?: string;
+  summary?: string | null;
+  pdfUrl?: string | null;
+  metadata?: Record<string, any> | null;
+};
+
+export const productPlanUpdate = z.object({
+  title: z.string().min(1).optional(),
+  content: z.string().min(1).optional(),
+  summary: z.string().optional(),
+  pdfUrl: z.string().optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
+});
+
+export type ProductPlanUpdateFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanUpdateResult<
+  Fields extends ProductPlanUpdateFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanUpdateResult<Fields extends ProductPlanUpdateFields | undefined = undefined> = | { success: true; data: InferProductPlanUpdateResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanUpdate<Fields extends ProductPlanUpdateFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  input: ProductPlanUpdateInput;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanUpdateResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_update",
+    primaryKey: config.primaryKey,
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanUpdateResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanSendToCustomerFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanSendToCustomerResult<
+  Fields extends ProductPlanSendToCustomerFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanSendToCustomerResult<Fields extends ProductPlanSendToCustomerFields | undefined = undefined> = | { success: true; data: InferProductPlanSendToCustomerResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanSendToCustomer<Fields extends ProductPlanSendToCustomerFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanSendToCustomerResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_send_to_customer",
+    primaryKey: config.primaryKey,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanSendToCustomerResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanMarkViewedFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanMarkViewedResult<
+  Fields extends ProductPlanMarkViewedFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanMarkViewedResult<Fields extends ProductPlanMarkViewedFields | undefined = undefined> = | { success: true; data: InferProductPlanMarkViewedResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanMarkViewed<Fields extends ProductPlanMarkViewedFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanMarkViewedResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_mark_viewed",
+    primaryKey: config.primaryKey,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanMarkViewedResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanApproveInput = {
+  feedback?: string;
+};
+
+export const productPlanApprove = z.object({
+  feedback: z.string().optional(),
+});
+
+export type ProductPlanApproveFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanApproveResult<
+  Fields extends ProductPlanApproveFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanApproveResult<Fields extends ProductPlanApproveFields | undefined = undefined> = | { success: true; data: InferProductPlanApproveResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanApprove<Fields extends ProductPlanApproveFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  input?: ProductPlanApproveInput;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanApproveResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_approve",
+    primaryKey: config.primaryKey,
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanApproveResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanRequestChangesInput = {
+  feedback: string;
+  changeRequests?: Record<string, any>;
+};
+
+export const productPlanRequestChanges = z.object({
+  feedback: z.string().min(1),
+  changeRequests: z.record(z.string(), z.any()).optional(),
+});
+
+export type ProductPlanRequestChangesFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanRequestChangesResult<
+  Fields extends ProductPlanRequestChangesFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanRequestChangesResult<Fields extends ProductPlanRequestChangesFields | undefined = undefined> = | { success: true; data: InferProductPlanRequestChangesResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanRequestChanges<Fields extends ProductPlanRequestChangesFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  input: ProductPlanRequestChangesInput;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanRequestChangesResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_request_changes",
+    primaryKey: config.primaryKey,
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanRequestChangesResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanReviseInput = {
+  title?: string;
+  content?: string;
+  summary?: string | null;
+  pdfUrl?: string | null;
+};
+
+export const productPlanRevise = z.object({
+  title: z.string().min(1).optional(),
+  content: z.string().min(1).optional(),
+  summary: z.string().optional(),
+  pdfUrl: z.string().optional(),
+});
+
+export type ProductPlanReviseFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanReviseResult<
+  Fields extends ProductPlanReviseFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanReviseResult<Fields extends ProductPlanReviseFields | undefined = undefined> = | { success: true; data: InferProductPlanReviseResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanRevise<Fields extends ProductPlanReviseFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  input: ProductPlanReviseInput;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanReviseResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_revise",
+    primaryKey: config.primaryKey,
+    input: config.input,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanReviseResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+export type ProductPlanArchiveFields = UnifiedFieldSelection<ProductPlanResourceSchema>[];
+
+export type InferProductPlanArchiveResult<
+  Fields extends ProductPlanArchiveFields | undefined,
+> = InferResult<ProductPlanResourceSchema, Fields>;
+
+export type ProductPlanArchiveResult<Fields extends ProductPlanArchiveFields | undefined = undefined> = | { success: true; data: InferProductPlanArchiveResult<Fields>; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanArchive<Fields extends ProductPlanArchiveFields | undefined = undefined>(
+  config: {
+  primaryKey: UUID;
+  fields?: Fields;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanArchiveResult<Fields extends undefined ? [] : Fields>> {
+  const payload = {
+    action: "product_plan_archive",
+    primaryKey: config.primaryKey,
+    ...(config.fields !== undefined && { fields: config.fields })
+  };
+
+  return executeActionRpcRequest<ProductPlanArchiveResult<Fields extends undefined ? [] : Fields>>(
+    payload,
+    config
+  );
+}
+
+
+
+export type ProductPlanDestroyResult = | { success: true; data: {}; }
+| { success: false; errors: AshRpcError[]; }
+
+;
+
+export async function productPlanDestroy(
+  config: {
+  primaryKey: UUID;
+  headers?: Record<string, string>;
+  fetchOptions?: RequestInit;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+): Promise<ProductPlanDestroyResult> {
+  const payload = {
+    action: "product_plan_destroy",
+    primaryKey: config.primaryKey
+  };
+
+  return executeActionRpcRequest<ProductPlanDestroyResult>(
     payload,
     config
   );

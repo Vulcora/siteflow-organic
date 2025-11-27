@@ -23,6 +23,10 @@ defmodule BackendWeb.Router do
     post "/auth/register", BackendWeb.AuthController, :register
     post "/auth/sign-in", BackendWeb.AuthController, :sign_in
     delete "/auth/sign-out", BackendWeb.AuthController, :sign_out
+
+    # Onboarding routes (public - for invitation-based registration)
+    get "/onboarding/validate/:token", BackendWeb.OnboardingController, :validate_token
+    post "/onboarding/register", BackendWeb.OnboardingController, :register
   end
 
   # Protected API routes - Ash RPC
