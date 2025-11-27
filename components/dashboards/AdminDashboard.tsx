@@ -20,6 +20,8 @@ import CreateProjectForm from '../forms/CreateProjectForm';
 import InviteUserForm from '../forms/InviteUserForm';
 import AdminFormResponseView from '../admin/AdminFormResponseView';
 import AdminFileBrowser from '../admin/AdminFileBrowser';
+import ProjectTimeline from '../timeline/ProjectTimeline';
+import ProjectMeetings from '../meetings/ProjectMeetings';
 
 const AdminDashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -243,6 +245,21 @@ const AdminDashboard: React.FC = () => {
 
       {/* File Browser - Admin view */}
       <AdminFileBrowser />
+
+      {/* Project Timeline & Meetings - Show for first project if exists */}
+      {projects.length > 0 && (
+        <>
+          {/* Timeline */}
+          <div className="mt-8">
+            <ProjectTimeline projectId={projects[0].id} canEdit={true} />
+          </div>
+
+          {/* Meetings */}
+          <div className="mt-8">
+            <ProjectMeetings projectId={projects[0].id} canEdit={true} />
+          </div>
+        </>
+      )}
 
       {/* Create Project Modal */}
       <Modal

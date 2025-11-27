@@ -67,6 +67,16 @@ vi.mock('../../../components/dashboards/StatsCard', () => ({
   ),
 }));
 
+// Mock ProjectTimeline
+vi.mock('../../../components/timeline/ProjectTimeline', () => ({
+  default: () => <div data-testid="project-timeline">Project Timeline</div>,
+}));
+
+// Mock ProjectMeetings
+vi.mock('../../../components/meetings/ProjectMeetings', () => ({
+  default: () => <div data-testid="project-meetings">Project Meetings</div>,
+}));
+
 const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {

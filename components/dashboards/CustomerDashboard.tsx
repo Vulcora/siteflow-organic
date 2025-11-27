@@ -14,6 +14,8 @@ import { useAuth } from '../../src/context/AuthContext';
 import { useProjects, useTickets } from '../../src/hooks/useApi';
 import Modal from '../shared/Modal';
 import CreateTicketForm from '../forms/CreateTicketForm';
+import ProjectTimeline from '../timeline/ProjectTimeline';
+import ProjectMeetings from '../meetings/ProjectMeetings';
 
 const CustomerDashboard: React.FC = () => {
   const { t } = useTranslation();
@@ -208,6 +210,21 @@ const CustomerDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Project Timeline & Meetings - Show for first active project */}
+      {projects.length > 0 && (
+        <>
+          {/* Timeline */}
+          <div className="mt-8">
+            <ProjectTimeline projectId={projects[0].id} canEdit={false} />
+          </div>
+
+          {/* Meetings */}
+          <div className="mt-8">
+            <ProjectMeetings projectId={projects[0].id} canEdit={false} />
+          </div>
+        </>
+      )}
 
       {/* Create Ticket Modal */}
       <Modal
