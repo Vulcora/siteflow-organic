@@ -1,0 +1,9 @@
+export { default as ProjectsPage } from './ProjectsPage';
+export { default as TicketsPage } from './TicketsPage';
+export { default as DocumentsPage } from './DocumentsPage';
+export { default as TeamPage } from './TeamPage';
+export { default as CompaniesPage } from './CompaniesPage';
+export { default as AIChatPage } from './AIChatPage';
+export { default as KnowledgePage } from './KnowledgePage';
+export { default as AIDocsPage } from './AIDocsPage';
+export { default as ProductPlansPage } from './ProductPlansPage';

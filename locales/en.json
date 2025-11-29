@@ -1037,7 +1037,8 @@
     "search": "Search",
     "filter": "Filter",
     "export": "Export",
-    "import": "Import"
+    "import": "Import",
+    "days": "days"
   },
   "admin": {
     "formResponses": {
@@ -1111,6 +1112,7 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome back!",
+    "comingSoon": "This page is under development.",
     "welcomeSubtitle": "Here's an overview of your account and active projects.",
     "nav": {
       "overview": "Overview",
@@ -1120,6 +1122,12 @@
       "documents": "Documents",
       "team": "Team",
       "companies": "Companies",
+      "aiChat": "AI Assistant",
+      "knowledge": "Knowledge Base",
+      "aiDocs": "AI Documents",
+      "productPlans": "Product Plans",
+      "formResponses": "Form Responses",
+      "fileBrowser": "File Browser",
       "settings": "Settings",
       "logout": "Log out",
       "profile": "My Profile"
@@ -1148,5 +1156,135 @@
     "timeline": "Timeline",
     "meetings": "Meetings",
     "noSelection": "Select a project to see timeline and meetings"
+  },
+  "project": {
+    "state": {
+      "draft": "Draft",
+      "pending_approval": "Pending Approval",
+      "in_progress": "In Progress",
+      "paused": "Paused",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "status": {
+      "title": "Project Status",
+      "progress": "Progress",
+      "of": "of",
+      "milestones_completed": "milestones completed",
+      "current_phase": "Current Phase",
+      "phase_format": "Phase {{current}} of {{total}}",
+      "timeline": "Timeline",
+      "week_format": "Week {{current}} of {{total}}",
+      "next_milestone": "Next Milestone",
+      "due": "Due",
+      "overdue_by": "{{days}} days overdue",
+      "due_today": "Due today",
+      "days_left": "{{days}} days left",
+      "no_milestones": "No milestones created yet"
+    },
+    "team": {
+      "title": "Project Team",
+      "members": "members",
+      "no_members": "No team members assigned",
+      "roles": {
+        "admin": "Administrator",
+        "kam": "Key Account Manager",
+        "project_leader": "Project Leader",
+        "frontend_dev": "Frontend Developer",
+        "backend_dev": "Backend Developer",
+        "fullstack_dev": "Fullstack Developer",
+        "customer": "Customer",
+        "partner": "Partner"
+      }
+    },
+    "completion": {
+      "congratulations": "Congratulations! Your project is complete!",
+      "delivered_message": "We're proud to deliver your finished project. Click below to see it live!",
+      "view_project": "View Project",
+      "review": {
+        "title": "How satisfied are you?",
+        "rate_project": "Rate Project",
+        "rating": "Rating",
+        "feedback": "Your Feedback",
+        "feedback_placeholder": "Tell us about your experience with the project...",
+        "submit": "Submit Review",
+        "submitting": "Submitting...",
+        "your_review": "Your Review",
+        "submitted_at": "Submitted"
+      },
+      "support": {
+        "title": "Support & Maintenance",
+        "status": "Status",
+        "days_remaining": "Days Remaining",
+        "ends": "Support Ends",
+        "unknown": "Unknown",
+        "active": "Active",
+        "ending": "Ending Soon",
+        "expired": "Expired",
+        "ending_soon": "Your support period is ending soon. Contact us to renew!",
+        "expired_message": "Your support period has expired. Contact us to renew and continue receiving support."
+      }
+    }
+  },
+  "ticket": {
+    "conversation": {
+      "title": "Conversation",
+      "messages": "messages",
+      "noMessages": "No messages yet",
+      "startConversation": "Be the first to write a message",
+      "placeholder": "Write your message...",
+      "send": "Send",
+      "internal": "Internal",
+      "markAsInternal": "Mark as internal comment (team only)",
+      "yesterday": "Yesterday"
+    }
+  },
+  "sla": {
+    "response": "First response",
+    "response_short": "Response",
+    "resolution": "Resolution",
+    "resolution_short": "Resolution",
+    "left": "left",
+    "overdue": "overdue",
+    "met": "Met",
+    "breached": "Breached",
+    "deadline": "Deadline"
+  },
+  "preview": {
+    "title": "Preview Available",
+    "description": "Test the latest version of {{projectName}} in our staging environment",
+    "notes": "Instructions",
+    "lastUpdated": "Last updated",
+    "ago": "ago",
+    "openPreview": "Open Preview"
+  },
+  "rag": {
+    "knowledge": {
+      "title": "Knowledge Base",
+      "description": "Add important project information to be available for the AI assistant",
+      "addNew": "Add Knowledge",
+      "addNewEntry": "Add New Knowledge Entry",
+      "titleOptional": "Title (optional)",
+      "titlePlaceholder": "E.g. Customer request for dark mode",
+      "content": "Content",
+      "contentPlaceholder": "Describe information, decisions, or other important knowledge about the project...",
+      "category": "Category",
+      "categories": {
+        "meeting_notes": "Meeting Notes",
+        "decision": "Decision",
+        "clarification": "Clarification",
+        "feedback": "Feedback",
+        "technical": "Technical",
+        "design": "Design",
+        "other": "Other"
+      },
+      "skipAI": "Skip AI structuring (use raw text)",
+      "adding": "Adding...",
+      "add": "Add",
+      "allCategories": "All Categories",
+      "noEntries": "No knowledge entries yet",
+      "noEntriesHint": "Click 'Add Knowledge' to create the first entry",
+      "confirmDelete": "Are you sure you want to delete this knowledge entry?"
+    }
   }
 }
