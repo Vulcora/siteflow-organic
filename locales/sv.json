@@ -494,6 +494,7 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Välkommen tillbaka!",
+    "comingSoon": "Den här sidan är under utveckling.",
     "welcomeSubtitle": "Här är en överblick av ditt konto och aktiva projekt.",
     "nav": {
       "overview": "Översikt",
@@ -503,6 +504,12 @@
       "documents": "Dokument",
       "team": "Team",
       "companies": "Företag",
+      "aiChat": "AI-assistent",
+      "knowledge": "Kunskapsbas",
+      "aiDocs": "AI-dokument",
+      "productPlans": "Produktplaner",
+      "formResponses": "Formulärsvar",
+      "fileBrowser": "Filhanterare",
       "settings": "Inställningar",
       "logout": "Logga ut",
       "profile": "Min profil"
@@ -1078,7 +1085,8 @@
     "search": "Sök",
     "filter": "Filtrera",
     "export": "Exportera",
-    "import": "Importera"
+    "import": "Importera",
+    "days": "dagar"
   },
   "admin": {
     "formResponses": {
@@ -1159,6 +1167,136 @@
       "timeline": "Tidslinje",
       "meetings": "Möten",
       "noSelection": "Välj ett projekt för att se tidslinje och möten"
+    }
+  },
+  "project": {
+    "state": {
+      "draft": "Utkast",
+      "pending_approval": "Väntar på godkännande",
+      "in_progress": "Pågående",
+      "paused": "Pausad",
+      "completed": "Klar",
+      "cancelled": "Avbruten"
+    },
+    "status": {
+      "title": "Projektstatus",
+      "progress": "Framsteg",
+      "of": "av",
+      "milestones_completed": "milstolpar slutförda",
+      "current_phase": "Aktuell fas",
+      "phase_format": "Fas {{current}} av {{total}}",
+      "timeline": "Tidslinje",
+      "week_format": "Vecka {{current}} av {{total}}",
+      "next_milestone": "Nästa milstolpe",
+      "due": "Förfaller",
+      "overdue_by": "{{days}} dagar försenad",
+      "due_today": "Förfaller idag",
+      "days_left": "{{days}} dagar kvar",
+      "no_milestones": "Inga milstolpar har skapats ännu"
+    },
+    "team": {
+      "title": "Projektteam",
+      "members": "medlemmar",
+      "no_members": "Inga teammedlemmar tilldelade",
+      "roles": {
+        "admin": "Administratör",
+        "kam": "Key Account Manager",
+        "project_leader": "Projektledare",
+        "frontend_dev": "Frontend-utvecklare",
+        "backend_dev": "Backend-utvecklare",
+        "fullstack_dev": "Fullstack-utvecklare",
+        "customer": "Kund",
+        "partner": "Partner"
+      }
+    },
+    "completion": {
+      "congratulations": "Grattis! Ditt projekt är klart!",
+      "delivered_message": "Vi är stolta över att leverera ditt färdiga projekt. Klicka nedan för att se det live!",
+      "view_project": "Visa projektet",
+      "review": {
+        "title": "Hur nöjd är du?",
+        "rate_project": "Betygsätt projektet",
+        "rating": "Betyg",
+        "feedback": "Din feedback",
+        "feedback_placeholder": "Berätta om din upplevelse med projektet...",
+        "submit": "Skicka betyg",
+        "submitting": "Skickar...",
+        "your_review": "Ditt betyg",
+        "submitted_at": "Skickat"
+      },
+      "support": {
+        "title": "Support & Underhåll",
+        "status": "Status",
+        "days_remaining": "Dagar kvar",
+        "ends": "Support slutar",
+        "unknown": "Okänd",
+        "active": "Aktiv",
+        "ending": "Snart slut",
+        "expired": "Utgången",
+        "ending_soon": "Din supportperiod går snart ut. Kontakta oss för att förnya!",
+        "expired_message": "Din supportperiod har gått ut. Kontakta oss för att förnya och fortsätt få support."
+      }
+    }
+  },
+  "ticket": {
+    "conversation": {
+      "title": "Konversation",
+      "messages": "meddelanden",
+      "noMessages": "Inga meddelanden ännu",
+      "startConversation": "Var den första att skriva ett meddelande",
+      "placeholder": "Skriv ditt meddelande...",
+      "send": "Skicka",
+      "internal": "Internt",
+      "markAsInternal": "Markera som intern kommentar (endast för teamet)",
+      "yesterday": "Igår"
+    }
+  },
+  "sla": {
+    "response": "Första svar",
+    "response_short": "Svar",
+    "resolution": "Lösning",
+    "resolution_short": "Lösning",
+    "left": "kvar",
+    "overdue": "försenad",
+    "met": "Uppfylld",
+    "breached": "Överskriden",
+    "deadline": "Tidsfrist"
+  },
+  "preview": {
+    "title": "Förhandsvisning tillgänglig",
+    "description": "Testa den senaste versionen av {{projectName}} i vår staging-miljö",
+    "notes": "Instruktioner",
+    "lastUpdated": "Senast uppdaterad",
+    "ago": "sedan",
+    "openPreview": "Öppna förhandsvisning"
+  },
+  "rag": {
+    "knowledge": {
+      "title": "Kunskapsbas",
+      "description": "Lägg till viktig information om projektet som ska vara tillgänglig för AI-assistenten",
+      "addNew": "Lägg till kunskap",
+      "addNewEntry": "Lägg till ny kunskapspost",
+      "titleOptional": "Titel (valfritt)",
+      "titlePlaceholder": "T.ex. Kundönskemål om dark mode",
+      "content": "Innehåll",
+      "contentPlaceholder": "Beskriv information, beslut, eller annan viktig kunskap om projektet...",
+      "category": "Kategori",
+      "categories": {
+        "meeting_notes": "Mötesanteckningar",
+        "decision": "Beslut",
+        "clarification": "Förtydligande",
+        "feedback": "Feedback",
+        "technical": "Tekniskt",
+        "design": "Design",
+        "other": "Övrigt"
+      },
+      "skipAI": "Hoppa över AI-strukturering (använd råtext)",
+      "adding": "Lägger till...",
+      "add": "Lägg till",
+      "allCategories": "Alla kategorier",
+      "noEntries": "Inga kunskapsposter än",
+      "noEntriesHint": "Klicka på 'Lägg till kunskap' för att skapa den första posten",
+      "confirmDelete": "Är du säker på att du vill ta bort denna kunskapspost?"
     }
   }
 }

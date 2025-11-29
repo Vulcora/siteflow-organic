@@ -10,18 +10,34 @@ import {
   DeveloperDashboard,
   ProjectLeaderDashboard
 } from './dashboards';
+import TimeTrackingDashboard from './dashboards/TimeTrackingDashboard';
+import {
+  ProjectsPage,
+  TicketsPage,
+  DocumentsPage,
+  TeamPage,
+  CompaniesPage,
+  AIChatPage,
+  KnowledgePage,
+  AIDocsPage,
+  ProductPlansPage
+} from './pages';
+// Admin components
+import AdminFormResponseView from './admin/AdminFormResponseView';
+import AdminFileBrowser from './admin/AdminFileBrowser';
 
 interface DashboardPageProps {
+  currentPage: Page;
   onNavigate: (page: Page) => void;
   onLogout: () => void;
 }
 
-const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onLogout }) => {
+const DashboardPage: React.FC<DashboardPageProps> = ({ currentPage, onNavigate, onLogout }) => {
   const { user } = useAuth();
   const userRole: UserRole = user?.role || 'customer';
 
-  // Render the appropriate dashboard based on user role
-  const renderDashboard = () => {
+  // Render the appropriate dashboard based on user role (for overview page)
+  const renderOverviewDashboard = () => {
     if (isAdmin(userRole)) {
       return <AdminDashboard />;
     }
@@ -38,9 +54,43 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate, onLogout }) =
     return <CustomerDashboard />;
   };
 
+  // Render content based on current page
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'dashboard':
+        return renderOverviewDashboard();
+      case 'dashboardProjects':
+        return <ProjectsPage />;
+      case 'dashboardTickets':
+        return <TicketsPage />;
+      case 'dashboardTimeEntries':
+        return <TimeTrackingDashboard />;
+      case 'dashboardDocuments':
+        return <DocumentsPage />;
+      case 'dashboardTeam':
+        return <TeamPage />;
+      case 'dashboardCompanies':
+        return <CompaniesPage />;
+      case 'dashboardAIChat':
+        return <AIChatPage />;
+      case 'dashboardKnowledge':
+        return <KnowledgePage />;
+      case 'dashboardAIDocs':
+        return <AIDocsPage />;
+      case 'dashboardProductPlans':
+        return <ProductPlansPage />;
+      case 'dashboardFormResponses':
+        return <AdminFormResponseView />;
+      case 'dashboardFileBrowser':
+        return <AdminFileBrowser />;
+      default:
+        return renderOverviewDashboard();
+    }
+  };
+
   return (
-    <DashboardLayout currentPage="dashboard" onNavigate={onNavigate} onLogout={onLogout}>
-      {renderDashboard()}
+    <DashboardLayout currentPage={currentPage} onNavigate={onNavigate} onLogout={onLogout}>
+      {renderContent()}
     </DashboardLayout>
   );
 };

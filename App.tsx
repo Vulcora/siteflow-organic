@@ -71,6 +71,18 @@ const App: React.FC = () => {
       terms: 'Användarvillkor | Siteflow',
       notFound: '404 - Sidan hittades inte | Siteflow',
       dashboard: 'Dashboard | Siteflow',
+      dashboardProjects: 'Projekt | Siteflow',
+      dashboardTickets: 'Ärenden | Siteflow',
+      dashboardTimeEntries: 'Tidrapportering | Siteflow',
+      dashboardDocuments: 'Dokument | Siteflow',
+      dashboardTeam: 'Team | Siteflow',
+      dashboardCompanies: 'Företag | Siteflow',
+      dashboardAIChat: 'AI-assistent | Siteflow',
+      dashboardKnowledge: 'Kunskapsbas | Siteflow',
+      dashboardAIDocs: 'AI-dokument | Siteflow',
+      dashboardProductPlans: 'Produktplaner | Siteflow',
+      dashboardFormResponses: 'Formulärsvar | Siteflow',
+      dashboardFileBrowser: 'Filhanterare | Siteflow',
       onboarding: 'Registrering | Siteflow'
     };
 
@@ -158,7 +170,13 @@ const App: React.FC = () => {
       case 'notFound':
         return <Suspense fallback={<PageLoader />}><NotFoundPage setCurrentPage={handleNavigate} /></Suspense>;
       case 'dashboard':
-        return <Suspense fallback={<PageLoader />}><DashboardPage onNavigate={handleNavigate} onLogout={handleLogout} /></Suspense>;
+      case 'dashboardProjects':
+      case 'dashboardTickets':
+      case 'dashboardTimeEntries':
+      case 'dashboardDocuments':
+      case 'dashboardTeam':
+      case 'dashboardCompanies':
+        return <Suspense fallback={<PageLoader />}><DashboardPage currentPage={currentPage} onNavigate={handleNavigate} onLogout={handleLogout} /></Suspense>;
       case 'onboarding':
         return <Suspense fallback={<PageLoader />}><OnboardingPage onNavigate={handleNavigate} token={onboardingToken || undefined} /></Suspense>;
       default:
@@ -167,7 +185,7 @@ const App: React.FC = () => {
   };
 
   // Dashboard and onboarding have their own layouts, so we don't show the main navigation/footer
-  const hasCustomLayout = currentPage === 'dashboard' || currentPage === 'onboarding';
+  const hasCustomLayout = currentPage.startsWith('dashboard') || currentPage === 'onboarding';
 
   if (hasCustomLayout) {
     return renderPage();

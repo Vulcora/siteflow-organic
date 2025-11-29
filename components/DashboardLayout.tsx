@@ -12,7 +12,13 @@ import {
   X,
   ChevronDown,
   Bell,
-  Building
+  Building,
+  MessageSquare,
+  Brain,
+  Sparkles,
+  FileCheck,
+  ClipboardList,
+  FolderOpen
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Page } from '../types';
@@ -50,12 +56,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   // Define all possible navigation items
   const allNavItems: NavItemType[] = [
     { id: 'dashboard', label: t('dashboard.nav.overview'), icon: <LayoutDashboard className="w-5 h-5" />, page: 'dashboard' },
-    { id: 'projects', label: t('dashboard.nav.projects'), icon: <FolderKanban className="w-5 h-5" /> },
-    { id: 'tickets', label: t('dashboard.nav.tickets'), icon: <Ticket className="w-5 h-5" /> },
-    { id: 'timeEntries', label: t('dashboard.nav.timeEntries'), icon: <Clock className="w-5 h-5" /> },
-    { id: 'documents', label: t('dashboard.nav.documents'), icon: <FileText className="w-5 h-5" /> },
-    { id: 'team', label: t('dashboard.nav.team'), icon: <Users className="w-5 h-5" /> },
-    { id: 'companies', label: t('dashboard.nav.companies'), icon: <Building className="w-5 h-5" /> },
+    { id: 'projects', label: t('dashboard.nav.projects'), icon: <FolderKanban className="w-5 h-5" />, page: 'dashboardProjects' },
+    { id: 'tickets', label: t('dashboard.nav.tickets'), icon: <Ticket className="w-5 h-5" />, page: 'dashboardTickets' },
+    { id: 'timeEntries', label: t('dashboard.nav.timeEntries'), icon: <Clock className="w-5 h-5" />, page: 'dashboardTimeEntries' },
+    { id: 'documents', label: t('dashboard.nav.documents'), icon: <FileText className="w-5 h-5" />, page: 'dashboardDocuments' },
+    { id: 'team', label: t('dashboard.nav.team'), icon: <Users className="w-5 h-5" />, page: 'dashboardTeam' },
+    { id: 'companies', label: t('dashboard.nav.companies'), icon: <Building className="w-5 h-5" />, page: 'dashboardCompanies' },
+    { id: 'aiChat', label: t('dashboard.nav.aiChat'), icon: <MessageSquare className="w-5 h-5" />, page: 'dashboardAIChat' },
+    { id: 'knowledge', label: t('dashboard.nav.knowledge'), icon: <Brain className="w-5 h-5" />, page: 'dashboardKnowledge' },
+    { id: 'aiDocs', label: t('dashboard.nav.aiDocs'), icon: <Sparkles className="w-5 h-5" />, page: 'dashboardAIDocs' },
+    { id: 'productPlans', label: t('dashboard.nav.productPlans'), icon: <FileCheck className="w-5 h-5" />, page: 'dashboardProductPlans' },
+    { id: 'formResponses', label: t('dashboard.nav.formResponses'), icon: <ClipboardList className="w-5 h-5" />, page: 'dashboardFormResponses' },
+    { id: 'fileBrowser', label: t('dashboard.nav.fileBrowser'), icon: <FolderOpen className="w-5 h-5" />, page: 'dashboardFileBrowser' },
   ];
 
   // Filter navigation items based on user role
@@ -77,6 +89,36 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
     // Companies only for admins
     if (item.id === 'companies') {
+      return canManageCompanies(userRole);
+    }
+
+    // AI Chat available for everyone (project context)
+    if (item.id === 'aiChat') {
+      return true;
+    }
+
+    // Knowledge management for Siteflow staff
+    if (item.id === 'knowledge') {
+      return isSiteflowStaff(userRole);
+    }
+
+    // AI Generated Docs for Siteflow staff
+    if (item.id === 'aiDocs') {
+      return isSiteflowStaff(userRole);
+    }
+
+    // Product Plans - everyone can see their plans
+    if (item.id === 'productPlans') {
+      return true;
+    }
+
+    // Form Responses - admin only
+    if (item.id === 'formResponses') {
+      return canManageCompanies(userRole);
+    }
+
+    // File Browser - admin only
+    if (item.id === 'fileBrowser') {
       return canManageCompanies(userRole);
     }
 
