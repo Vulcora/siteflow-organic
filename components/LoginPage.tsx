@@ -167,29 +167,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 bg-slate-800/50 backdrop-blur rounded-xl p-4 border border-slate-700">
-            <p className="text-sm font-medium text-slate-300 mb-3">Demo-konton:</p>
-            <div className="space-y-2">
-              <button
-                type="button"
-                onClick={() => { setEmail('admin@siteflow.se'); setPassword('AdminPassword123!'); }}
-                className="w-full text-left px-3 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg transition-colors"
-              >
-                <span className="text-xs text-cyan-400 font-medium">Admin</span>
-                <p className="text-sm text-slate-300">admin@siteflow.se</p>
-              </button>
-              <button
-                type="button"
-                onClick={() => { setEmail('demo@siteflow.se'); setPassword('Password123'); }}
-                className="w-full text-left px-3 py-2 bg-slate-700/50 hover:bg-slate-700 rounded-lg transition-colors"
-              >
-                <span className="text-xs text-blue-400 font-medium">Customer</span>
-                <p className="text-sm text-slate-300">demo@siteflow.se</p>
-              </button>
-            </div>
-          </div>
-
           {/* Security Note */}
           <div className="mt-6 text-center">
             <p className="text-sm text-slate-400">
