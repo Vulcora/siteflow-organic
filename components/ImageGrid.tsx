@@ -16,10 +16,10 @@ const ImageGrid: React.FC = () => {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 h-96 md:h-[500px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-[500px]">
 
             {/* Large item - The 'Hero' asset */}
-            <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden group animate-slide-left">
+            <div className="col-span-2 md:row-span-2 h-64 md:h-auto relative rounded-2xl overflow-hidden group animate-slide-left">
                 <img
                     src="/behind-the-scen/anders-coding.jpg"
                     alt="Siteflow Architect Coding"
@@ -36,7 +36,7 @@ const ImageGrid: React.FC = () => {
             </div>
 
             {/* Wide item */}
-            <div className="col-span-2 relative rounded-2xl overflow-hidden group animate-slide-right stagger-1">
+            <div className="col-span-2 h-48 md:h-auto relative rounded-2xl overflow-hidden group animate-slide-right stagger-1">
                 <img
                     src="/behind-the-scen/architecting.jpg"
                     alt="Strategic Planning"
@@ -52,7 +52,7 @@ const ImageGrid: React.FC = () => {
             </div>
 
             {/* Small item 1 */}
-            <div className="relative rounded-2xl overflow-hidden group animate-scale-in stagger-2">
+            <div className="h-48 md:h-auto relative rounded-2xl overflow-hidden group animate-scale-in stagger-2">
                 <img
                     src="/behind-the-scen/lookingatipad.jpg"
                     alt="Detail work"
@@ -65,7 +65,7 @@ const ImageGrid: React.FC = () => {
             </div>
 
             {/* Small item 2 */}
-            <div className="relative rounded-2xl overflow-hidden group bg-slate-100 flex items-center justify-center animate-scale-in stagger-3">
+            <div className="h-48 md:h-auto relative rounded-2xl overflow-hidden group bg-slate-100 flex items-center justify-center animate-scale-in stagger-3">
                  <div className="text-center p-4">
                     <p className="font-serif text-4xl text-blue-600 mb-1">100%</p>
                     <p className="text-xs uppercase tracking-widest text-slate-500">In-House</p>

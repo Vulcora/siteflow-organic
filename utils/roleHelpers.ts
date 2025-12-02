@@ -7,7 +7,8 @@ export type UserRole =
   | 'siteflow_dev_backend'
   | 'siteflow_dev_fullstack'
   | 'customer'
-  | 'partner';
+  | 'partner'
+  | 'seo_partner';
 
 export interface User {
   id: string;
@@ -60,6 +61,10 @@ export const isPartner = (role: UserRole): boolean => {
   return role === 'partner';
 };
 
+export const isSEOPartner = (role: UserRole): boolean => {
+  return role === 'seo_partner';
+};
+
 export const canInviteUsers = (role: UserRole): boolean => {
   return ['siteflow_admin', 'siteflow_kam'].includes(role);
 };
@@ -88,6 +93,7 @@ export const getDashboardType = (role: UserRole): string => {
   if (isDeveloper(role)) return 'developer';
   if (isCustomer(role)) return 'customer';
   if (isPartner(role)) return 'partner';
+  if (isSEOPartner(role)) return 'seo-partner';
   return 'customer'; // fallback
 };
 
@@ -102,6 +108,7 @@ export const getRoleDisplayName = (role: UserRole): string => {
     siteflow_dev_fullstack: 'Fullstack Developer',
     customer: 'Kund',
     partner: 'Partner',
+    seo_partner: 'SEO Partner',
   };
   return roleNames[role] || role;
 };

@@ -20,13 +20,15 @@ defmodule BackendWeb.AuthController do
        ) do
       {:ok, user} ->
         # Generate token for the new user
-        case AshAuthentication.Jwt.token_for_user(user) do
+        # Generate token with 24h expiry (86400 seconds)
+        case AshAuthentication.Jwt.token_for_user(user, %{purpose: "user"}, token_lifetime: 86400) do
           {:ok, token, _claims} ->
             conn
             |> put_status(:created)
             |> json(%{
               user: user_to_json(user),
-              token: token
+              token: token,
+              expires_in: 86400
             })
 
           {:error, _reason} ->
@@ -53,11 +55,13 @@ defmodule BackendWeb.AuthController do
 
     case Ash.read_one(query, domain: Accounts, authorize?: false) do
       {:ok, user} when not is_nil(user) ->
-        case AshAuthentication.Jwt.token_for_user(user) do
+        # Generate token with 24h expiry (86400 seconds)
+        case AshAuthentication.Jwt.token_for_user(user, %{purpose: "user"}, token_lifetime: 86400) do
           {:ok, token, _claims} ->
             json(conn, %{
               user: user_to_json(user),
-              token: token
+              token: token,
+              expires_in: 86400
             })
 
           {:error, _reason} ->

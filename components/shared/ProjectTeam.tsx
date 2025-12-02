@@ -1,10 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, Mail, Phone, Shield, Code, Briefcase, User } from 'lucide-react';
-import type { User as UserType } from '../../src/generated/ash-rpc';
+
+// Local type matching the data structure from useApi hooks
+interface TeamMember {
+  id: string;
+  email: string;
+  name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  phone?: string | null;
+  phone_number?: string | null;
+  role?: string | null;
+}
 
 interface ProjectTeamProps {
-  teamMembers: UserType[];
+  teamMembers: TeamMember[];
 }
 
 const ProjectTeam: React.FC<ProjectTeamProps> = ({ teamMembers }) => {
@@ -65,13 +76,13 @@ const ProjectTeam: React.FC<ProjectTeamProps> = ({ teamMembers }) => {
 
   // Group team members by role
   const groupedMembers = teamMembers.reduce((acc, member) => {
-    const role = member.role as string;
+    const role = (member.role || 'unknown') as string;
     if (!acc[role]) {
       acc[role] = [];
     }
     acc[role].push(member);
     return acc;
-  }, {} as Record<string, UserType[]>);
+  }, {} as Record<string, TeamMember[]>);
 
   // Define role order for display
   const roleOrder = [
@@ -137,14 +148,17 @@ const ProjectTeam: React.FC<ProjectTeamProps> = ({ teamMembers }) => {
                   >
                     {/* Avatar */}
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
-                      {member.name ? member.name.charAt(0).toUpperCase() : member.email.charAt(0).toUpperCase()}
+                      {(() => {
+                        const displayName = member.name || (member.firstName && member.lastName ? `${member.firstName} ${member.lastName}` : null);
+                        return displayName ? displayName.charAt(0).toUpperCase() : member.email.charAt(0).toUpperCase();
+                      })()}
                     </div>
 
                     {/* Member Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <p className="font-semibold text-slate-900 truncate">
-                          {member.name || member.email.split('@')[0]}
+                          {member.name || (member.firstName && member.lastName ? `${member.firstName} ${member.lastName}` : null) || member.email.split('@')[0]}
                         </p>
                       </div>
 
@@ -158,13 +172,13 @@ const ProjectTeam: React.FC<ProjectTeamProps> = ({ teamMembers }) => {
                           <span className="truncate">{member.email}</span>
                         </a>
 
-                        {member.phone_number && (
+                        {(member.phone_number || member.phone) && (
                           <a
-                            href={`tel:${member.phone_number}`}
+                            href={`tel:${member.phone_number || member.phone}`}
                             className="flex items-center gap-1.5 text-xs text-slate-600 hover:text-blue-600 transition-colors"
                           >
                             <Phone className="w-3.5 h-3.5" />
-                            <span>{member.phone_number}</span>
+                            <span>{member.phone_number || member.phone}</span>
                           </a>
                         )}
                       </div>

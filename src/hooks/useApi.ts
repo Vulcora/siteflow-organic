@@ -148,29 +148,6 @@ export function useProjects(filter?: { companyId?: string; state?: string }) {
   });
 }
 
-export function useProject(projectId: string) {
-  const config = useAuthConfig();
-
-  return useQuery({
-    queryKey: [...queryKeys.projects, 'detail', projectId],
-    queryFn: async () => {
-      // Fetch all projects and find the one with matching ID
-      // Using projectRead without filter to avoid potential filter issues
-      const result = await projectRead({
-        fields: ['id', 'name', 'description', 'state', 'budget', 'spent', 'startDate', 'targetEndDate', 'estimatedEndDate', 'companyId', 'isPriority', 'createdAt', 'updatedAt'],
-        ...config,
-      });
-      if (!result.success) {
-        throw new Error(result.errors?.[0]?.message || 'Failed to fetch project');
-      }
-      // Find the project by ID
-      const project = result.data?.find((p: any) => p.id === projectId);
-      return project || null;
-    },
-    enabled: !!projectId,
-  });
-}
-
 export function useCreateProject() {
   const queryClient = useQueryClient();
   const config = useAuthConfig();
@@ -439,8 +416,8 @@ export function useCommentsByTicket(ticketId: string | undefined) {
       if (!ticketId) return [];
 
       const result = await commentByTicket({
-        args: { ticketId },
-        fields: ['id', 'body', 'isInternal', 'ticketId', 'authorId', 'insertedAt', 'updatedAt'],
+        input: { ticketId },
+        fields: ['id', 'body', 'isInternal', 'ticketId', 'authorId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -468,7 +445,7 @@ export function useCreateComment() {
     }) => {
       const result = await commentCreate({
         input: { ticketId, body, isInternal },
-        fields: ['id', 'body', 'isInternal', 'ticketId', 'authorId', 'insertedAt'],
+        fields: ['id', 'body', 'isInternal', 'ticketId', 'authorId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -519,7 +496,11 @@ export function useCreateTimeEntry() {
       isBillable?: boolean;
     }) => {
       const result = await timeEntryCreate({
-        input,
+        input: {
+          ...input,
+          hours: String(input.hours),  // Convert number to string (Decimal)
+          hourlyRate: input.hourlyRate ? String(input.hourlyRate) : undefined,
+        } as any,
         fields: ['id', 'hours', 'date', 'description', 'projectId', 'ticketId'],
         ...config,
       });
@@ -664,7 +645,7 @@ export function useAllFormResponses() {
     queryKey: queryKeys.formResponses,
     queryFn: async () => {
       const result = await formResponseRead({
-        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata', 'projectId', 'insertedAt', 'updatedAt'],
+        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata', 'projectId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -682,8 +663,8 @@ export function useFormResponsesByProject(projectId: string) {
     queryKey: queryKeys.formResponsesByProject(projectId),
     queryFn: async () => {
       const result = await formResponseByProject({
-        args: { projectId },
-        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata', 'projectId'],
+        input: { projectId },
+        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata'] as any,
         ...config,
       });
       if (!result.success) {
@@ -702,8 +683,8 @@ export function useFormResponsesByProjectAndType(projectId: string, formType: 'w
     queryKey: [...queryKeys.formResponsesByProject(projectId), formType],
     queryFn: async () => {
       const result = await formResponseByProjectAndType({
-        args: { projectId, formType },
-        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata', 'projectId'],
+        input: { projectId, formType },
+        fields: ['id', 'formType', 'section', 'questionKey', 'answerValue', 'answerMetadata'] as any,
         ...config,
       });
       if (!result.success) {
@@ -942,8 +923,8 @@ export function useInternalNotes(filter?: { projectId?: string }) {
     queryFn: async () => {
       if (filter?.projectId) {
         const result = await internalNoteByProject({
-          args: { projectId: filter.projectId },
-          fields: ['id', 'content', 'projectId', 'authorId', 'insertedAt', 'updatedAt'],
+          input: { projectId: filter.projectId },
+          fields: ['id', 'content', 'projectId', 'authorId'] as any,
           ...config,
         });
         if (!result.success) {
@@ -952,7 +933,7 @@ export function useInternalNotes(filter?: { projectId?: string }) {
         return result.data;
       }
       const result = await internalNoteRead({
-        fields: ['id', 'content', 'projectId', 'authorId', 'insertedAt', 'updatedAt'],
+        fields: ['id', 'content', 'projectId', 'authorId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -971,7 +952,7 @@ export function useCreateInternalNote() {
     mutationFn: async (input: { content: string; projectId: string }) => {
       const result = await internalNoteCreate({
         input,
-        fields: ['id', 'content', 'projectId', 'authorId', 'insertedAt'],
+        fields: ['id', 'content', 'projectId', 'authorId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -995,7 +976,7 @@ export function useUpdateInternalNote() {
       const result = await internalNoteUpdate({
         primaryKey: id,
         input: { content },
-        fields: ['id', 'content', 'updatedAt'],
+        fields: ['id', 'content'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1041,8 +1022,8 @@ export function useProductPlansByProject(projectId: string) {
     queryKey: queryKeys.productPlansByProject(projectId),
     queryFn: async () => {
       const result = await productPlanByProject({
-        args: { projectId },
-        fields: ['id', 'title', 'content', 'pdfUrl', 'state', 'version', 'sentAt', 'viewedAt', 'approvedAt', 'rejectedAt', 'projectId', 'createdById', 'insertedAt', 'updatedAt'],
+        input: { projectId },
+        fields: ['id', 'title', 'content', 'pdfUrl', 'state', 'version', 'sentAt', 'viewedAt', 'approvedAt', 'rejectedAt', 'projectId', 'createdById'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1061,8 +1042,8 @@ export function useActiveProductPlan(projectId: string) {
     queryKey: [...queryKeys.productPlansByProject(projectId), 'active'],
     queryFn: async () => {
       const result = await productPlanActiveByProject({
-        args: { projectId },
-        fields: ['id', 'title', 'content', 'pdfUrl', 'state', 'version', 'sentAt', 'viewedAt', 'approvedAt', 'projectId', 'insertedAt'],
+        input: { projectId },
+        fields: ['id', 'title', 'content', 'pdfUrl', 'state', 'version', 'sentAt', 'viewedAt', 'approvedAt', 'projectId'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1086,7 +1067,10 @@ export function useCreateProductPlan() {
       pdfUrl?: string;
     }) => {
       const result = await productPlanCreate({
-        input,
+        input: {
+          ...input,
+          content: input.content || '',  // Ensure content is always provided
+        } as any,
         fields: ['id', 'title', 'state', 'version'],
         ...config,
       });
@@ -1122,7 +1106,7 @@ export function useUpdateProductPlan() {
       const result = await productPlanUpdate({
         primaryKey: id,
         input: { title, content, pdfUrl },
-        fields: ['id', 'title', 'content', 'pdfUrl', 'updatedAt'],
+        fields: ['id', 'title', 'content', 'pdfUrl'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1196,8 +1180,8 @@ export function useApproveProductPlan() {
     }) => {
       const result = await productPlanApprove({
         primaryKey: id,
-        input: customerFeedback ? { customerFeedback } : undefined,
-        fields: ['id', 'state', 'approvedAt', 'customerFeedback'],
+        input: customerFeedback ? { customerFeedback } : undefined as any,
+        fields: ['id', 'state', 'approvedAt'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1227,8 +1211,8 @@ export function useRequestProductPlanChanges() {
     }) => {
       const result = await productPlanRequestChanges({
         primaryKey: id,
-        input: { changeRequests },
-        fields: ['id', 'state', 'rejectedAt', 'changeRequests'],
+        input: { feedback: JSON.stringify(changeRequests) } as any,
+        fields: ['id', 'state', 'rejectedAt'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1307,7 +1291,7 @@ export function useMilestonesByProject(projectId: string) {
     queryFn: async () => {
       const result = await milestoneByProject({
         input: { projectId },
-        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status', 'projectId'],
+        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status'] as any,
         sort: 'orderIndex',
         ...config,
       });
@@ -1342,7 +1326,7 @@ export function useCreateMilestone() {
     }) => {
       const result = await milestoneCreate({
         input: { projectId, title, description, dueDate, orderIndex, status },
-        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status', 'projectId'],
+        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1381,7 +1365,7 @@ export function useUpdateMilestone() {
       const result = await milestoneUpdate({
         primaryKey: id,
         input: { title, description, dueDate, orderIndex, status },
-        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status', 'projectId'],
+        fields: ['id', 'title', 'description', 'dueDate', 'completedAt', 'orderIndex', 'status'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1470,7 +1454,7 @@ export function useMeetingsByProject(projectId: string) {
     queryFn: async () => {
       const result = await meetingByProject({
         input: { projectId },
-        fields: ['id', 'title', 'description', 'meetingType', 'scheduledAt', 'durationMinutes', 'location', 'meetingUrl', 'notes', 'actionItems', 'attendees', 'status', 'projectId'],
+        fields: ['id', 'title', 'description', 'meetingType', 'scheduledAt', 'durationMinutes', 'location', 'meetingUrl', 'notes', 'actionItems', 'attendees', 'status'] as any,
         sort: 'scheduledAt',
         ...config,
       });
@@ -1519,6 +1503,8 @@ export function useCreateMeeting() {
       location?: string;
       meetingUrl?: string;
       attendees?: string[];
+      notes?: string;
+      status?: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
     }) => {
       const result = await meetingCreate({
         input: {
@@ -1531,6 +1517,8 @@ export function useCreateMeeting() {
           location: data.location,
           meetingUrl: data.meetingUrl,
           attendees: data.attendees,
+          notes: data.notes,
+          status: data.status,
         },
         fields: ['id', 'title', 'meetingType', 'scheduledAt', 'status'],
         ...config,
@@ -1580,7 +1568,7 @@ export function useUpdateMeeting() {
           actionItems: data.actionItems,
           attendees: data.attendees,
         },
-        fields: ['id', 'title', 'notes', 'actionItems', 'status', 'projectId'],
+        fields: ['id', 'title', 'notes', 'actionItems', 'status'] as any,
         ...config,
       });
       if (!result.success) {
@@ -1693,6 +1681,96 @@ export function useDeleteMeeting() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.meetingsByProject(variables.projectId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.upcomingMeetingsByProject(variables.projectId) });
+    },
+  });
+}
+
+// ============== User Profile Hooks ==============
+
+export function useChangePassword() {
+  const { getAuthHeaders } = useAuth();
+
+  return useMutation({
+    mutationFn: async ({
+      userId,
+      currentPassword,
+      newPassword,
+      newPasswordConfirmation,
+    }: {
+      userId: string;
+      currentPassword: string;
+      newPassword: string;
+      newPasswordConfirmation: string;
+    }) => {
+      const response = await fetch('/api/rpc/run', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({
+          domain: 'Accounts',
+          resource: 'User',
+          action: 'change_password',
+          primaryKey: userId,
+          input: {
+            current_password: currentPassword,
+            new_password: newPassword,
+            new_password_confirmation: newPasswordConfirmation,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      if (!result.success) {
+        const errorMessage = result.errors?.[0]?.message || 'Failed to change password';
+        throw new Error(errorMessage);
+      }
+      return result.data;
+    },
+  });
+}
+
+export function useUpdateProfile() {
+  const { getAuthHeaders } = useAuth();
+
+  return useMutation({
+    mutationFn: async ({
+      userId,
+      firstName,
+      lastName,
+      phone,
+    }: {
+      userId: string;
+      firstName?: string;
+      lastName?: string;
+      phone?: string;
+    }) => {
+      const response = await fetch('/api/rpc/run', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify({
+          domain: 'Accounts',
+          resource: 'User',
+          action: 'update_profile',
+          primaryKey: userId,
+          input: {
+            first_name: firstName,
+            last_name: lastName,
+            phone,
+          },
+        }),
+      });
+
+      const result = await response.json();
+      if (!result.success) {
+        const errorMessage = result.errors?.[0]?.message || 'Failed to update profile';
+        throw new Error(errorMessage);
+      }
+      return result.data;
     },
   });
 }

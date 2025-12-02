@@ -325,6 +325,31 @@
       "title": "Huvudkontor",
       "subtitle": "Kom förbi på kaffe",
       "city": "Stockholm, Sverige"
+    },
+    "contactForm": {
+      "badge": "Kontakta oss",
+      "title": "Skicka ett meddelande",
+      "subtitle": "Fyll i formuläret så återkommer vi inom 24 timmar.",
+      "nameLabel": "Namn",
+      "namePlaceholder": "Ditt namn",
+      "emailLabel": "E-post",
+      "emailPlaceholder": "din@epost.se",
+      "companyLabel": "Företag",
+      "companyPlaceholder": "Ditt företag (valfritt)",
+      "phoneLabel": "Telefon",
+      "phonePlaceholder": "+46 70 123 45 67 (valfritt)",
+      "messageLabel": "Meddelande",
+      "messagePlaceholder": "Berätta kort om vad du vill diskutera...",
+      "submitButton": "Skicka meddelande",
+      "submitting": "Skickar...",
+      "successTitle": "Tack för ditt meddelande!",
+      "successMessage": "Vi har tagit emot ditt meddelande och återkommer inom 24 timmar.",
+      "errorTitle": "Något gick fel",
+      "errorMessage": "Kunde inte skicka meddelandet. Försök igen eller kontakta oss direkt på hello@siteflow.se",
+      "tryAgain": "Försök igen",
+      "sendAnother": "Skicka ett nytt meddelande",
+      "required": "Obligatoriskt fält",
+      "invalidEmail": "Ange en giltig e-postadress"
     }
   },
   "loginPage": {
@@ -432,14 +457,20 @@
     }
   },
   "imageGrid": {
-    "badge": "Insidan",
-    "title": "Bakom kulisserna",
-    "description": "Inga generiska stock-foton. Så här ser det ut när vi designar flöden och löser problem.",
+    "badge": "Bakom kulisserna",
+    "title": "Arkitekterna i arbete",
+    "description": "Vi bygger inte bara system - vi lever dem. Här ser du teamet som orkestrerar flödet.",
     "labels": {
-      "liveArchitecture": "Live Arkitektur",
-      "flowDesign": "Flödesdesign",
-      "inHouse": "In-House"
+      "liveArchitecture": "Levande arkitektur",
+      "flowDesign": "Flödesdesign"
     }
+  },
+  "blogPreview": {
+    "badge": "Kunskap & Insikter",
+    "title": "Från vår blogg",
+    "description": "Djupdykningar i teknik, arkitektur och framtidens system. Läs våra senaste artiklar.",
+    "viewAll": "Se alla artiklar",
+    "minRead": "min"
   },
   "audienceFilter": {
     "badge": "Matchning",
@@ -1269,6 +1300,227 @@
     "lastUpdated": "Senast uppdaterad",
     "ago": "sedan",
     "openPreview": "Öppna förhandsvisning"
+  },
+  "newsletter": {
+    "title": "Håll dig uppdaterad",
+    "description": "Få de senaste insikterna om skalbar systemarkitektur direkt i din inbox.",
+    "placeholder": "Din e-postadress",
+    "button": "Prenumerera",
+    "success": "Tack! Du är nu prenumerant.",
+    "error": "Något gick fel. Försök igen."
+  },
+  "security": {
+    "gdpr": "GDPR-kompatibel",
+    "iso": "ISO 27001",
+    "dataEu": "Data lagras i EU",
+    "encrypted": "256-bit kryptering"
+  },
+  "cookies": {
+    "title": "Vi använder cookies",
+    "description": "Vi använder cookies för att förbättra din upplevelse och analysera trafiken på vår webbplats.",
+    "acceptAll": "Acceptera alla",
+    "rejectAll": "Avvisa alla",
+    "customize": "Anpassa",
+    "learnMore": "Läs mer",
+    "savePreferences": "Spara val",
+    "required": "Krävs",
+    "optional": "Valfritt",
+    "necessary": {
+      "title": "Nödvändiga",
+      "description": "Krävs för grundläggande funktioner som sidnavigering och säkerhet."
+    },
+    "analytics": {
+      "title": "Analys",
+      "description": "Hjälper oss förstå hur besökare använder webbplatsen för att förbättra upplevelsen."
+    }
+  },
+  "seoPartner": {
+    "title": "SEO Partner Dashboard",
+    "subtitle": "Hantera innehåll och analysera trafik",
+    "welcome": "Välkommen till SEO Partner Dashboard",
+    "welcomeDescription": "Här kan du hantera blogginlägg, se trafikstatistik och analysera användarnas beteende.",
+    "blogPosts": "Blogginlägg",
+    "createPost": "Skapa nytt inlägg",
+    "editPost": "Redigera inlägg",
+    "analytics": "Analytics",
+    "heatmaps": "Heatmaps",
+    "lastPublished": "Senast publicerad",
+    "totalPosts": "Totalt antal inlägg",
+    "viewAnalytics": "Öppna Google Analytics",
+    "viewHeatmaps": "Öppna Microsoft Clarity",
+    "noPostsYet": "Inga blogginlägg ännu",
+    "published": "Publicerad",
+    "draft": "Utkast",
+    "blogManager": {
+      "title": "Blogginlägg",
+      "subtitle": "Hantera dina blogginlägg",
+      "newPost": "Nytt inlägg",
+      "editPost": "Redigera",
+      "deletePost": "Ta bort",
+      "confirmDelete": "Är du säker på att du vill ta bort detta inlägg?",
+      "readTime": "min läsning",
+      "tags": "Taggar",
+      "noTags": "Inga taggar"
+    },
+    "blogEditor": {
+      "title": "Bloggredigerare",
+      "newPost": "Nytt blogginlägg",
+      "editPost": "Redigera blogginlägg",
+      "slug": "URL-slug",
+      "slugPlaceholder": "min-artikel-titel",
+      "titleSv": "Titel (Svenska)",
+      "titleEn": "Titel (Engelska)",
+      "excerptSv": "Utdrag (Svenska)",
+      "excerptEn": "Utdrag (Engelska)",
+      "heroImage": "Huvudbild",
+      "heroImagePlaceholder": "/blog/images/min-bild.jpg",
+      "heroImageAltSv": "Bildtext (Svenska)",
+      "heroImageAltEn": "Bildtext (Engelska)",
+      "readTime": "Lästid (minuter)",
+      "tags": "Taggar (kommaseparerade)",
+      "tagsPlaceholder": "SEO, Marketing, Tips",
+      "sections": "Sektioner",
+      "addSection": "Lägg till sektion",
+      "removeSection": "Ta bort sektion",
+      "sectionHeadingSv": "Rubrik (Svenska)",
+      "sectionHeadingEn": "Rubrik (Engelska)",
+      "sectionContentSv": "Innehåll (Svenska)",
+      "sectionContentEn": "Innehåll (Engelska)",
+      "sectionImage": "Sektionsbild (valfritt)",
+      "preview": "Förhandsgranska",
+      "save": "Spara",
+      "saveAsDraft": "Spara som utkast",
+      "publish": "Publicera",
+      "cancel": "Avbryt",
+      "saved": "Sparat!",
+      "markdownTip": "Du kan använda Markdown för formatering"
+    },
+    "analyticsPanel": {
+      "title": "Google Analytics",
+      "subtitle": "Analysera din webbplatstrafik",
+      "description": "Se detaljerad statistik om besökare, sidvisningar och användarnas beteende på din webbplats.",
+      "openDashboard": "Öppna Google Analytics",
+      "propertyId": "Property ID",
+      "metrics": {
+        "visitors": "Besökare",
+        "pageViews": "Sidvisningar",
+        "bounceRate": "Avvisningsfrekvens",
+        "avgDuration": "Genomsnittlig sessionstid"
+      }
+    },
+    "clarityPanel": {
+      "title": "Microsoft Clarity",
+      "subtitle": "Heatmaps och sessionsinspelningar",
+      "description": "Se hur användare interagerar med din webbplats genom heatmaps, scroll-kartor och sessionsinspelningar.",
+      "openDashboard": "Öppna Clarity Dashboard",
+      "features": {
+        "heatmaps": "Heatmaps",
+        "heatmapsDesc": "Se var användare klickar mest",
+        "scrollMaps": "Scroll-kartor",
+        "scrollMapsDesc": "Se hur långt användare scrollar",
+        "recordings": "Sessionsinspelningar",
+        "recordingsDesc": "Titta på hur användare navigerar på sidan"
+      },
+      "setupRequired": "Clarity behöver konfigureras",
+      "setupDescription": "Lägg till ditt Clarity projekt-ID i miljövariablerna för att aktivera heatmaps och inspelningar."
+    },
+    "nav": {
+      "overview": "Översikt",
+      "aiAssistant": "AI Assistent",
+      "blogManager": "Blogginlägg",
+      "analytics": "Analytics",
+      "heatmaps": "Heatmaps",
+      "caseStudies": "Kund Cases"
+    },
+    "totalCases": "Totalt antal cases",
+    "caseStudiesTitle": "Kund Cases",
+    "noCasesYet": "Inga kundcase ännu",
+    "aiAssistant": {
+      "title": "AI Assistent",
+      "subtitle": "Få hjälp med innehållsskapande och SEO",
+      "welcome": "Hej! Jag är din AI-assistent",
+      "welcomeDescription": "Jag kan hjälpa dig med idéer för blogginlägg, SEO-tips, och förslag för kundcase. Ställ en fråga eller välj ett förslag nedan.",
+      "placeholder": "Skriv ditt meddelande...",
+      "disclaimer": "AI-genererat innehåll bör alltid granskas innan publicering",
+      "mockResponse": "Tack för din fråga! Jag analyserar just nu dina behov och kommer snart med förslag. Detta är ett demo-svar - i produktion kommer jag att ge dig konkreta förslag baserat på din fråga.",
+      "suggestions": {
+        "blogIdea": "Ge mig bloggidéer",
+        "seoTips": "SEO-tips för min sida",
+        "caseStudy": "Hjälp med kundcase"
+      },
+      "prompts": {
+        "blogIdea": "Ge mig 5 idéer för blogginlägg om webbutveckling och digitala system",
+        "seoTips": "Vilka är de viktigaste SEO-tipsen för att förbättra min webbplats ranking?",
+        "caseStudy": "Hjälp mig strukturera ett kundcase för ett lyckat projekt"
+      }
+    },
+    "caseStudyManager": {
+      "title": "Kund Cases",
+      "subtitle": "Hantera dina kundcase",
+      "newCase": "Nytt case",
+      "editCase": "Redigera",
+      "deleteCase": "Ta bort",
+      "confirmDelete": "Är du säker på att du vill ta bort detta kundcase?",
+      "noCasesYet": "Inga kundcase ännu",
+      "comingSoon": "Redigering av kundcase kommer snart!"
+    },
+    "caseStudyEditor": {
+      "title": "Case-redigerare",
+      "newCase": "Nytt kundcase",
+      "editCase": "Redigera kundcase",
+      "slug": "URL-slug",
+      "slugPlaceholder": "mitt-kundcase",
+      "titleSv": "Titel (Svenska)",
+      "titleEn": "Titel (Engelska)",
+      "excerptSv": "Sammanfattning (Svenska)",
+      "excerptEn": "Sammanfattning (Engelska)",
+      "industrySv": "Bransch (Svenska)",
+      "industryEn": "Bransch (Engelska)",
+      "durationSv": "Projektlängd (Svenska)",
+      "durationEn": "Projektlängd (Engelska)",
+      "challengeSv": "Utmaning (Svenska)",
+      "challengeEn": "Utmaning (Engelska)",
+      "solutionSv": "Lösning (Svenska)",
+      "solutionEn": "Lösning (Engelska)",
+      "results": "Resultat",
+      "resultPlaceholderSv": "Lägg till ett resultat...",
+      "technologies": "Teknologier",
+      "technologyPlaceholder": "T.ex. Elixir, React...",
+      "heroImage": "Huvudbild (URL)",
+      "testimonial": "Kundomdöme",
+      "quoteSv": "Citat (Svenska)",
+      "quoteEn": "Citat (Engelska)",
+      "author": "Namn",
+      "role": "Roll/Titel"
+    }
+  },
+  "settings": {
+    "title": "Inställningar",
+    "subtitle": "Hantera din profil och säkerhetsinställningar",
+    "profile": {
+      "title": "Profilinställningar",
+      "subtitle": "Uppdatera din personliga information",
+      "firstName": "Förnamn",
+      "lastName": "Efternamn",
+      "email": "E-post",
+      "emailHint": "E-postadressen kan inte ändras",
+      "phone": "Telefon",
+      "success": "Profilen har uppdaterats",
+      "error": "Kunde inte uppdatera profilen"
+    },
+    "password": {
+      "title": "Byt lösenord",
+      "subtitle": "Uppdatera ditt lösenord för ökad säkerhet",
+      "current": "Nuvarande lösenord",
+      "new": "Nytt lösenord",
+      "confirm": "Bekräfta nytt lösenord",
+      "requirements": "Minst 8 tecken, en stor bokstav, en liten bokstav och en siffra",
+      "change": "Byt lösenord",
+      "success": "Lösenordet har ändrats",
+      "error": "Kunde inte ändra lösenordet"
+    },
+    "save": "Spara ändringar",
+    "saving": "Sparar..."
   },
   "rag": {
     "knowledge": {

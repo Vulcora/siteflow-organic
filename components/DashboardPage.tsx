@@ -1,14 +1,20 @@
 import React from 'react';
 import DashboardLayout from './DashboardLayout';
 import { Page } from '../types';
-import { UserRole, isAdmin, isKAM, isProjectLeader, isDeveloper } from '../utils/roleHelpers';
+import { UserRole, isAdmin, isKAM, isProjectLeader, isDeveloper, isSEOPartner } from '../utils/roleHelpers';
 import { useAuth } from '../src/context/AuthContext';
 import {
   CustomerDashboard,
   AdminDashboard,
   KAMDashboard,
   DeveloperDashboard,
-  ProjectLeaderDashboard
+  ProjectLeaderDashboard,
+  SEOPartnerDashboard,
+  BlogManager,
+  AnalyticsPanel,
+  ClarityPanel,
+  AIAssistant,
+  CaseStudyManager
 } from './dashboards';
 import TimeTrackingDashboard from './dashboards/TimeTrackingDashboard';
 import {
@@ -20,17 +26,12 @@ import {
   AIChatPage,
   KnowledgePage,
   AIDocsPage,
-  ProductPlansPage
+  ProductPlansPage,
+  SettingsPage
 } from './pages';
 // Admin components
 import AdminFormResponseView from './admin/AdminFormResponseView';
 import AdminFileBrowser from './admin/AdminFileBrowser';
-// New enterprise pages
-import SettingsPage from './pages/SettingsPage';
-import IntegrationsPage from './pages/IntegrationsPage';
-import APIPortalPage from './pages/APIPortalPage';
-import AuditLogPage from './pages/AuditLogPage';
-import AnalyticsDashboardPage from './pages/AnalyticsDashboardPage';
 
 interface DashboardPageProps {
   currentPage: Page;
@@ -55,6 +56,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentPage, onNavigate, 
     }
     if (isDeveloper(userRole)) {
       return <DeveloperDashboard />;
+    }
+    if (isSEOPartner(userRole)) {
+      return <SEOPartnerDashboard />;
     }
     // Default to customer dashboard
     return <CustomerDashboard />;
@@ -89,16 +93,18 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentPage, onNavigate, 
         return <AdminFormResponseView />;
       case 'dashboardFileBrowser':
         return <AdminFileBrowser />;
+      case 'dashboardBlogManager':
+        return <BlogManager />;
+      case 'dashboardAnalytics':
+        return <AnalyticsPanel />;
+      case 'dashboardHeatmaps':
+        return <ClarityPanel />;
+      case 'dashboardSEOAIAssistant':
+        return <AIAssistant />;
+      case 'dashboardCaseStudies':
+        return <CaseStudyManager />;
       case 'dashboardSettings':
         return <SettingsPage />;
-      case 'dashboardIntegrations':
-        return <IntegrationsPage />;
-      case 'dashboardApiPortal':
-        return <APIPortalPage />;
-      case 'dashboardAuditLog':
-        return <AuditLogPage />;
-      case 'dashboardAnalytics':
-        return <AnalyticsDashboardPage />;
       default:
         return renderOverviewDashboard();
     }

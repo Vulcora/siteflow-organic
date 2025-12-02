@@ -162,7 +162,7 @@ const TicketConversation: React.FC<TicketConversationProps> = ({
 
                   {/* Timestamp */}
                   <span className="text-xs text-slate-400 mt-1 px-2">
-                    {formatTime(comment.insertedAt)}
+                    {formatTime((comment as any).insertedAt || (comment as any).createdAt || new Date().toISOString())}
                   </span>
                 </div>
               </div>

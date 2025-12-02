@@ -1,5 +1,6 @@
 import React from 'react';
 import ConsultationTool from './ConsultationTool';
+import ContactForm from './ContactForm';
 import ImageGrid from './ImageGrid';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -77,6 +78,9 @@ const ContactPage: React.FC = () => {
        <div id="contact-form">
             <ConsultationTool />
        </div>
+
+       {/* Contact Form */}
+       <ContactForm />
 
        {/* Direct Contact Info */}
        <div className="bg-slate-50 border-t border-slate-200 py-20">

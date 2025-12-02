@@ -11,7 +11,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-screen flex items-center bg-slate-900 text-white pt-24 pb-12 overflow-hidden">
+    <section className="relative min-h-[75vh] md:min-h-screen flex items-center bg-slate-900 text-white pt-20 pb-8 md:pt-24 md:pb-12 overflow-hidden">
       
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

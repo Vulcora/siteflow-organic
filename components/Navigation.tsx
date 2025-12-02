@@ -109,39 +109,47 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-slate-100 p-6 flex flex-col space-y-4">
-          {navLinks.map((link) => (
-            <button 
-              key={link.label} 
-              onClick={() => handleNavClick(link.page)}
-              className={`text-left font-medium py-2 border-b border-slate-50 ${currentPage === link.page ? 'text-blue-600' : 'text-slate-600'}`}
-            >
-              {link.label}
-            </button>
-          ))}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-slate-100 p-6 flex flex-col space-y-4 transition-all duration-300 ease-out ${
+          isMobileMenuOpen
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
+        {navLinks.map((link, index) => (
           <button
-            onClick={toggleLanguage}
-            className="border border-slate-200 text-slate-700 text-center py-3 rounded-lg font-medium hover:bg-slate-50 flex items-center justify-center gap-2"
-            aria-label={i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
+            key={link.label}
+            onClick={() => handleNavClick(link.page)}
+            className={`text-left font-medium py-2 border-b border-slate-50 transition-all duration-300 ${currentPage === link.page ? 'text-blue-600' : 'text-slate-600'}`}
+            style={{ transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms' }}
           >
-            <Globe className="w-4 h-4" aria-hidden="true" />
-            <span>{i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}</span>
+            {link.label}
           </button>
-          <button
-            onClick={() => handleNavClick('login')}
-            className="border border-slate-200 text-slate-700 text-center py-3 rounded-lg font-medium hover:bg-slate-50"
-          >
-            {t('nav.login')}
-          </button>
-          <button
-            onClick={() => handleNavClick('contact')}
-            className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 text-white text-center py-3 rounded-lg font-medium"
-          >
-            {t('nav.contact')}
-          </button>
-        </div>
-      )}
+        ))}
+        <button
+          onClick={toggleLanguage}
+          className="border border-slate-200 text-slate-700 text-center py-3 rounded-lg font-medium hover:bg-slate-50 flex items-center justify-center gap-2 transition-all duration-300"
+          aria-label={i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}
+          style={{ transitionDelay: isMobileMenuOpen ? `${navLinks.length * 50}ms` : '0ms' }}
+        >
+          <Globe className="w-4 h-4" aria-hidden="true" />
+          <span>{i18n.language === 'sv' ? 'Switch to English' : 'Byt till Svenska'}</span>
+        </button>
+        <button
+          onClick={() => handleNavClick('login')}
+          className="border border-slate-200 text-slate-700 text-center py-3 rounded-lg font-medium hover:bg-slate-50 transition-all duration-300"
+          style={{ transitionDelay: isMobileMenuOpen ? `${(navLinks.length + 1) * 50}ms` : '0ms' }}
+        >
+          {t('nav.login')}
+        </button>
+        <button
+          onClick={() => handleNavClick('contact')}
+          className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 text-white text-center py-3 rounded-lg font-medium transition-all duration-300"
+          style={{ transitionDelay: isMobileMenuOpen ? `${(navLinks.length + 2) * 50}ms` : '0ms' }}
+        >
+          {t('nav.contact')}
+        </button>
+      </div>
     </nav>
   );
 };

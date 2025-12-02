@@ -47,6 +47,31 @@ defmodule Backend.Accounts.User do
     end
   end
 
+  # Password validation: min 8 chars, uppercase, lowercase, number
+  defp validate_password_complexity(changeset, field) do
+    password = Ash.Changeset.get_argument(changeset, field)
+
+    cond do
+      is_nil(password) ->
+        changeset
+
+      String.length(password) < 8 ->
+        Ash.Changeset.add_error(changeset, field: field, message: "must be at least 8 characters")
+
+      not Regex.match?(~r/[A-Z]/, password) ->
+        Ash.Changeset.add_error(changeset, field: field, message: "must contain at least one uppercase letter")
+
+      not Regex.match?(~r/[a-z]/, password) ->
+        Ash.Changeset.add_error(changeset, field: field, message: "must contain at least one lowercase letter")
+
+      not Regex.match?(~r/[0-9]/, password) ->
+        Ash.Changeset.add_error(changeset, field: field, message: "must contain at least one number")
+
+      true ->
+        changeset
+    end
+  end
+
   policies do
     bypass AshAuthentication.Checks.AshAuthenticationInteraction do
       authorize_if always()
@@ -81,9 +106,59 @@ defmodule Backend.Accounts.User do
         :siteflow_dev_backend,
         :siteflow_dev_fullstack,
         :customer,
-        :partner
+        :partner,
+        :seo_partner
       ]]
       change set_attribute(:role, arg(:role))
+    end
+
+    update :change_password do
+      description "Change user password with validation"
+      argument :current_password, :string, allow_nil?: false, sensitive?: true
+      argument :new_password, :string, allow_nil?: false, sensitive?: true
+      argument :new_password_confirmation, :string, allow_nil?: false, sensitive?: true
+
+      # Validate current password
+      validate fn changeset, _context ->
+        user = changeset.data
+        current_password = Ash.Changeset.get_argument(changeset, :current_password)
+
+        if Backend.HashProvider.valid?(current_password, user.hashed_password) do
+          :ok
+        else
+          {:error, field: :current_password, message: "is incorrect"}
+        end
+      end
+
+      # Validate password confirmation matches
+      validate fn changeset, _context ->
+        new_password = Ash.Changeset.get_argument(changeset, :new_password)
+        confirmation = Ash.Changeset.get_argument(changeset, :new_password_confirmation)
+
+        if new_password == confirmation do
+          :ok
+        else
+          {:error, field: :new_password_confirmation, message: "does not match new password"}
+        end
+      end
+
+      # Validate password complexity
+      change fn changeset, _context ->
+        validate_password_complexity(changeset, :new_password)
+      end
+
+      # Hash and set the new password
+      change fn changeset, _context ->
+        new_password = Ash.Changeset.get_argument(changeset, :new_password)
+
+        case Backend.HashProvider.hash(new_password) do
+          {:ok, hashed} ->
+            Ash.Changeset.force_change_attribute(changeset, :hashed_password, hashed)
+
+          _ ->
+            Ash.Changeset.add_error(changeset, field: :new_password, message: "could not be hashed")
+        end
+      end
     end
   end
 
@@ -125,7 +200,8 @@ defmodule Backend.Accounts.User do
         :siteflow_dev_fullstack,
         # Externa roller
         :customer,
-        :partner
+        :partner,
+        :seo_partner
       ]
       default :customer
       public? true

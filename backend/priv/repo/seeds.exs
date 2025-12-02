@@ -174,4 +174,34 @@ case Project
     IO.puts("Project already exists: #{existing.name}")
 end
 
+# Create SEO Partner user if it doesn't exist
+case User
+     |> filter(email == "seo@siteflow.se")
+     |> Ash.read_one(authorize?: false) do
+  {:ok, nil} ->
+    IO.puts("Creating SEO Partner user...")
+
+    {:ok, seo_user} =
+      User
+      |> Ash.Changeset.for_create(:register_with_password, %{
+        email: "seo@siteflow.se",
+        password: "SEOPartner123!",
+        first_name: "SEO",
+        last_name: "Partner",
+        company_id: siteflow_company.id
+      })
+      |> Ash.create(authorize?: false)
+
+    # Update role to seo_partner
+    {:ok, _} =
+      seo_user
+      |> Ash.Changeset.for_update(:assign_role, %{role: :seo_partner})
+      |> Ash.update(authorize?: false)
+
+    IO.puts("SEO Partner user created: seo@siteflow.se")
+
+  {:ok, existing} ->
+    IO.puts("SEO Partner user already exists: #{existing.email}")
+end
+
 IO.puts("\nSeeding complete!")

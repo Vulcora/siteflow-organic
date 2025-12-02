@@ -1,7 +1,28 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock, CheckCircle, Calendar, TrendingUp } from 'lucide-react';
-import type { Milestone, Project } from '../../src/generated/ash-rpc';
+
+// Local types matching the data structure from useApi hooks
+interface Milestone {
+  id: string;
+  title: string;
+  description?: string | null;
+  due_date?: string | null;
+  dueDate?: string | null;
+  status: 'pending' | 'in_progress' | 'completed';
+  completed_at?: string | null;
+  completedAt?: string | null;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  state: string;
+  start_date?: string | null;
+  startDate?: string | null;
+  target_end_date?: string | null;
+  targetEndDate?: string | null;
+}
 
 interface ProjectStatusProps {
   project: Project;
@@ -16,21 +37,25 @@ const ProjectStatus: React.FC<ProjectStatusProps> = ({ project, milestones }) =>
   const totalMilestones = milestones.length;
   const progressPercentage = totalMilestones > 0 ? Math.round((completedMilestones / totalMilestones) * 100) : 0;
 
-  // Find next upcoming milestone
+  // Find next upcoming milestone (handle both snake_case and camelCase)
+  const getDueDate = (m: Milestone) => m.due_date || m.dueDate;
   const upcomingMilestones = milestones
-    .filter(m => m.status === 'pending' && m.due_date)
-    .sort((a, b) => new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime());
+    .filter(m => m.status === 'pending' && getDueDate(m))
+    .sort((a, b) => new Date(getDueDate(a)!).getTime() - new Date(getDueDate(b)!).getTime());
 
   const nextMilestone = upcomingMilestones[0];
 
   // Calculate days until next milestone
-  const daysUntilNext = nextMilestone?.due_date
-    ? Math.ceil((new Date(nextMilestone.due_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+  const nextMilestoneDueDate = nextMilestone ? getDueDate(nextMilestone) : null;
+  const daysUntilNext = nextMilestoneDueDate
+    ? Math.ceil((new Date(nextMilestoneDueDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
     : null;
 
-  // Calculate project duration and current phase
-  const startDate = project.start_date ? new Date(project.start_date) : null;
-  const endDate = project.target_end_date ? new Date(project.target_end_date) : null;
+  // Calculate project duration and current phase (handle both snake_case and camelCase)
+  const projectStartDate = project.start_date || project.startDate;
+  const projectEndDate = project.target_end_date || project.targetEndDate;
+  const startDate = projectStartDate ? new Date(projectStartDate) : null;
+  const endDate = projectEndDate ? new Date(projectEndDate) : null;
   const now = new Date();
 
   let weeksPassed = 0;
@@ -145,7 +170,7 @@ const ProjectStatus: React.FC<ProjectStatusProps> = ({ project, milestones }) =>
               )}
               <div className="mt-2 flex items-center gap-4">
                 <span className="text-sm text-slate-600">
-                  {t('project.status.due')}: {new Date(nextMilestone.due_date!).toLocaleDateString('sv-SE')}
+                  {t('project.status.due')}: {new Date(getDueDate(nextMilestone)!).toLocaleDateString('sv-SE')}
                 </span>
                 {daysUntilNext !== null && (
                   <span className={`text-sm font-medium ${

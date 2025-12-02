@@ -26,7 +26,12 @@
       "Bash(mix deps.get:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(fly status:*)",
+      "Bash(fly deploy:*)",
+      "Bash(npm run build:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"c:\\Users\\arouz\\Desktop\\dev\\siteflow-organic\\restart_server.ps1\")",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

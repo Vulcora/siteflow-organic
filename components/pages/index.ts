@@ -8,3 +8,4 @@ export { default as AIChatPage } from './AIChatPage';
 export { default as KnowledgePage } from './KnowledgePage';
 export { default as AIDocsPage } from './AIDocsPage';
 export { default as ProductPlansPage } from './ProductPlansPage';
+export { default as SettingsPage } from './SettingsPage';

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import CookieConsent from './components/CookieConsent';
 import Process from './components/Process';
 import Stats from './components/Stats';
 import Philosophy from './components/Philosophy';
 import Testimonials from './components/Testimonials';
-import ImageGrid from './components/ImageGrid';
+import BlogPreview from './components/BlogPreview';
 import Integrations from './components/Integrations';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
@@ -83,12 +84,14 @@ const App: React.FC = () => {
       dashboardProductPlans: 'Produktplaner | Siteflow',
       dashboardFormResponses: 'Formulärsvar | Siteflow',
       dashboardFileBrowser: 'Filhanterare | Siteflow',
+      onboarding: 'Registrering | Siteflow',
+      dashboardBlogManager: 'Blogginlägg | Siteflow',
+      dashboardBlogEditor: 'Bloggredigerare | Siteflow',
+      dashboardAnalytics: 'Analytics | Siteflow',
+      dashboardHeatmaps: 'Heatmaps | Siteflow',
       dashboardSettings: 'Inställningar | Siteflow',
-      dashboardIntegrations: 'Integrationer | Siteflow',
-      dashboardApiPortal: 'API & Utvecklare | Siteflow',
-      dashboardAuditLog: 'Granskningslogg | Siteflow',
-      dashboardAnalytics: 'Analys & Rapporter | Siteflow',
-      onboarding: 'Registrering | Siteflow'
+      dashboardSEOAIAssistant: 'SEO AI-assistent | Siteflow',
+      dashboardCaseStudies: 'Kundcase | Siteflow'
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -139,7 +142,7 @@ const App: React.FC = () => {
             <Stats />
             <Philosophy onNavigate={handleNavigate} />
             <Process />
-            <ImageGrid />
+            <BlogPreview onNavigate={handleNavigate} onSelectPost={handleSelectBlogPost} />
             <Testimonials />
             <Integrations />
             <CTA onNavigate={handleNavigate} />
@@ -188,10 +191,12 @@ const App: React.FC = () => {
       case 'dashboardFormResponses':
       case 'dashboardFileBrowser':
       case 'dashboardSettings':
-      case 'dashboardIntegrations':
-      case 'dashboardApiPortal':
-      case 'dashboardAuditLog':
+      case 'dashboardBlogManager':
+      case 'dashboardBlogEditor':
       case 'dashboardAnalytics':
+      case 'dashboardHeatmaps':
+      case 'dashboardSEOAIAssistant':
+      case 'dashboardCaseStudies':
         return <Suspense fallback={<PageLoader />}><DashboardPage currentPage={currentPage} onNavigate={handleNavigate} onLogout={handleLogout} /></Suspense>;
       case 'onboarding':
         return <Suspense fallback={<PageLoader />}><OnboardingPage onNavigate={handleNavigate} token={onboardingToken || undefined} /></Suspense>;
@@ -204,7 +209,12 @@ const App: React.FC = () => {
   const hasCustomLayout = currentPage.startsWith('dashboard') || currentPage === 'onboarding';
 
   if (hasCustomLayout) {
-    return renderPage();
+    return (
+      <>
+        {renderPage()}
+        <CookieConsent onNavigate={handleNavigate} />
+      </>
+    );
   }
 
   return (
@@ -214,6 +224,7 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
       <Footer onNavigate={handleNavigate} />
+      <CookieConsent onNavigate={handleNavigate} />
     </div>
   );
 };
