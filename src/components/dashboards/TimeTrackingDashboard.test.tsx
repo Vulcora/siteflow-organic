@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { render } from '../../test/utils';
@@ -133,9 +133,10 @@ describe('TimeTrackingDashboard', () => {
     render(<TimeTrackingDashboard />);
 
     await waitFor(() => {
-      // Date should be formatted in Swedish locale (e.g., "ons 26 nov.")
-      // Check that a date-like element exists
-      expect(screen.getByText(/nov\./i)).toBeInTheDocument();
+      // Date should be formatted in Swedish locale (e.g., "tis 2 dec.")
+      // Check that a date-like element exists by looking for Swedish month abbreviations
+      // Using a pattern that matches Swedish short month names: jan, feb, mar, apr, maj, jun, jul, aug, sep, okt, nov, dec
+      expect(screen.getByText(/(jan|feb|mar|apr|maj|jun|jul|aug|sep|okt|nov|dec)/i)).toBeInTheDocument();
     });
   });
 

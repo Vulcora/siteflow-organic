@@ -824,6 +824,16 @@ export const handlers = [
 
     return HttpResponse.json({ success: false, errors: [{ message: 'Unknown action' }] }, { status: 400 });
   }),
+
+  // Document upload endpoint (multipart form data)
+  http.post('/api/documents/upload', () => {
+    return HttpResponse.json({
+      id: 'doc-uploaded',
+      name: 'uploaded-file.pdf',
+      filePath: '/uploads/uploaded-file.pdf',
+      category: 'other',
+    });
+  }),
 ];
 
 export const server = setupServer(...handlers);
@@ -841,10 +851,94 @@ afterEach(() => {
 // Close server after all tests
 afterAll(() => server.close());
 
-// Mock i18n
+// Mock i18n with Swedish translations for test assertions
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string, params?: any) => {
+      const translations: Record<string, string> = {
+        // Common
+        'common.cancel': 'Avbryt',
+        'common.days': 'dagar',
+        // Ticket form
+        'ticket.form.title': 'Titel',
+        'ticket.form.project': 'Projekt',
+        'ticket.form.description': 'Beskrivning',
+        'ticket.form.priority': 'Prioritet',
+        'ticket.form.category': 'Kategori',
+        'ticket.form.submit': 'Skapa ärende',
+        'ticket.form.selectProject': 'Välj projekt',
+        'ticket.priority.low': 'Låg',
+        'ticket.priority.medium': 'Medel',
+        'ticket.priority.high': 'Hög',
+        'ticket.priority.critical': 'Kritisk',
+        'ticket.category.task': 'Uppgift',
+        'ticket.category.bug': 'Bugg',
+        'ticket.category.feature': 'Funktion',
+        'ticket.category.support': 'Support',
+        'ticket.category.question': 'Fråga',
+        // Upload form
+        'upload.file': 'Fil',
+        'upload.category': 'Kategori',
+        'upload.project': 'Projekt',
+        'upload.description': 'Beskrivning',
+        'upload.submit': 'Ladda upp',
+        'upload.maxSize': 'Max 50MB',
+        'upload.dropzone': 'Klicka för att välja fil eller dra och släpp',
+        'upload.category.other': 'Övrigt',
+        'upload.category.contract': 'Avtal',
+        'upload.category.specification': 'Specifikation',
+        'upload.category.design': 'Design',
+        'upload.category.report': 'Rapport',
+        'upload.category.invoice': 'Faktura',
+        // Document list
+        'documents.title': 'Dokument',
+        'documents.upload': 'Ladda upp',
+        'documents.download': 'Ladda ner',
+        'documents.empty': 'Inga dokument än',
+        'documents.uploadFirst': 'Ladda upp dokument för att börja',
+        'documents.uploadFirstButton': 'Ladda upp första dokumentet',
+        // Time tracking
+        'timeTracking.title': 'Tidrapportering',
+        'timeTracking.subtitle': 'Hantera och översikt över din arbetad tid',
+        'timeTracking.addTime': 'Lägg till tid',
+        'timeTracking.today': 'Idag',
+        'timeTracking.thisWeek': 'Denna vecka',
+        'timeTracking.thisMonth': 'Denna månad',
+        'timeTracking.entries': 'Tidsposter',
+        'timeTracking.total': 'Totalt',
+        'timeTracking.week': 'Vecka',
+        'timeTracking.month': 'Månad',
+        // Project completion
+        'project.completion.congratulations': 'Grattis! Ditt projekt är klart!',
+        'project.completion.delivered_message': 'Vi är stolta att leverera ditt färdiga projekt.',
+        'project.completion.view_project': 'Visa projekt',
+        'project.completion.review.title': 'Hur nöjd är du?',
+        'project.completion.review.rate_project': 'Betygsätt projektet',
+        'project.completion.review.rating': 'Betyg',
+        'project.completion.review.feedback': 'Din feedback',
+        'project.completion.review.feedback_placeholder': 'Berätta om din upplevelse...',
+        'project.completion.review.submit': 'Skicka omdöme',
+        'project.completion.review.submitting': 'Skickar...',
+        'project.completion.review.your_review': 'Ditt omdöme',
+        'project.completion.review.submitted_at': 'Skickat',
+        'project.completion.support.title': 'Support & Underhåll',
+        'project.completion.support.status': 'Status',
+        'project.completion.support.days_remaining': 'Dagar kvar',
+        'project.completion.support.ends': 'Support upphör',
+        'project.completion.support.active': 'Aktiv',
+        'project.completion.support.ending': 'Snart slut',
+        'project.completion.support.expired': 'Utgången',
+        'project.completion.support.ending_soon': 'Din supportperiod är snart slut.',
+        'project.completion.support.expired_message': 'Din supportperiod har gått ut.',
+      };
+      let result = translations[key] || key;
+      if (params) {
+        Object.keys(params).forEach(paramKey => {
+          result = result.replace(`{{${paramKey}}}`, params[paramKey]);
+        });
+      }
+      return result;
+    },
     i18n: {
       changeLanguage: vi.fn(),
       language: 'sv',

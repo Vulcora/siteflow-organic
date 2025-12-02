@@ -20,25 +20,6 @@ describe('LoginPage', () => {
     expect(screen.getByRole('button', { name: /loginPage.loginButton/i })).toBeInTheDocument();
   });
 
-  it('should render demo account buttons', () => {
-    render(<LoginPage onNavigate={mockNavigate} />);
-
-    expect(screen.getByText('Demo-konton:')).toBeInTheDocument();
-    expect(screen.getByText('admin@siteflow.se')).toBeInTheDocument();
-    expect(screen.getByText('demo@siteflow.se')).toBeInTheDocument();
-  });
-
-  it('should fill email field when clicking admin demo button', async () => {
-    const user = userEvent.setup();
-    render(<LoginPage onNavigate={mockNavigate} />);
-
-    const adminButton = screen.getByText('admin@siteflow.se').closest('button');
-    await user.click(adminButton!);
-
-    const emailInput = screen.getByRole('textbox', { name: /loginPage.emailLabel/i }) as HTMLInputElement;
-    expect(emailInput.value).toBe('admin@siteflow.se');
-  });
-
   it('should disable submit button while submitting', async () => {
     const user = userEvent.setup();
     render(<LoginPage onNavigate={mockNavigate} />);

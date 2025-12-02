@@ -34,7 +34,7 @@ describe('UploadDocumentForm', () => {
       expect(screen.getByText(/klicka för att välja fil eller dra och släpp/i)).toBeInTheDocument();
     });
 
-    expect(screen.getByText('Max 10MB')).toBeInTheDocument();
+    expect(screen.getByText('Max 50MB')).toBeInTheDocument();
   });
 
   it('should render all form fields', async () => {
@@ -66,16 +66,19 @@ describe('UploadDocumentForm', () => {
       expect(screen.getByRole('combobox', { name: /kategori/i })).toBeInTheDocument();
     });
 
-    const categorySelect = screen.getByLabelText(/kategori/i);
+    const categorySelect = screen.getByLabelText(/kategori/i) as HTMLSelectElement;
     expect(categorySelect).toHaveValue('other');
 
-    // Check all options exist
-    expect(screen.getByRole('option', { name: /övrigt/i })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /avtal/i })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /specifikation/i })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /design/i })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /rapport/i })).toBeInTheDocument();
-    expect(screen.getByRole('option', { name: /faktura/i })).toBeInTheDocument();
+    // Check all category options exist by looking at the category select's options
+    const options = categorySelect.querySelectorAll('option');
+    const optionValues = Array.from(options).map(o => o.value);
+
+    expect(optionValues).toContain('other');
+    expect(optionValues).toContain('contract');
+    expect(optionValues).toContain('specification');
+    expect(optionValues).toContain('design');
+    expect(optionValues).toContain('report');
+    expect(optionValues).toContain('invoice');
   });
 
   it('should handle file selection', async () => {
@@ -148,7 +151,7 @@ describe('UploadDocumentForm', () => {
     });
   });
 
-  it('should reject files larger than 10MB', async () => {
+  it('should reject files larger than 50MB', async () => {
     const user = userEvent.setup();
     render(<UploadDocumentForm onSuccess={mockOnSuccess} onCancel={mockOnCancel} />);
 
@@ -156,8 +159,8 @@ describe('UploadDocumentForm', () => {
       expect(screen.getByLabelText(/fil/i)).toBeInTheDocument();
     });
 
-    // Create a file larger than 10MB using ArrayBuffer (much faster)
-    const largeBuffer = new ArrayBuffer(11 * 1024 * 1024);
+    // Create a file larger than 50MB using ArrayBuffer (much faster)
+    const largeBuffer = new ArrayBuffer(51 * 1024 * 1024);
     const file = new File([largeBuffer], 'large-file.pdf', { type: 'application/pdf' });
     const input = screen.getByLabelText(/fil/i) as HTMLInputElement;
 

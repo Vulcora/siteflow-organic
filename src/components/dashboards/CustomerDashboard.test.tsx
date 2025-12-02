@@ -29,10 +29,12 @@ vi.mock('../../context/AuthContext', () => ({
 // Mock the useApi hooks
 const mockUseProjects = vi.fn();
 const mockUseTickets = vi.fn();
+const mockUseMilestonesByProject = vi.fn();
 
 vi.mock('../../hooks/useApi', () => ({
   useProjects: () => mockUseProjects(),
   useTickets: () => mockUseTickets(),
+  useMilestonesByProject: () => mockUseMilestonesByProject(),
 }));
 
 // Mock CreateTicketForm
@@ -104,6 +106,12 @@ const createWrapper = () => {
 describe('CustomerDashboard', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Default mock for milestones
+    mockUseMilestonesByProject.mockReturnValue({
+      data: [],
+      isLoading: false,
+      error: null,
+    });
   });
 
   it('should render loading state', () => {
