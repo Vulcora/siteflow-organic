@@ -23,6 +23,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
 
   const navLinks: NavItem[] = [
     { label: t('nav.home'), page: 'home' },
+    { label: t('nav.flowboarding'), page: 'flowboarding' },
     { label: t('nav.philosophy'), page: 'philosophy' },
     { label: t('nav.audience'), page: 'audience' },
     { label: t('nav.caseStudies'), page: 'caseStudies' },

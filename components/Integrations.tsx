@@ -6,13 +6,13 @@ const Integrations: React.FC = () => {
   const { t } = useTranslation();
 
   const row1 = [
-     { name: 'Slack', logo: '/logos/integrations/Slack_Technologies_Logo.svg' },
+    { name: 'Slack', logo: '/logos/integrations/Slack_Technologies_Logo.svg' },
     { name: 'Stripe', logo: '/logos/integrations/Stripe_Logo,_revised_2016.svg' },
     { name: 'Klarna', logo: '/logos/integrations/Klarna_Payment_Badge.svg' },
     { name: 'Notion', logo: '/logos/integrations/Notion-logo.svg' },
     { name: 'Google Sheets', logo: '/logos/integrations/Google_Sheets_logo_(2014-2020).svg' },
     { name: 'Gmail', logo: '/logos/integrations/Gmail_icon_(2020).svg' },
-    { name: 'BankID', logo: '/logos/integrations/BankID_logo.svg' },
+    { name: 'BankID', logo: '/logos/integrations/BankID_logo.svg', hideOnMobile: true },
   ];
 
   const row2 = [
@@ -22,7 +22,7 @@ const Integrations: React.FC = () => {
     { name: 'Google Forms', logo: '/logos/integrations/Google_Forms_logo_(2014-2020).svg' },
     { name: 'Outlook', logo: '/logos/integrations/Microsoft_Office_Outlook_(2018–2024).svg' },
     { name: 'ChatGPT', logo: '/logos/integrations/ChatGPT-Logo.svg' },
-    { name: 'Airtable', logo: '/logos/integrations/Airtable_Logo.svg' }
+    { name: 'Airtable', logo: '/logos/integrations/Airtable_Logo.svg' },
   ];
 
   return (
@@ -45,7 +45,7 @@ const Integrations: React.FC = () => {
           <div className="flex justify-center animate-on-scroll stagger-1">
             <div className="flex flex-wrap justify-center gap-12 py-4">
               {row1.map((integration, index) => (
-                <div key={index} className="flex items-center justify-center flex-shrink-0">
+                <div key={index} className={`flex items-center justify-center flex-shrink-0 ${integration.hideOnMobile ? 'hidden md:flex' : ''}`}>
                   <img
                     src={integration.logo}
                     alt={integration.name}

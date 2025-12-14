@@ -31,7 +31,12 @@
       "Bash(fly deploy:*)",
       "Bash(npm run build:*)",
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \"c:\\Users\\arouz\\Desktop\\dev\\siteflow-organic\\restart_server.ps1\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(mix deps.clean:*)",
+      "Bash(mix deps.compile:*)",
+      "Bash(rm:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

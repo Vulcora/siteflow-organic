@@ -17,7 +17,6 @@ const PhilosophyPage = lazy(() => import('./components/PhilosophyPage'));
 const AudiencePage = lazy(() => import('./components/AudiencePage'));
 const ResultsPage = lazy(() => import('./components/ResultsPage'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
-const LoginPage = lazy(() => import('./components/LoginPage'));
 const BlogPage = lazy(() => import('./components/BlogPage'));
 const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
 const CaseStudiesPage = lazy(() => import('./components/CaseStudiesPage'));
@@ -25,15 +24,24 @@ const CaseStudyPage = lazy(() => import('./components/CaseStudyPage'));
 const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./components/TermsOfServicePage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
-const DashboardPage = lazy(() => import('./components/DashboardPage'));
-const OnboardingPage = lazy(() => import('./components/OnboardingPage'));
+const FlowboardingPage = lazy(() => import('./components/FlowboardingPage'));
 
 import { Page } from './types';
 
-// Simple loading fallback
+// Smooth loading fallback with delayed appearance
 const PageLoader = () => (
-  <div className="min-h-[50vh] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-slate-300 border-t-blue-500 rounded-full animate-spin"></div>
+  <div className="min-h-[50vh] flex items-center justify-center page-loader">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-8 h-8 border-2 border-slate-200 border-t-blue-500 rounded-full animate-spin"></div>
+      <div className="h-2 w-24 rounded-full skeleton-pulse"></div>
+    </div>
+  </div>
+);
+
+// Page transition wrapper
+const PageWrapper: React.FC<{ children: React.ReactNode; pageKey: string }> = ({ children, pageKey }) => (
+  <div key={pageKey} className="page-fade-in">
+    {children}
   </div>
 );
 
@@ -41,17 +49,6 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [currentBlogSlug, setCurrentBlogSlug] = useState<string | null>(null);
   const [currentCaseStudySlug, setCurrentCaseStudySlug] = useState<string | null>(null);
-  const [onboardingToken, setOnboardingToken] = useState<string | null>(null);
-
-  // Check for onboarding token in URL on mount
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-    if (token) {
-      setOnboardingToken(token);
-      setCurrentPage('onboarding');
-    }
-  }, []);
 
   // Handle side effects of navigation (SEO Title + Scroll)
   useEffect(() => {
@@ -63,7 +60,6 @@ const App: React.FC = () => {
       audience: 'För Vem? | Siteflow',
       results: 'Resultat & Case | Siteflow',
       contact: 'Starta Dialog | Siteflow',
-      login: 'Logga in | Siteflow',
       blog: 'Blogg | Siteflow',
       blogPost: 'Blogg | Siteflow',
       caseStudies: 'Kundcase | Siteflow',
@@ -71,27 +67,7 @@ const App: React.FC = () => {
       privacy: 'Integritetspolicy | Siteflow',
       terms: 'Användarvillkor | Siteflow',
       notFound: '404 - Sidan hittades inte | Siteflow',
-      dashboard: 'Dashboard | Siteflow',
-      dashboardProjects: 'Projekt | Siteflow',
-      dashboardTickets: 'Ärenden | Siteflow',
-      dashboardTimeEntries: 'Tidrapportering | Siteflow',
-      dashboardDocuments: 'Dokument | Siteflow',
-      dashboardTeam: 'Team | Siteflow',
-      dashboardCompanies: 'Företag | Siteflow',
-      dashboardAIChat: 'AI-assistent | Siteflow',
-      dashboardKnowledge: 'Kunskapsbas | Siteflow',
-      dashboardAIDocs: 'AI-dokument | Siteflow',
-      dashboardProductPlans: 'Produktplaner | Siteflow',
-      dashboardFormResponses: 'Formulärsvar | Siteflow',
-      dashboardFileBrowser: 'Filhanterare | Siteflow',
-      onboarding: 'Registrering | Siteflow',
-      dashboardBlogManager: 'Blogginlägg | Siteflow',
-      dashboardBlogEditor: 'Bloggredigerare | Siteflow',
-      dashboardAnalytics: 'Analytics | Siteflow',
-      dashboardHeatmaps: 'Heatmaps | Siteflow',
-      dashboardSettings: 'Inställningar | Siteflow',
-      dashboardSEOAIAssistant: 'SEO AI-assistent | Siteflow',
-      dashboardCaseStudies: 'Kundcase | Siteflow'
+      flowboarding: 'Flowboarding - Vår Process | Siteflow',
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -127,17 +103,18 @@ const App: React.FC = () => {
     setCurrentPage('caseStudies');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
-    setCurrentPage('home');
-  };
-
   const renderPage = () => {
+    // Create unique key for page transitions
+    const pageKey = currentPage === 'blogPost'
+      ? `blogPost-${currentBlogSlug}`
+      : currentPage === 'caseStudy'
+        ? `caseStudy-${currentCaseStudySlug}`
+        : currentPage;
+
     switch (currentPage) {
       case 'home':
         return (
-          <>
+          <PageWrapper pageKey={pageKey}>
             <Hero onNavigate={handleNavigate} />
             <Stats />
             <Philosophy onNavigate={handleNavigate} />
@@ -147,75 +124,40 @@ const App: React.FC = () => {
             <Integrations />
             <CTA onNavigate={handleNavigate} />
             <FAQ />
-          </>
+          </PageWrapper>
         );
       case 'philosophy':
-        return <Suspense fallback={<PageLoader />}><PhilosophyPage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><PhilosophyPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       case 'audience':
-        return <Suspense fallback={<PageLoader />}><AudiencePage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><AudiencePage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       case 'results':
-        return <Suspense fallback={<PageLoader />}><ResultsPage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><ResultsPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       case 'contact':
-        return <Suspense fallback={<PageLoader />}><ContactPage /></Suspense>;
-      case 'login':
-        return <Suspense fallback={<PageLoader />}><LoginPage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><ContactPage /></Suspense></PageWrapper>;
       case 'blog':
-        return <Suspense fallback={<PageLoader />}><BlogPage onNavigate={handleNavigate} onSelectPost={handleSelectBlogPost} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><BlogPage onNavigate={handleNavigate} onSelectPost={handleSelectBlogPost} /></Suspense></PageWrapper>;
       case 'blogPost':
         return currentBlogSlug ? (
-          <Suspense fallback={<PageLoader />}><BlogPostPage slug={currentBlogSlug} onNavigate={handleNavigate} onBack={handleBackToBlog} /></Suspense>
+          <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><BlogPostPage slug={currentBlogSlug} onNavigate={handleNavigate} onBack={handleBackToBlog} /></Suspense></PageWrapper>
         ) : null;
       case 'caseStudies':
-        return <Suspense fallback={<PageLoader />}><CaseStudiesPage onNavigate={handleNavigate} onSelectCase={handleSelectCaseStudy} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><CaseStudiesPage onNavigate={handleNavigate} onSelectCase={handleSelectCaseStudy} /></Suspense></PageWrapper>;
       case 'caseStudy':
         return currentCaseStudySlug ? (
-          <Suspense fallback={<PageLoader />}><CaseStudyPage slug={currentCaseStudySlug} onNavigate={handleNavigate} onBack={handleBackToCaseStudies} /></Suspense>
+          <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><CaseStudyPage slug={currentCaseStudySlug} onNavigate={handleNavigate} onBack={handleBackToCaseStudies} /></Suspense></PageWrapper>
         ) : null;
       case 'privacy':
-        return <Suspense fallback={<PageLoader />}><PrivacyPolicyPage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><PrivacyPolicyPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       case 'terms':
-        return <Suspense fallback={<PageLoader />}><TermsOfServicePage onNavigate={handleNavigate} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><TermsOfServicePage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       case 'notFound':
-        return <Suspense fallback={<PageLoader />}><NotFoundPage setCurrentPage={handleNavigate} /></Suspense>;
-      case 'dashboard':
-      case 'dashboardProjects':
-      case 'dashboardTickets':
-      case 'dashboardTimeEntries':
-      case 'dashboardDocuments':
-      case 'dashboardTeam':
-      case 'dashboardCompanies':
-      case 'dashboardAIChat':
-      case 'dashboardKnowledge':
-      case 'dashboardAIDocs':
-      case 'dashboardProductPlans':
-      case 'dashboardFormResponses':
-      case 'dashboardFileBrowser':
-      case 'dashboardSettings':
-      case 'dashboardBlogManager':
-      case 'dashboardBlogEditor':
-      case 'dashboardAnalytics':
-      case 'dashboardHeatmaps':
-      case 'dashboardSEOAIAssistant':
-      case 'dashboardCaseStudies':
-        return <Suspense fallback={<PageLoader />}><DashboardPage currentPage={currentPage} onNavigate={handleNavigate} onLogout={handleLogout} /></Suspense>;
-      case 'onboarding':
-        return <Suspense fallback={<PageLoader />}><OnboardingPage onNavigate={handleNavigate} token={onboardingToken || undefined} /></Suspense>;
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><NotFoundPage setCurrentPage={handleNavigate} /></Suspense></PageWrapper>;
+      case 'flowboarding':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><FlowboardingPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       default:
-        return <Hero onNavigate={handleNavigate} />;
+        return <PageWrapper pageKey="home"><Hero onNavigate={handleNavigate} /></PageWrapper>;
     }
   };
-
-  // Dashboard and onboarding have their own layouts, so we don't show the main navigation/footer
-  const hasCustomLayout = currentPage.startsWith('dashboard') || currentPage === 'onboarding';
-
-  if (hasCustomLayout) {
-    return (
-      <>
-        {renderPage()}
-        <CookieConsent onNavigate={handleNavigate} />
-      </>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-100 selection:text-blue-900 flex flex-col">

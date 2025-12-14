@@ -9,6 +9,61 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        // Brand colors - extracted from landing page usage
+        brand: {
+          // Primary - blue tones
+          primary: {
+            50: '#eff6ff',   // blue-50
+            100: '#dbeafe',  // blue-100
+            200: '#bfdbfe',  // blue-200
+            300: '#93c5fd',  // blue-300
+            400: '#60a5fa',  // blue-400
+            500: '#3b82f6',  // blue-500
+            600: '#2563eb',  // blue-600
+            700: '#1d4ed8',  // blue-700
+            DEFAULT: '#2563eb',
+          },
+          // Secondary - teal tones
+          secondary: {
+            100: '#ccfbf1',  // teal-100
+            300: '#5eead4',  // teal-300
+            400: '#2dd4bf',  // teal-400
+            500: '#14b8a6',  // teal-500
+            600: '#0d9488',  // teal-600
+            DEFAULT: '#14b8a6',
+          },
+          // Accent - cyan for gradients
+          accent: {
+            300: '#67e8f9',  // cyan-300
+            400: '#22d3ee',  // cyan-400
+            500: '#06b6d4',  // cyan-500
+            DEFAULT: '#06b6d4',
+          },
+          // Surface colors - slate tones
+          surface: {
+            50: '#f8fafc',   // slate-50
+            100: '#f1f5f9',  // slate-100
+            200: '#e2e8f0',  // slate-200
+            DEFAULT: '#f8fafc',
+          },
+          // Text colors
+          text: {
+            primary: '#0f172a',   // slate-900
+            secondary: '#475569', // slate-600
+            muted: '#64748b',     // slate-500
+            light: '#94a3b8',     // slate-400
+          },
+          // Dark background
+          dark: '#0f172a',  // slate-900
+        },
+      },
+      backgroundImage: {
+        // Gradients from index.css moved to theme
+        'water-gradient': 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+        'text-gradient': 'linear-gradient(to right, #0ea5e9, #2563eb)',
+        'cta-gradient': 'linear-gradient(to right, #60a5fa, #67e8f9, #5eead4)',
+      },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
@@ -69,7 +124,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-  ],
+  plugins: [],
 }
