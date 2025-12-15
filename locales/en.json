@@ -1,12 +1,32 @@
 {
   "nav": {
     "home": "Home",
+    "services": "Services",
+    "servicesItems": {
+      "webDevelopment": "Web Development",
+      "webDevelopmentDesc": "Modern, fast websites",
+      "systemDevelopment": "System Development",
+      "systemDevelopmentDesc": "Scalable backend systems",
+      "consulting": "Consulting",
+      "consultingDesc": "Strategic technical advice",
+      "maintenance": "Operations & Maintenance",
+      "maintenanceDesc": "24/7 monitoring and support"
+    },
+    "aboutUs": "About Us",
     "flowboarding": "Our Process",
+    "flowboardingDesc": "How we work with you",
     "philosophy": "Philosophy",
+    "philosophyDesc": "Our principles and values",
     "audience": "Who For?",
-    "results": "Results",
+    "audienceDesc": "Are we right for you?",
+    "inspiration": "Inspiration",
     "caseStudies": "Case Studies",
+    "caseStudiesDesc": "See what we've built",
     "blog": "Blog",
+    "blogDesc": "Articles and insights",
+    "press": "Press & Media",
+    "pressDesc": "Logos and brand assets",
+    "results": "Results",
     "contact": "Start Dialog",
     "login": "Log in"
   },
@@ -1538,6 +1558,377 @@
       "noEntries": "No knowledge entries yet",
       "noEntriesHint": "Click 'Add Knowledge' to create the first entry",
       "confirmDelete": "Are you sure you want to delete this knowledge entry?"
+    }
+  },
+  "webDevelopmentPage": {
+    "badge": "Web Development",
+    "title": "Modern websites that perform",
+    "subtitle": "We build fast, secure and SEO-optimized websites that give your visitors a first-class experience.",
+    "featuresSection": {
+      "title": "Why choose us?",
+      "subtitle": "We combine modern technology with timeless design to create websites that truly deliver."
+    },
+    "features": {
+      "performance": {
+        "title": "Lightning fast performance",
+        "description": "Our websites load in under a second, improving user experience and search engine rankings."
+      },
+      "responsive": {
+        "title": "Responsive design",
+        "description": "Perfect experience on all devices – from mobile to desktop, without compromise."
+      },
+      "seo": {
+        "title": "SEO optimized",
+        "description": "Built from the ground up for search engine visibility with technical SEO and structured data."
+      },
+      "security": {
+        "title": "Security first",
+        "description": "HTTPS, secure headers and protection against common vulnerabilities as standard."
+      }
+    },
+    "showcaseSection": {
+      "title": "What we build",
+      "subtitle": "From e-commerce platforms to complex web applications – we have experience with most things.",
+      "learnMore": "Learn more"
+    },
+    "showcase": {
+      "ecommerce": {
+        "title": "E-commerce platforms",
+        "description": "Fast and converting stores with headless architecture that gives you full control over the customer experience and easy integration with your existing systems."
+      },
+      "webapp": {
+        "title": "Web applications",
+        "description": "Interactive applications with real-time updates, advanced dashboards and complex business logic that feel as fast as native apps."
+      },
+      "corporate": {
+        "title": "Corporate websites",
+        "description": "Professional websites that strengthen your brand with focus on performance, accessibility and search engine optimization."
+      }
+    },
+    "benefitsSection": {
+      "title": "Why work with us?",
+      "description": "We're not just developers – we're partners who care about your results. Our goal is to build websites that truly deliver value.",
+      "benefit1": {
+        "title": "Direct contact with developers",
+        "description": "No middlemen. You talk directly with the people building your website."
+      },
+      "benefit2": {
+        "title": "Transparent process",
+        "description": "Regular updates and demo sessions so you always know how the project is progressing."
+      },
+      "benefit3": {
+        "title": "Long-term partnership",
+        "description": "We don't disappear after launch. We're here for support and further development."
+      }
+    },
+    "techSection": {
+      "title": "Modern tech stack",
+      "subtitle": "We use the latest and most reliable tools to build future-proof websites."
+    },
+    "tech": {
+      "react": "Component-based architecture for fast development and easy maintenance.",
+      "liveview": "Real-time interactivity without complexity – perfect for dynamic websites.",
+      "tailwind": "Utility-first CSS for consistent design and rapid styling.",
+      "typescript": "Type-safe code that reduces bugs and improves developer experience."
+    },
+    "cta": {
+      "title": "Ready to build your new website?",
+      "description": "Let's discuss how we can create a website that truly represents your brand.",
+      "button": "Start project",
+      "secondaryButton": "See our cases"
+    }
+  },
+  "systemDevelopmentPage": {
+    "badge": "System Development",
+    "title": "Scalable systems that never sleep",
+    "subtitle": "We build backend systems with Elixir and Erlang that handle millions of users without blinking.",
+    "stats": {
+      "uptime": "Historical uptime",
+      "costReduction": "Lower costs",
+      "connections": "Concurrent connections",
+      "responseTime": "Response time"
+    },
+    "featuresSection": {
+      "badge": "Benefits",
+      "title": "Why our systems are different",
+      "subtitle": "Built on proven telecom technology that powers the world's largest platforms."
+    },
+    "features": {
+      "scalability": {
+        "title": "Infinite scalability",
+        "description": "Our systems grow with you – from hundreds to millions of users without architectural changes."
+      },
+      "selfHealing": {
+        "title": "Self-healing",
+        "description": "If something goes wrong, the system restarts itself in microseconds, without users noticing anything."
+      },
+      "realtime": {
+        "title": "Real-time capability",
+        "description": "Built-in support for WebSockets and real-time communication without external dependencies."
+      },
+      "costEfficient": {
+        "title": "Cost efficient",
+        "description": "Up to 80% lower infrastructure costs compared to traditional solutions."
+      }
+    },
+    "useCasesSection": {
+      "badge": "Use Cases",
+      "title": "What we build",
+      "subtitle": "From SaaS platforms to internal business tools – we have experience with most things."
+    },
+    "useCases": {
+      "saas": {
+        "title": "SaaS platforms",
+        "description": "Multi-tenant systems with isolated data, flexible pricing and scalable architecture."
+      },
+      "portal": {
+        "title": "Customer portals",
+        "description": "Secure portals for your customers with role-based access and personalized dashboards."
+      },
+      "integration": {
+        "title": "Integration platforms",
+        "description": "Connect your systems with APIs, webhooks and real-time synchronization."
+      },
+      "automation": {
+        "title": "Automation",
+        "description": "Automate repetitive processes and let your employees focus on what creates value."
+      }
+    },
+    "techSection": {
+      "badge": "Tech Stack",
+      "title": "Built on proven foundation",
+      "subtitle": "We choose technology based on your needs, not trends.",
+      "elixir": "Functional language built for concurrency and fault tolerance. Perfect for systems that can never go down.",
+      "postgres": "The world's most advanced relational database. Reliable, scalable and with fantastic JSON support.",
+      "ash": "Declarative framework that accelerates development without sacrificing flexibility or performance.",
+      "cloud": "We deploy on AWS, Google Cloud or Azure – depending on what suits you best."
+    },
+    "cta": {
+      "title": "Ready to build your next platform?",
+      "description": "Let's discuss how we can create a system that grows with your business.",
+      "button": "Book meeting",
+      "secondaryButton": "Read about our process"
+    }
+  },
+  "consultingPage": {
+    "badge": "Consulting",
+    "title": "Strategic technical advice",
+    "subtitle": "We help you make the right technical decisions and avoid costly mistakes.",
+    "heroCards": {
+      "strategic": "Strategic planning",
+      "insights": "Expert insights",
+      "support": "Hands-on support",
+      "datadriven": "Data-driven"
+    },
+    "servicesSection": {
+      "badge": "Services",
+      "title": "How we can help",
+      "subtitle": "From architecture reviews to hands-on coaching – we adapt to your needs."
+    },
+    "services": {
+      "audit": {
+        "title": "Technical audit",
+        "description": "We analyze your current architecture and identify bottlenecks, security risks and improvement opportunities."
+      },
+      "architecture": {
+        "title": "Architecture design",
+        "description": "We help you design systems that are built to grow – without technical debt."
+      },
+      "scaling": {
+        "title": "Scaling strategy",
+        "description": "Prepare for growth with a concrete plan for how your systems will handle increased load."
+      },
+      "training": {
+        "title": "Training & Coaching",
+        "description": "We train your team in modern system development, Elixir and best practices."
+      }
+    },
+    "approachSection": {
+      "badge": "Our Approach",
+      "title": "How we work",
+      "subtitle": "A structured process that delivers concrete results."
+    },
+    "approach": {
+      "step1": {
+        "title": "Listen & Understand",
+        "description": "We always start by understanding your challenges, goals and constraints."
+      },
+      "step2": {
+        "title": "Analyze & Evaluate",
+        "description": "In-depth analysis of your current situation and possible paths forward."
+      },
+      "step3": {
+        "title": "Recommend & Plan",
+        "description": "Concrete recommendations with prioritization and action plan."
+      },
+      "step4": {
+        "title": "Support & Follow up",
+        "description": "We stay as a sounding board during implementation and ensure you succeed."
+      }
+    },
+    "benefitsSection": {
+      "badge": "Benefits",
+      "title": "Why hire external consultants?",
+      "subtitle": "Sometimes an outside perspective is needed to see the forest for the trees.",
+      "cardTitle": "Book a free consultation",
+      "cardDescription": "30 minutes where we discuss your challenges and how we can help.",
+      "cardButton": "Book time"
+    },
+    "benefits": {
+      "item1": "Objective perspective without internal bias",
+      "item2": "Access to broad experience from different industries",
+      "item3": "Faster decision process with expert input",
+      "item4": "Avoid costly mistakes and technical debt",
+      "item5": "Focused effort without recruitment costs",
+      "item6": "Knowledge transfer to your team"
+    },
+    "cta": {
+      "title": "Need a sounding board?",
+      "description": "We offer free initial conversations to understand your needs.",
+      "button": "Book consultation",
+      "secondaryButton": "See our cases"
+    }
+  },
+  "maintenancePage": {
+    "badge": "Operations & Maintenance",
+    "title": "24/7 monitoring and support",
+    "subtitle": "Sleep well – we make sure your systems are always online and performing optimally.",
+    "statusOperational": "All systems operational",
+    "mostPopular": "Most popular",
+    "stats": {
+      "uptime": "Guaranteed uptime",
+      "responseTime": "Max response time",
+      "monitoring": "Monitoring",
+      "systems": "Systems under care"
+    },
+    "featuresSection": {
+      "badge": "What we offer",
+      "title": "Comprehensive operations services",
+      "subtitle": "Everything you need to keep your systems in top shape."
+    },
+    "features": {
+      "monitoring": {
+        "title": "Proactive monitoring",
+        "description": "We detect and fix problems before they affect your users."
+      },
+      "updates": {
+        "title": "Updates & Patches",
+        "description": "Regular security updates and performance optimizations."
+      },
+      "security": {
+        "title": "Security monitoring",
+        "description": "Continuous scanning for vulnerabilities and threats."
+      },
+      "support": {
+        "title": "Technical support",
+        "description": "Direct access to experienced developers when you need help."
+      }
+    },
+    "plansSection": {
+      "badge": "Pricing Plans",
+      "title": "Choose the right level for you",
+      "subtitle": "Flexible plans that adapt to your needs.",
+      "button": "Get started"
+    },
+    "plans": {
+      "basic": {
+        "name": "Basic",
+        "description": "For smaller systems with lower response time requirements.",
+        "feature1": "Monitoring weekdays 08-17",
+        "feature2": "Response time within 24 hours",
+        "feature3": "Monthly security updates",
+        "feature4": "Email support"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "For business-critical systems.",
+        "feature1": "24/7 monitoring",
+        "feature2": "Response time within 2 hours",
+        "feature3": "Weekly updates",
+        "feature4": "Phone and email support",
+        "feature5": "Proactive optimization"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For large organizations with complex needs.",
+        "feature1": "24/7 monitoring with dedicated team",
+        "feature2": "Response time within 15 minutes",
+        "feature3": "Continuous updates",
+        "feature4": "Dedicated contact person",
+        "feature5": "SLA with financial guarantee",
+        "feature6": "Quarterly review and report"
+      }
+    },
+    "cta": {
+      "title": "Let us handle the operations",
+      "description": "Focus on your core business while we make sure the technology works.",
+      "button": "Discuss your needs",
+      "secondaryButton": "Read about our process"
+    }
+  },
+  "pressPage": {
+    "badge": "Press & Media",
+    "title": "Brand Assets",
+    "subtitle": "Download logos, colors and other resources for press and media.",
+    "logosSection": {
+      "badge": "Logos",
+      "title": "Our logos",
+      "subtitle": "Download in different formats for different use cases.",
+      "downloadAll": "Download all assets"
+    },
+    "logos": {
+      "primary": {
+        "name": "Primary logo",
+        "description": "Our main logo for light backgrounds."
+      },
+      "dark": {
+        "name": "Logo for dark backgrounds",
+        "description": "Optimized for dark backgrounds."
+      },
+      "icon": {
+        "name": "Icon",
+        "description": "Standalone icon for small spaces."
+      }
+    },
+    "colorsSection": {
+      "badge": "Colors",
+      "title": "Our color palette",
+      "subtitle": "The official colors in our brand.",
+      "clickToCopy": "Click to copy hex code"
+    },
+    "guidelinesSection": {
+      "badge": "Guidelines",
+      "title": "Usage guidelines",
+      "subtitle": "This is how we want our brand to be presented."
+    },
+    "guidelines": {
+      "do": {
+        "title": "Do this",
+        "item1": "Use sufficient white space around the logo",
+        "item2": "Keep the original proportions",
+        "item3": "Use approved color combinations"
+      },
+      "dont": {
+        "title": "Avoid this",
+        "item1": "Don't stretch or distort the logo",
+        "item2": "Don't change the colors",
+        "item3": "Don't place the logo on busy backgrounds"
+      }
+    },
+    "companySection": {
+      "badge": "About Siteflow",
+      "title": "Company information",
+      "description": "Siteflow is a Swedish technology company specializing in building scalable, self-healing digital systems. We use modern technology like Elixir and Erlang to create solutions that handle millions of users without interruption.",
+      "founded": "Founded",
+      "location": "Location",
+      "focus": "Focus area",
+      "focusDescription": "Scalable backend systems and modern websites",
+      "contact": "Press contact"
+    },
+    "cta": {
+      "title": "Questions about our brand?",
+      "description": "Contact us if you need additional materials or have questions.",
+      "button": "Contact us"
     }
   }
 }

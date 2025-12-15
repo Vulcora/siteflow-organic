@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Page = 'home' | 'philosophy' | 'audience' | 'results' | 'contact' | 'blog' | 'blogPost' | 'caseStudies' | 'caseStudy' | 'privacy' | 'terms' | 'notFound' | 'flowboarding';
+export type Page = 'home' | 'philosophy' | 'audience' | 'results' | 'contact' | 'blog' | 'blogPost' | 'caseStudies' | 'caseStudy' | 'privacy' | 'terms' | 'notFound' | 'flowboarding' | 'webDevelopment' | 'systemDevelopment' | 'consulting' | 'maintenance' | 'press';
 
 export interface NavItem {
   label: string;

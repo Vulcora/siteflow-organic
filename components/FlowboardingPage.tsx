@@ -5,49 +5,6 @@ interface FlowboardingPageProps {
   onNavigate: (page: Page) => void;
 }
 
-// Animated counter hook
-const useCountUp = (end: number, duration: number = 2000) => {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    let startTime: number;
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      // Easing function for smoother animation
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    requestAnimationFrame(animate);
-  }, [hasStarted, end, duration]);
-
-  return { count, ref };
-};
-
 // Scroll progress hook
 const useScrollProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -738,38 +695,9 @@ const FeatureCard: React.FC<{
   );
 };
 
-// Stats component
-const StatCard: React.FC<{
-  value: number;
-  suffix: string;
-  label: string;
-  delay: number;
-}> = ({ value, suffix, label, delay }) => {
-  const { count, ref } = useCountUp(value, 2000);
-  const { ref: viewRef, isInView } = useInView(0.3);
-
-  return (
-    <div
-      ref={viewRef}
-      className={`text-center transition-all duration-700 ${
-        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
-      style={{ transitionDelay: `${delay}s` }}
-    >
-      <div ref={ref} className="relative inline-block">
-        <span className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-          {count}
-        </span>
-        <span className="text-3xl md:text-4xl font-bold text-white/80">{suffix}</span>
-      </div>
-      <p className="text-slate-400 mt-2 text-lg">{label}</p>
-    </div>
-  );
-};
-
 const FlowboardingPage: React.FC<FlowboardingPageProps> = ({ onNavigate }) => {
   const scrollProgress = useScrollProgress();
-  const { ref: heroRef, isInView: heroInView } = useInView(0.1);
+  const heroRef = React.useRef<HTMLDivElement>(null);
 
   const timelineSteps = useMemo(() => [
     {
@@ -853,86 +781,32 @@ const FlowboardingPage: React.FC<FlowboardingPageProps> = ({ onNavigate }) => {
         style={{ width: `${scrollProgress * 100}%` }}
       />
 
-      {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      >
-        {/* Animated gradient mesh background */}
-        <GradientMesh />
+      {/* Hero Section - matching other subpages */}
+      <div ref={heroRef} className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-[url('/ilustration/1.png')] bg-cover bg-center opacity-10"></div>
 
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '100px 100px',
-          }}
-        />
+        {/* Gradient overlays */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
 
-        {/* Floating elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-white/20 rounded-full animate-float-particle"
-              style={{
-                left: `${15 + i * 15}%`,
-                top: `${20 + (i % 3) * 25}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${6 + i}s`,
-              }}
-            />
-          ))}
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-xs tracking-widest uppercase mb-4 animate-fade-in">
+            Vår Process
+          </span>
+          <h1 className="text-5xl md:text-6xl font-serif mb-6 animate-on-scroll">
+            Från idé till verklighet
+          </h1>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed animate-on-scroll stagger-1">
+            Upptäck hur vi förvandlar din vision till ett fungerande digitalt system.
+            Transparent, strukturerat och alltid med dig i fokus.
+          </p>
         </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div
-            className={`transition-all duration-1000 ${
-              heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-            }`}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
-              <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
-              <span className="text-white/80 text-sm font-medium">Vår Onboarding Process</span>
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-white mb-6 leading-[1.1]">
-              Från idé till{' '}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                verklighet
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Upptäck hur vi förvandlar din vision till ett fungerande digitalt system.
-              <span className="text-white font-medium"> Transparent, strukturerat </span>
-              och alltid med dig i fokus.
-            </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto mt-16">
-              <StatCard value={14} suffix=" dagar" label="Till projektstart" delay={0.2} />
-              <StatCard value={100} suffix="%" label="Transparens" delay={0.4} />
-              <StatCard value={24} suffix="/7" label="Portaltillgång" delay={0.6} />
-            </div>
-          </div>
-
-        </div>
-      </section>
+      </div>
 
       {/* Features Section */}
       <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="section-badge">Fördelarna</span>
-            <h2 className="section-title">Varför välja Flowboarding?</h2>
-            <p className="section-subtitle">
-              En process designad för att ge dig kontroll, insyn och trygghet genom hela projektet.
-            </p>
-          </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
               <FeatureCard

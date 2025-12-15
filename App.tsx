@@ -25,20 +25,50 @@ const PrivacyPolicyPage = lazy(() => import('./components/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./components/TermsOfServicePage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
 const FlowboardingPage = lazy(() => import('./components/FlowboardingPage'));
+const WebDevelopmentPage = lazy(() => import('./components/WebDevelopmentPage'));
+const SystemDevelopmentPage = lazy(() => import('./components/SystemDevelopmentPage'));
+const ConsultingPage = lazy(() => import('./components/ConsultingPage'));
+const MaintenancePage = lazy(() => import('./components/MaintenancePage'));
+const PressPage = lazy(() => import('./components/PressPage'));
 
 import { Page } from './types';
 
-// Smooth loading fallback with delayed appearance
+// Skeleton loading component - mimics page structure with shimmer effect
 const PageLoader = () => (
-  <div className="min-h-[50vh] flex items-center justify-center page-loader">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-8 h-8 border-2 border-slate-200 border-t-blue-500 rounded-full animate-spin"></div>
-      <div className="h-2 w-24 rounded-full skeleton-pulse"></div>
+  <div className="min-h-screen bg-slate-50">
+    {/* Hero skeleton */}
+    <div className="min-h-[60vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-24 skeleton-shimmer">
+      <div className="container mx-auto px-6 py-20">
+        <div className="max-w-3xl">
+          <div className="h-4 w-32 bg-slate-700/50 rounded-full mb-6"></div>
+          <div className="h-12 w-3/4 bg-slate-700/50 rounded-lg mb-4"></div>
+          <div className="h-12 w-1/2 bg-slate-700/50 rounded-lg mb-8"></div>
+          <div className="h-5 w-full bg-slate-700/30 rounded mb-3"></div>
+          <div className="h-5 w-2/3 bg-slate-700/30 rounded mb-8"></div>
+          <div className="flex gap-4">
+            <div className="h-12 w-36 bg-slate-700/50 rounded-full"></div>
+            <div className="h-12 w-36 bg-slate-700/30 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {/* Content skeleton */}
+    <div className="container mx-auto px-6 py-16">
+      <div className="grid md:grid-cols-3 gap-8">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-white rounded-2xl p-6 shadow-sm skeleton-shimmer" style={{ animationDelay: `${i * 0.1}s` }}>
+            <div className="h-12 w-12 bg-slate-200 rounded-xl mb-4"></div>
+            <div className="h-6 w-3/4 bg-slate-200 rounded mb-3"></div>
+            <div className="h-4 w-full bg-slate-100 rounded mb-2"></div>
+            <div className="h-4 w-2/3 bg-slate-100 rounded"></div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 );
 
-// Page transition wrapper
+// Page transition wrapper - smooth entrance
 const PageWrapper: React.FC<{ children: React.ReactNode; pageKey: string }> = ({ children, pageKey }) => (
   <div key={pageKey} className="page-fade-in">
     {children}
@@ -68,6 +98,11 @@ const App: React.FC = () => {
       terms: 'Användarvillkor | Siteflow',
       notFound: '404 - Sidan hittades inte | Siteflow',
       flowboarding: 'Flowboarding - Vår Process | Siteflow',
+      webDevelopment: 'Webbutveckling | Siteflow',
+      systemDevelopment: 'Systemutveckling | Siteflow',
+      consulting: 'Konsulttjänster | Siteflow',
+      maintenance: 'Drift & Underhåll | Siteflow',
+      press: 'Press & Media | Siteflow',
     };
 
     document.title = titles[currentPage] || 'Siteflow';
@@ -154,6 +189,16 @@ const App: React.FC = () => {
         return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><NotFoundPage setCurrentPage={handleNavigate} /></Suspense></PageWrapper>;
       case 'flowboarding':
         return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><FlowboardingPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
+      case 'webDevelopment':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><WebDevelopmentPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
+      case 'systemDevelopment':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><SystemDevelopmentPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
+      case 'consulting':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><ConsultingPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
+      case 'maintenance':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><MaintenancePage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
+      case 'press':
+        return <PageWrapper pageKey={pageKey}><Suspense fallback={<PageLoader />}><PressPage onNavigate={handleNavigate} /></Suspense></PageWrapper>;
       default:
         return <PageWrapper pageKey="home"><Hero onNavigate={handleNavigate} /></PageWrapper>;
     }

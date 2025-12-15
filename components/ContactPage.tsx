@@ -1,5 +1,4 @@
 import React from 'react';
-import ConsultationTool from './ConsultationTool';
 import ContactForm from './ContactForm';
 import ImageGrid from './ImageGrid';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
@@ -74,13 +73,10 @@ const ContactPage: React.FC = () => {
        {/* "Behind the scenes" - Using Shared Component */}
        <ImageGrid />
 
-       {/* Tool Section anchor */}
-       <div id="contact-form">
-            <ConsultationTool />
-       </div>
-
        {/* Contact Form */}
-       <ContactForm />
+       <div id="contact-form">
+         <ContactForm />
+       </div>
 
        {/* Direct Contact Info */}
        <div className="bg-slate-50 border-t border-slate-200 py-20">

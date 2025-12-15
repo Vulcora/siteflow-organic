@@ -1,12 +1,32 @@
 {
   "nav": {
     "home": "Hem",
+    "services": "Tjänster",
+    "servicesItems": {
+      "webDevelopment": "Webbutveckling",
+      "webDevelopmentDesc": "Moderna, snabba webbplatser",
+      "systemDevelopment": "Systemutveckling",
+      "systemDevelopmentDesc": "Skalbara backend-system",
+      "consulting": "Konsulttjänster",
+      "consultingDesc": "Strategisk teknisk rådgivning",
+      "maintenance": "Drift & Underhåll",
+      "maintenanceDesc": "24/7 övervakning och support"
+    },
+    "aboutUs": "Om oss",
     "flowboarding": "Vår Process",
+    "flowboardingDesc": "Så här jobbar vi med dig",
     "philosophy": "Filosofi",
+    "philosophyDesc": "Våra principer och värderingar",
     "audience": "För Vem?",
-    "results": "Resultat",
+    "audienceDesc": "Är vi rätt för dig?",
+    "inspiration": "Inspiration",
     "caseStudies": "Kundcase",
+    "caseStudiesDesc": "Se vad vi byggt",
     "blog": "Blogg",
+    "blogDesc": "Artiklar och insikter",
+    "press": "Press & Media",
+    "pressDesc": "Logotyper och varumärkesresurser",
+    "results": "Resultat",
     "contact": "Starta Dialog",
     "login": "Logga in"
   },
@@ -1550,6 +1570,382 @@
       "noEntries": "Inga kunskapsposter än",
       "noEntriesHint": "Klicka på 'Lägg till kunskap' för att skapa den första posten",
       "confirmDelete": "Är du säker på att du vill ta bort denna kunskapspost?"
+    }
+  },
+  "webDevelopmentPage": {
+    "badge": "Webbutveckling",
+    "title": "Moderna webbplatser som presterar",
+    "subtitle": "Vi bygger snabba, säkra och sökmotoroptimerade webbplatser som ger era besökare en förstklassig upplevelse.",
+    "featuresSection": {
+      "title": "Varför välja oss?",
+      "subtitle": "Vi kombinerar modern teknik med tidlös design för att skapa webbplatser som verkligen levererar."
+    },
+    "features": {
+      "performance": {
+        "title": "Blixtsnabb prestanda",
+        "description": "Våra webbplatser laddar på under en sekund, vilket förbättrar användarupplevelsen och sökmotorrankningen."
+      },
+      "responsive": {
+        "title": "Responsiv design",
+        "description": "Perfekt upplevelse på alla enheter – från mobil till desktop, utan kompromisser."
+      },
+      "seo": {
+        "title": "SEO-optimerad",
+        "description": "Byggd från grunden för synlighet i sökmotorer med teknisk SEO och strukturerad data."
+      },
+      "security": {
+        "title": "Säkerhet först",
+        "description": "HTTPS, säkra headers och skydd mot vanliga sårbarheter som standard."
+      }
+    },
+    "showcaseSection": {
+      "title": "Vad vi bygger",
+      "subtitle": "Från e-handelsplattformar till komplexa webbapplikationer – vi har erfarenhet av det mesta.",
+      "learnMore": "Läs mer"
+    },
+    "showcase": {
+      "ecommerce": {
+        "title": "E-handelsplattformar",
+        "description": "Snabba och konverterande butiker med headless arkitektur som ger full kontroll över kundupplevelsen och enkel integration med era befintliga system."
+      },
+      "webapp": {
+        "title": "Webbapplikationer",
+        "description": "Interaktiva applikationer med realtidsuppdateringar, avancerade dashboards och komplex affärslogik som känns lika snabba som native-appar."
+      },
+      "corporate": {
+        "title": "Företagswebbplatser",
+        "description": "Professionella webbplatser som stärker ert varumärke med fokus på prestanda, tillgänglighet och sökmotoroptimering."
+      }
+    },
+    "benefitsSection": {
+      "title": "Varför arbeta med oss?",
+      "description": "Vi är inte bara utvecklare – vi är partners som bryr oss om ert resultat. Vårt mål är att bygga webbplatser som verkligen levererar värde.",
+      "benefit1": {
+        "title": "Direkt kontakt med utvecklare",
+        "description": "Ingen mellanhand. Ni pratar direkt med de som bygger er webbplats."
+      },
+      "benefit2": {
+        "title": "Transparent process",
+        "description": "Regelbundna uppdateringar och demo-sessioner så ni alltid vet hur projektet fortskrider."
+      },
+      "benefit3": {
+        "title": "Långsiktigt partnerskap",
+        "description": "Vi försvinner inte efter lansering. Vi finns här för support och vidareutveckling."
+      }
+    },
+    "techSection": {
+      "title": "Modern teknikstack",
+      "subtitle": "Vi använder de senaste och mest pålitliga verktygen för att bygga framtidssäkrade webbplatser."
+    },
+    "tech": {
+      "react": "Komponentbaserad arkitektur för snabb utveckling och enkel underhåll.",
+      "liveview": "Realtidsinteraktivitet utan komplexitet – perfekt för dynamiska webbplatser.",
+      "tailwind": "Utility-first CSS för konsekvent design och snabb styling.",
+      "typescript": "Typsäker kod som minskar buggar och förbättrar utvecklarupplevelsen."
+    },
+    "cta": {
+      "title": "Redo att bygga er nya webbplats?",
+      "description": "Låt oss diskutera hur vi kan skapa en webbplats som verkligen representerar ert varumärke.",
+      "button": "Starta projekt",
+      "secondaryButton": "Se våra case"
+    }
+  },
+  "systemDevelopmentPage": {
+    "badge": "Systemutveckling",
+    "title": "Skalbara system som aldrig sover",
+    "subtitle": "Vi bygger backend-system med Elixir och Erlang som hanterar miljontals användare utan att blinka.",
+    "stats": {
+      "uptime": "Historisk uptime",
+      "costReduction": "Lägre kostnader",
+      "connections": "Samtidiga anslutningar",
+      "responseTime": "Responstid"
+    },
+    "featuresSection": {
+      "badge": "Fördelar",
+      "title": "Varför våra system är annorlunda",
+      "subtitle": "Byggda på beprövad telekom-teknik som driver världens största plattformar."
+    },
+    "features": {
+      "scalability": {
+        "title": "Oändlig skalbarhet",
+        "description": "Våra system växer med er – från hundra till miljontals användare utan arkitekturförändringar."
+      },
+      "selfHealing": {
+        "title": "Självläkande",
+        "description": "Om något går fel startar systemet om sig självt på mikrosekunder, utan att användare märker något."
+      },
+      "realtime": {
+        "title": "Realtidskapabilitet",
+        "description": "Inbyggt stöd för WebSockets och realtidskommunikation utan externa beroenden."
+      },
+      "costEfficient": {
+        "title": "Kostnadseffektivt",
+        "description": "Upp till 80% lägre infrastrukturkostnader jämfört med traditionella lösningar."
+      }
+    },
+    "useCasesSection": {
+      "badge": "Användningsområden",
+      "title": "Vad vi bygger",
+      "subtitle": "Från SaaS-plattformar till företagsinterna verktyg – vi har erfarenhet av det mesta."
+    },
+    "useCases": {
+      "saas": {
+        "title": "SaaS-plattformar",
+        "description": "Multitenanta system med isolerade data, flexibel prissättning och skalbar arkitektur."
+      },
+      "portal": {
+        "title": "Kundportaler",
+        "description": "Säkra portaler för era kunder med rollbaserad åtkomst och personaliserade dashboards."
+      },
+      "integration": {
+        "title": "Integrationsplattformar",
+        "description": "Koppla ihop era system med API:er, webhooks och realtidssynkronisering."
+      },
+      "automation": {
+        "title": "Automatisering",
+        "description": "Automatisera repetitiva processer och låt era medarbetare fokusera på det som skapar värde."
+      }
+    },
+    "techSection": {
+      "badge": "Teknikstack",
+      "title": "Byggd på beprövad grund",
+      "subtitle": "Vi väljer teknik baserat på era behov, inte trender."
+    },
+    "techSection": {
+      "badge": "Teknikstack",
+      "title": "Byggd på beprövad grund",
+      "subtitle": "Vi väljer teknik baserat på era behov, inte trender.",
+      "elixir": "Funktionellt språk byggt för samtidighet och feltolerans. Perfekt för system som aldrig får gå ner.",
+      "postgres": "Världens mest avancerade relationsdatabas. Pålitlig, skalbar och med fantastiskt stöd för JSON.",
+      "ash": "Declarativt ramverk som accelererar utvecklingen utan att offra flexibilitet eller prestanda.",
+      "cloud": "Vi driftar på AWS, Google Cloud eller Azure – beroende på vad som passar er bäst."
+    },
+    "cta": {
+      "title": "Redo att bygga er nästa plattform?",
+      "description": "Låt oss diskutera hur vi kan skapa ett system som växer med er verksamhet.",
+      "button": "Boka möte",
+      "secondaryButton": "Läs om vår process"
+    }
+  },
+  "consultingPage": {
+    "badge": "Konsulttjänster",
+    "title": "Strategisk teknisk rådgivning",
+    "subtitle": "Vi hjälper er fatta rätt tekniska beslut och undvika dyra misstag.",
+    "heroCards": {
+      "strategic": "Strategisk planering",
+      "insights": "Expertinsikter",
+      "support": "Hands-on support",
+      "datadriven": "Datadriven"
+    },
+    "servicesSection": {
+      "badge": "Tjänster",
+      "title": "Hur vi kan hjälpa",
+      "subtitle": "Från arkitekturgenomgångar till hands-on coaching – vi anpassar oss efter era behov."
+    },
+    "services": {
+      "audit": {
+        "title": "Teknisk granskning",
+        "description": "Vi analyserar er nuvarande arkitektur och identifierar flaskhalsar, säkerhetsrisker och förbättringsmöjligheter."
+      },
+      "architecture": {
+        "title": "Arkitekturdesign",
+        "description": "Vi hjälper er designa system som är byggda för att växa – utan teknisk skuld."
+      },
+      "scaling": {
+        "title": "Skalningsstrategi",
+        "description": "Förbered er för tillväxt med en konkret plan för hur era system ska hantera ökad last."
+      },
+      "training": {
+        "title": "Utbildning & Coaching",
+        "description": "Vi utbildar ert team i modern systemutveckling, Elixir och bästa praxis."
+      }
+    },
+    "approachSection": {
+      "badge": "Vårt tillvägagångssätt",
+      "title": "Hur vi arbetar",
+      "subtitle": "En strukturerad process som ger konkreta resultat."
+    },
+    "approach": {
+      "step1": {
+        "title": "Lyssna & Förstå",
+        "description": "Vi börjar alltid med att förstå era utmaningar, mål och begränsningar."
+      },
+      "step2": {
+        "title": "Analysera & Utvärdera",
+        "description": "Djupgående analys av er nuvarande situation och möjliga vägar framåt."
+      },
+      "step3": {
+        "title": "Rekommendera & Planera",
+        "description": "Konkreta rekommendationer med prioritering och handlingsplan."
+      },
+      "step4": {
+        "title": "Stötta & Följa upp",
+        "description": "Vi finns kvar som bollplank under implementationen och ser till att ni lyckas."
+      }
+    },
+    "benefitsSection": {
+      "badge": "Fördelar",
+      "title": "Varför anlita externa konsulter?",
+      "subtitle": "Ibland behövs ett utifrånperspektiv för att se skogen för alla träd.",
+      "cardTitle": "Boka en kostnadsfri konsultation",
+      "cardDescription": "30 minuter där vi diskuterar era utmaningar och hur vi kan hjälpa.",
+      "cardButton": "Boka tid"
+    },
+    "benefits": {
+      "item1": "Objektivt perspektiv utan interna bias",
+      "item2": "Tillgång till bred erfarenhet från olika branscher",
+      "item3": "Snabbare beslutsprocess med expert-input",
+      "item4": "Undvik dyra misstag och teknisk skuld",
+      "item5": "Fokuserad insats utan rekryteringskostnader",
+      "item6": "Kunskapsöverföring till ert team"
+    },
+    "cta": {
+      "title": "Behöver ni ett bollplank?",
+      "description": "Vi erbjuder kostnadsfria initiala samtal för att förstå era behov.",
+      "button": "Boka konsultation",
+      "secondaryButton": "Se våra case"
+    }
+  },
+  "maintenancePage": {
+    "badge": "Drift & Underhåll",
+    "title": "24/7 övervakning och support",
+    "subtitle": "Sov gott – vi ser till att era system alltid är online och presterar optimalt.",
+    "statusOperational": "Alla system operativa",
+    "mostPopular": "Populärast",
+    "stats": {
+      "uptime": "Garanterad uptime",
+      "responseTime": "Max svarstid",
+      "monitoring": "Övervakning",
+      "systems": "System under vård"
+    },
+    "featuresSection": {
+      "badge": "Vad vi erbjuder",
+      "title": "Omfattande driftstjänster",
+      "subtitle": "Allt ni behöver för att hålla era system i toppform."
+    },
+    "features": {
+      "monitoring": {
+        "title": "Proaktiv övervakning",
+        "description": "Vi upptäcker och åtgärdar problem innan de påverkar era användare."
+      },
+      "updates": {
+        "title": "Uppdateringar & Patchar",
+        "description": "Regelbundna säkerhetsuppdateringar och prestandaoptimeringar."
+      },
+      "security": {
+        "title": "Säkerhetsbevakning",
+        "description": "Kontinuerlig scanning efter sårbarheter och hot."
+      },
+      "support": {
+        "title": "Teknisk support",
+        "description": "Direkt tillgång till erfarna utvecklare när ni behöver hjälp."
+      }
+    },
+    "plansSection": {
+      "badge": "Prisplaner",
+      "title": "Välj rätt nivå för er",
+      "subtitle": "Flexibla planer som anpassas efter era behov.",
+      "button": "Kom igång"
+    },
+    "plans": {
+      "basic": {
+        "name": "Bas",
+        "description": "För mindre system med lägre krav på svarstid.",
+        "feature1": "Övervakning vardagar 08-17",
+        "feature2": "Svarstid inom 24 timmar",
+        "feature3": "Månatliga säkerhetsuppdateringar",
+        "feature4": "E-postsupport"
+      },
+      "professional": {
+        "name": "Professionell",
+        "description": "För verksamhetskritiska system.",
+        "feature1": "24/7 övervakning",
+        "feature2": "Svarstid inom 2 timmar",
+        "feature3": "Veckovisa uppdateringar",
+        "feature4": "Telefon- och e-postsupport",
+        "feature5": "Proaktiv optimering"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "För stora organisationer med komplexa behov.",
+        "feature1": "24/7 övervakning med dedikerat team",
+        "feature2": "Svarstid inom 15 minuter",
+        "feature3": "Kontinuerliga uppdateringar",
+        "feature4": "Dedikerad kontaktperson",
+        "feature5": "SLA med ekonomisk garanti",
+        "feature6": "Kvartalsvis genomgång och rapport"
+      }
+    },
+    "cta": {
+      "title": "Låt oss ta hand om driften",
+      "description": "Fokusera på er kärnverksamhet medan vi ser till att tekniken fungerar.",
+      "button": "Diskutera era behov",
+      "secondaryButton": "Läs om vår process"
+    }
+  },
+  "pressPage": {
+    "badge": "Press & Media",
+    "title": "Varumärkesresurser",
+    "subtitle": "Ladda ner logotyper, färger och andra resurser för press och media.",
+    "logosSection": {
+      "badge": "Logotyper",
+      "title": "Våra logotyper",
+      "subtitle": "Ladda ner i olika format för olika användningsområden.",
+      "downloadAll": "Ladda ner alla resurser"
+    },
+    "logos": {
+      "primary": {
+        "name": "Primär logotyp",
+        "description": "Vår huvudlogotyp för ljusa bakgrunder."
+      },
+      "dark": {
+        "name": "Logotyp för mörk bakgrund",
+        "description": "Optimerad för mörka bakgrunder."
+      },
+      "icon": {
+        "name": "Ikon",
+        "description": "Fristående ikon för små utrymmen."
+      }
+    },
+    "colorsSection": {
+      "badge": "Färger",
+      "title": "Vår färgpalett",
+      "subtitle": "De officiella färgerna i vårt varumärke.",
+      "clickToCopy": "Klicka för att kopiera hex-kod"
+    },
+    "guidelinesSection": {
+      "badge": "Riktlinjer",
+      "title": "Användningsriktlinjer",
+      "subtitle": "Så här vill vi att vårt varumärke presenteras."
+    },
+    "guidelines": {
+      "do": {
+        "title": "Gör så här",
+        "item1": "Använd tillräckligt med luft runt logotypen",
+        "item2": "Behåll originalproportionerna",
+        "item3": "Använd godkända färgkombinationer"
+      },
+      "dont": {
+        "title": "Undvik detta",
+        "item1": "Sträck eller förvräng inte logotypen",
+        "item2": "Ändra inte färgerna",
+        "item3": "Lägg inte logotypen på röriga bakgrunder"
+      }
+    },
+    "companySection": {
+      "badge": "Om Siteflow",
+      "title": "Företagsinformation",
+      "description": "Siteflow är ett svenskt teknikbolag som specialiserar sig på att bygga skalbara, självläkande digitala system. Vi använder modern teknik som Elixir och Erlang för att skapa lösningar som hanterar miljontals användare utan avbrott.",
+      "founded": "Grundat",
+      "location": "Plats",
+      "focus": "Fokusområde",
+      "focusDescription": "Skalbara backend-system och moderna webbplatser",
+      "contact": "Presskontakt"
+    },
+    "cta": {
+      "title": "Frågor om vårt varumärke?",
+      "description": "Kontakta oss om du behöver ytterligare material eller har frågor.",
+      "button": "Kontakta oss"
     }
   }
 }

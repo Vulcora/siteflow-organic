@@ -305,54 +305,67 @@ Web: siteflow.se`
         <div className="container mx-auto px-6 max-w-3xl">
           <p className="text-lg text-slate-600 mb-12 leading-relaxed">{c.intro}</p>
 
-          {c.sections.map((section, index) => (
-            <div key={index} className="mb-10">
-              <h2 className="text-xl font-serif font-bold text-slate-900 mb-4">{section.title}</h2>
-              <div className="prose prose-slate max-w-none">
-                {section.content.split('\n\n').map((paragraph, pIndex) => {
-                  if (paragraph.includes('• **') || paragraph.startsWith('•')) {
-                    const lines = paragraph.split('\n');
-                    return (
-                      <ul key={pIndex} className="space-y-2 text-slate-600 mb-4 list-none">
-                        {lines.map((line, lIndex) => {
-                          if (line.startsWith('• **')) {
-                            const match = line.match(/• \*\*(.+?)\*\*:?\s*(.*)/);
-                            if (match) {
+          {c.sections.map((section, index) => {
+            // Helper function to parse bold markdown
+            const parseBold = (text: string) => {
+              if (!text.includes('**')) return text;
+              const parts = text.split(/\*\*(.*?)\*\*/g);
+              return parts.map((part, i) =>
+                i % 2 === 1 ? (
+                  <strong key={i} className="font-bold text-slate-900">{part}</strong>
+                ) : (
+                  part
+                )
+              );
+            };
+
+            return (
+              <div key={index} className="mb-10">
+                <h2 className="text-xl font-serif font-bold text-slate-900 mb-4">{section.title}</h2>
+                <div className="prose prose-slate max-w-none">
+                  {section.content.split('\n\n').map((paragraph, pIndex) => {
+                    if (paragraph.includes('• **') || paragraph.startsWith('•')) {
+                      const lines = paragraph.split('\n');
+                      return (
+                        <ul key={pIndex} className="space-y-2 text-slate-600 mb-4 list-none">
+                          {lines.map((line, lIndex) => {
+                            if (line.startsWith('• **')) {
+                              const match = line.match(/• \*\*(.+?)\*\*:?\s*(.*)/);
+                              if (match) {
+                                return (
+                                  <li key={lIndex} className="flex items-start">
+                                    <span className="text-blue-500 mr-3 mt-1">•</span>
+                                    <span><strong className="text-slate-900">{match[1]}:</strong> {match[2]}</span>
+                                  </li>
+                                );
+                              }
+                            } else if (line.startsWith('• ')) {
                               return (
                                 <li key={lIndex} className="flex items-start">
                                   <span className="text-blue-500 mr-3 mt-1">•</span>
-                                  <span><strong className="text-slate-900">{match[1]}:</strong> {match[2]}</span>
+                                  <span>{line.replace('• ', '')}</span>
                                 </li>
                               );
                             }
-                          } else if (line.startsWith('• ')) {
-                            return (
-                              <li key={lIndex} className="flex items-start">
-                                <span className="text-blue-500 mr-3 mt-1">•</span>
-                                <span>{line.replace('• ', '')}</span>
-                              </li>
-                            );
-                          }
-                          return line && <p key={lIndex} className="text-slate-600">{line}</p>;
-                        })}
-                      </ul>
-                    );
-                  }
-                  if (paragraph.startsWith('**') && paragraph.includes(':**')) {
+                            return line && <p key={lIndex} className="text-slate-600">{line}</p>;
+                          })}
+                        </ul>
+                      );
+                    }
+                    // Parse bold text in regular paragraphs (handles **text** anywhere)
+                    if (paragraph.includes('**')) {
+                      return (
+                        <p key={pIndex} className="text-slate-600 leading-relaxed mb-4">{parseBold(paragraph)}</p>
+                      );
+                    }
                     return (
-                      <p key={pIndex} className="text-slate-600 leading-relaxed mb-4">
-                        <strong className="text-slate-900">{paragraph.match(/\*\*(.+?)\*\*/)?.[1]}</strong>
-                        {paragraph.replace(/\*\*.+?\*\*/, '')}
-                      </p>
+                      <p key={pIndex} className="text-slate-600 leading-relaxed mb-4">{paragraph}</p>
                     );
-                  }
-                  return (
-                    <p key={pIndex} className="text-slate-600 leading-relaxed mb-4">{paragraph}</p>
-                  );
-                })}
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </div>

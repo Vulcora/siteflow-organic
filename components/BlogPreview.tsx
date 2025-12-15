@@ -1,8 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Clock } from 'lucide-react';
-import { getAllBlogPosts, BlogPost } from '../data/blogPosts';
+import { getBlogPostBySlug, BlogPost } from '../data/blogPosts';
 import { Page } from '../types';
+
+// Featured posts to display on the landing page
+const FEATURED_SLUGS = ['system-som-haller', 'system-zoo', 'tekniken-bakom-siteflow'];
 
 interface BlogPreviewProps {
   onNavigate: (page: Page) => void;
@@ -13,8 +16,10 @@ const BlogPreview: React.FC<BlogPreviewProps> = ({ onNavigate, onSelectPost }) =
   const { t, i18n } = useTranslation();
   const lang = i18n.language as 'sv' | 'en';
 
-  // Get the latest 3 blog posts
-  const posts = getAllBlogPosts().slice(0, 3);
+  // Get specific featured blog posts
+  const posts = FEATURED_SLUGS
+    .map(slug => getBlogPostBySlug(slug))
+    .filter((post): post is BlogPost => post !== undefined);
   const [featuredPost, ...secondaryPosts] = posts;
 
   const formatDate = (dateString: string) => {

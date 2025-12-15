@@ -349,6 +349,19 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug, onNavigate, onBack 
                   {/* Render content with proper formatting */}
                   <div className="prose prose-lg prose-slate max-w-none">
                     {section.content[lang].split('\n\n').map((paragraph, pIndex) => {
+                      // Helper function to parse bold markdown
+                      const parseBold = (text: string) => {
+                        if (!text.includes('**')) return text;
+                        const parts = text.split(/\*\*(.*?)\*\*/g);
+                        return parts.map((part, i) =>
+                          i % 2 === 1 ? (
+                            <strong key={i} className="font-bold text-slate-900">{part}</strong>
+                          ) : (
+                            part
+                          )
+                        );
+                      };
+
                       // Check if paragraph starts with bullet points
                       if (paragraph.includes('\n•') || paragraph.startsWith('•')) {
                         const lines = paragraph.split('\n');
@@ -357,12 +370,12 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug, onNavigate, onBack 
 
                         return (
                           <div key={pIndex} className="mb-4">
-                            {intro && <p className="text-slate-600 leading-relaxed mb-3">{intro}</p>}
+                            {intro && <p className="text-slate-600 leading-relaxed mb-3">{parseBold(intro)}</p>}
                             <ul className="space-y-2 text-slate-600 list-none">
                               {items.map((item, iIndex) => (
                                 <li key={iIndex} className="flex items-start">
                                   <span className="text-blue-500 mr-3 mt-1.5" aria-hidden="true">•</span>
-                                  <span>{item.replace('• ', '')}</span>
+                                  <span>{parseBold(item.replace('• ', ''))}</span>
                                 </li>
                               ))}
                             </ul>
@@ -372,16 +385,9 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ slug, onNavigate, onBack 
 
                       // Check if it contains bold text (**text**)
                       if (paragraph.includes('**')) {
-                        const parts = paragraph.split(/\*\*(.*?)\*\*/g);
                         return (
                           <p key={pIndex} className="text-slate-600 leading-relaxed mb-4">
-                            {parts.map((part, i) =>
-                              i % 2 === 1 ? (
-                                <strong key={i} className="font-bold text-slate-900">{part}</strong>
-                              ) : (
-                                part
-                              )
-                            )}
+                            {parseBold(paragraph)}
                           </p>
                         );
                       }
